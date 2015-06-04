@@ -1,0 +1,207 @@
+Include(tokoroten.h)
+îèéq 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(200,0)
+	TmpChangeR(265,!2.)
+	TmpChangeR(260,!2.^2.^2.^2.^2.^2.)
+	TmpChangeR(250,!2.^2.^2.^2.)
+	TmpChangeR(240,!2.)
+	TmpChangeR(160,!2.^2.)
+	r2
+	TmpChangeR(93,0)
+
+#melody1={
+	l8
+	r2.
+	Q(75)
+	[
+		V(100)
+		#AAV<f>#BBV d-a-f>d- V(115) b-
+		'c2a-2'r4<
+		V(100)
+		#AAV<g->#BBV ca-g->c V(115)a-
+		'd-2f2'r4<
+	]
+	Q(65)
+	#AAV<f>#BBV d-a-f>d-a-
+	d-<f #CCV a- #BBV d-< #CCV f #BBV a-
+}
+#melody2={
+	l8
+	Q(65)
+	V(90)
+	d-<fa-d-<fa-
+}
+TR(6)
+	#TM
+	#V_VIOLIN
+	Vibrate(!8,20)
+	o6
+	VV(120)
+	EW(127,60,!16)
+	Q(80)
+	IF(TIMIDITY=1) {
+		#AAV={#V_VIOLA}
+		#BBV={#V_VIOLIN}
+		#CCV={#V_PIZZ2}
+	}
+	#melody1
+	r2.
+	r2.
+	ET(127,40,!1,40,0,!1)
+	#Q100 >>'d-1f1>d-1'
+
+#AAV={""}
+#BBV={""}
+#CCV={""}
+
+TR(7)
+	#TM
+	#V_VIOLA
+	o5
+	[11 r2.]
+	VV(115)
+	Q(80)
+	EW(127,80,!16)
+	#melody2
+	r2.
+	ET(127,40,!1,40,0,!1)
+	#Q100 >>'d-1>d-1'
+
+TR(8)
+	#TM
+	#V_STRINGS1
+	o6
+	VV(127)
+	EW(127,80,!16)
+	Q(60)
+	#melody1
+	#melody2
+	r2.
+	ET(127,40,!1,40,0,!1)
+	#Q100 >>'d-1>d-1'
+
+#cello={
+	l8
+	EW(127,100,!8,100,50,!2)
+	[3
+		r2 #Q95 <a->f>#Q90 d-2r4<
+		:
+		r2 #Q95 <a->e->#Q90 c2r4<
+	]
+	[2 r2.]
+	#Q100
+	'<d-4>d-4' r2
+	>>
+	ET(127,40,!1,40,0,!1)
+	'<d-1>d-1'
+}
+
+TR(9)
+	#TM
+	#V_CELLO
+	o4
+	#cello
+
+TR(11)
+	#TM
+	#V_STRINGS1
+	o4
+	#cello
+
+#bass1={
+	#Q95
+	[d-2.^2r4 < a-2.^2r4>]
+	EW(127,0,!1.^4)
+	d-2.^2.^2.r2 r4
+}
+#bass2={
+	d-2.^1
+}
+TR(12)
+	#TM
+	#V_CONTRABASS
+	o3VV(127)
+	EW(127,90,!16)
+	#bass1
+	EW(127,90,!1.)
+	#bass2
+
+
+#brass={
+	[3
+		'f>d-<'rr
+		rrr
+		:
+		'e->c<'rr
+		rrr
+	]
+	rrrrrr
+	<d-rr >
+	ET(127,00,!1)
+	'f1>d-1'
+}
+
+TR(13)
+	#TM
+	#V_TRUMPET
+	o6
+	VV(100)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(14)
+	#TM
+	#V_TROMBONE
+	o5
+	VV(100)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(15)
+	#TM
+	#V_HORN
+	o4
+	l4
+	VV(100)E(127)Q(80)
+	EW(127,100,!4,60,!2.)
+	[
+		'a-1>f1<' [2 'a->f<']
+		'a-1>e-1<' [2 'a->e-<']
+	]
+	ET(127,0,!1.^2)
+	'a-1.^1.>f1.^1.<'
+	ET(127,20,!1.)
+	d-4rr 'a-1>f1'
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS1
+	#r1={
+		VS1=25
+		r-2
+		Sub{[10 VS1=VS1+5 RandV(VS1, VS1+3) n(40),20]}r2
+		Rythm{'b1s1o1'o4o4}
+	}
+	#r2={
+		VS1=25
+		r-2
+		Sub{[10 VS1=VS1+5 RandV(VS1, VS1+3) n(40),20]}r2
+		Rythm{'b2.s2.o2.'}
+	}
+	#r3={
+		Rythm{'b2.s2.o2.'}
+		Sub{Rythm{'b2.s2.c2.'}}
+		Expression.onTime(127,0,!1^1)
+		[24 Rythm{o24}]
+	}
+	[4 #r1]
+	#r2
+	[3 r2.]
+	#r3

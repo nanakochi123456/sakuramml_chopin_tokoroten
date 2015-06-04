@@ -1,0 +1,474 @@
+Include(tokoroten.h)
+”Žq 3,4
+
+TR(16)
+	#TM
+	Int TMP=210+TEMPODIFF
+	IF(IGNORETEMPO=0) {
+		Tempo=TMP
+	}
+	#tokorotentmp={
+		TmpChangeR(210,0)
+		[1 r2]
+		[
+			TmpChangeR(255,0)
+			[3 r4]
+			TmpChangeR(240,0)
+			[1 r4]
+			:
+			TmpChangeR(175,0)
+			[1 r2]
+		]
+		TmpChangeR(230,0)
+	}
+	#tokorotentmp
+	#japantmp1={
+		TmpChangeR(220,0)
+		TmpChangeR(250,!2.^2.)
+		TmpChangeR(230,!2.)
+		TmpChangeR(223,0)
+		TmpChangeR(220,!2^8)
+		TmpChangeR(250,0)
+		r8
+		TmpChangeR(290,!0)
+	}
+
+	#japantmp2={
+		TmpChangeR(250,!2.^2.)
+		TmpChangeR(230,!2.)
+		TmpChangeR(223,0)
+		TmpChangeR(220,!2^8)
+		TmpChangeR(250,0)
+		r8
+		TmpChangeR(290,!0)
+		TmpChangeR(240,!0)
+		TmpChangeR(245,!2.^2.^2.)
+		TmpChangeR(220,!2.^2.)
+		TmpChangeR(245,0)
+		[1 r2.]
+		TmpChangeR(155,0)
+		[1 r2.]
+		TmpChangeR(245,0)
+	}
+
+	#japantmp1
+
+	#tokorotentmp
+	#japantmp2
+
+	#tokorotentmp
+	#japantmp1
+
+	#tokorotentmp
+	#japantmp2
+
+	TmpChangeR(200,!0)
+	[1 r2.]
+
+#tr201={
+	ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr<
+	[5 r2.]
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+	[12 r2.]<
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+	[5 r2.]<
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+}
+
+#tr301={
+	Q(98)b-4r2
+	>
+	EW(127,100,!4.,100,70,!1)
+	Q(86)'b-1.>g-1.b-1.<'
+	Q(98)'e-4.>c4.e-4.<'Q(86)'f8>c8f8<' Q(98)'f#4>c4f#4<'
+	Q(98)'f8>d-8f8<' r8 r2
+	[3 r2.]
+	<
+	a-4r2
+	>
+	Q(86)'a-1.>f1.a-1.<'
+	Q(98)'e-4.>c4.e-4.<'Q(86)'f8>c8f8<' Q(98)'f#4>c4f#4<'
+	'f8>d-8f8<' r8 r2
+	[10 r2.]
+	<
+	b-4r2
+	>
+	Q(86)'b-2.^4.>g-2.^4.b-2.^4.<' 'e-8>c8e-8<' 'e-4>c4e-4<'
+	Q(98)'e-4.>c4.e-4.<'Q(86)'f8>c8f8<' Q(98)'f#4>c4f#4<'
+	'f8>d-8f8<' r8 r2
+	[3 r2.]
+	<
+	c4r2
+	>>
+	Q(86)'c1.a-1.>c1.<'<
+	'g4.>e4.g4.<'Q(86)'a-8>e8a-8<' 'b-4>e4b-4<'
+	Q(98)'a-8>f8a-8<' r8 r2
+
+}
+
+#tr302={
+	Q(98)b-4r2
+	>
+//	EW(127,100,!4.,100,70,!1)
+	Q(86)b-1.
+	Q(98)e-4.Q(86)f8 Q(98)f#4
+	Q(98)f8 r8 r2
+	[3 r2.]
+	<
+	a-4r2
+	>
+	Q(86)a-1.
+	Q(98)e-4.Q(86)f8 Q(98)f#4
+	f8r8r2
+	[10 r2.]
+	<
+	b-4r2
+	>
+	Q(86)b-2.^4.e-8e-4
+	Q(98)e-4.Q(86)f8Q(98)f#4
+	f8 r8 r2
+	[3 r2.]
+	<
+	c4r2
+	>>
+	Q(86)c1.<
+	g4.Q(86)a-8b-4
+	Q(98)a-8 r8 r2
+
+}
+
+IF(VOCALOID=1) {
+	// IA
+	TR(5)
+		#TM
+		#V_VOCALOID
+		o4
+		VV(110)
+		l12Q(95)
+//		EW(90,110,!8.,110,70,!4.)
+		V(80)
+		Q(95)b-2
+//		EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+		V(80)
+		Sub{
+			r4[16 r2.]
+			o6f2.<f2.
+			[4 r2.]
+			[17 r2.]>
+			o6a-2.<a-2.
+
+		}
+		o4
+		#tr201
+
+	// GAKU
+	TR(6)
+		#TM
+		#V_VOCALOID
+		o3
+//		E(70)
+		VV(100)
+		l12Q(95)
+//		EW(90,110,!8.,110,70,!4.)
+		V(80)
+		Q(95)b-2
+//		EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+		V(80)
+		Sub{
+			r4[16 r2.]
+			r2.r2.
+			o4f2.^2.^4f#4r4
+			r2.
+			[17 r2.]
+			r2.r2.
+			o4e2.^2.^4f4r4
+		}
+		o3
+		#tr201
+
+	// MIKU
+	TR(1)
+		#TM
+		#V_VOCALOID
+		[4 r2.]
+		o4 E(127)VV(120)Q(98)
+		V(80)
+		EW(127,100,!4.)
+		o5 #tr302
+
+	// IA
+	TR(2)
+		#TM
+		#V_VOCALOID
+		[4 r2.]
+		o4 E(127)VV(120)Q(98)
+		V(80)
+		EW(127,100,!4.)
+		o5 #tr302
+
+	// GAKU
+	TR(3)
+		#TM
+		#V_VOCALOID
+		[4 r2.]
+		o3 E(127)VV(120)Q(98)
+		V(80)
+		EW(127,100,!4.)
+		o4 #tr302
+} ELSE {
+	TR(1)
+		#TM
+		o4
+		VV(110)
+		l12Q(95)
+		EW(90,110,!8.,110,70,!4.)
+		#V_CELLO2
+		V(80)
+		Q(95)b-2
+		EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+		#V_CELLO3
+		V(80)
+		#tr201
+
+	TR(2)
+		#TM
+		o3
+		E(70)
+		VV(100)
+		l12Q(95)
+		EW(90,110,!8.,110,70,!4.)
+		#V_CONTRABASS2
+		V(80)
+		Q(95)b-2
+		EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+		#V_CONTRABASS3
+		V(80)
+		#tr201
+
+	TR(3)
+		#TM
+		[4 r2.]
+		o4 E(127)VV(120)Q(98)
+		#V_STRINGS1
+		V(80)
+		EW(127,100,!4.)
+		Sub { o4 #tr301 }
+		o5 #tr301
+
+	TR(4)
+		#TM
+		#V_VIOLIN
+		[4 r2.]
+		Vibrate(!8,20)
+		o5 E(110)VV(120)Q(90)
+		EW(127,100,!4.)
+		o5 #tr301
+
+	TR(14)
+		#TM
+		#V_STRINGS2
+		[4 r2.]
+		o5 E(120)VV(120)Q(90)
+		EW(127,100,!4.)
+		o5 #tr301
+
+	IF(PIANOONLY=0) {
+		TR(7)
+			#TM
+			#V_HORN
+			[4 r2.]
+			o4
+			VV(110)Q(99)
+			EW(127,110,!2)
+			'>e-1.^1.f#1.^1.<'
+			'>d-4f4<'r2
+			[3 r2.]
+			'a-1.^2.>f1.^2.>c#1.^2.<<'
+			'a-2.>e-2.>c2.<<'
+			'a-4>f4>c#4<<'r2
+			o5
+			Q(95)
+			f2.<f2.
+			Q(99)
+			[8  r2.]
+			'>e-1.^1.f#1.^1.<'
+			'>d-4f4<'r2
+			[3 r2.]
+			'a-1.^2.>f1.^2.>c1.^2.<<'
+			'g2.>e2.>c2.<<'
+			'a-4>f4>c4<<'r2
+			r2.
+			Q(95)
+			f2.<f2.
+	}
+	TR(11)
+		#TM
+		#V_PICCOLO
+		VV(127)Q(99)
+		EW(127,100,!4)
+		[4 r2.]
+		o7
+		r2.
+		b-1.e-4.f8f#4
+		f4r2
+		[3 r2.]
+		r2.
+		a-1.e-4.f8f#4
+		f4r2
+		o7
+		EW(100,55,!2.)
+		f2.<f2.
+
+		[8 r2.]
+		>
+		r2.
+		EW(127,100,!4)
+		b-2.^4.e-8e-4e-4.f8f#4
+		f4r2
+		[3 r2.]
+		r2.
+		>c1.<g4.a-8b-4
+		a-4r2
+		o7
+		EW(100,55,!2.)
+		a-2.<a-2.
+
+
+	TR(12)
+		#TM
+		#V_FLUTE
+		E(127)VV(115)Q(90)
+		EW(90,50,!2.)
+		[17 r2.]
+		o6
+		a2.<a2.>
+		[21 r2.]
+		c2.<c2.
+
+	TR(13)
+		#TM
+		#V_CLARINET
+		E(115)VV(100)Q(90)
+		EW(90,50,!2.)
+		[17 r2.]
+		o6
+		c2.<c2.
+		[21 r2.]
+		f2.<f2.
+
+	TR(8)
+		#TM
+		#V_CONTRABASS
+		o3
+		E(127)VV(127)Q(95)
+		EW(127,110,!8.)
+		[4 r2.]
+		b-2.^2.^2.
+		b-4.b-8b-4
+		b-4 r2
+		[3 r2.]
+		a-2.^2.^2.
+		a-4.a-8a-4
+		>d-4 r2<
+		r1.
+		f2.^2.^4f#4r4
+		[5 r2.]
+		b-2.^2.^2.
+		b-4.b-8b-4
+		b-4 r2
+		[3 r2.]
+		c2.^2.^2.
+		c4.c8c4
+		f4r2
+		r2.
+		r2.
+		e2.^2.^4f4r4
+
+	IF(PIANOONLY=0) {
+		TR(9)
+			#TM
+			#V_TIMPANI1
+			o3
+			E(127)VV(127)Q(100)
+
+			[4 r2.]
+			#V_TIMPANI1
+			l12 VV(127)[3 [12 b- RandV(100,115)]]
+			#V_TIMPANI2
+			VV(127)b-2.
+			[3 r2.]
+			#V_TIMPANI1
+			l12 VV(127)[3 [12 a- RandV(100,115)]]>
+			#V_TIMPANI2
+			VV(127)d-2.
+			<
+			r1.
+			#V_TIMPANI1
+			l12 VV(127)[2 [9 f RandV(100,115)]]
+			#V_TIMPANI2
+			VV(127)f4f#4r4
+			[5 r2.]
+			#V_TIMPANI1
+			l12 VV(127)[3 [12 b- RandV(100,115)]]
+			#V_TIMPANI2
+			VV(127)b-2.
+			[3 r2.]
+			#V_TIMPANI1
+			>l12 VV(127)[3 [12 c RandV(105,115)]]<
+			#V_TIMPANI2
+			VV(127)f2.
+			r1.
+			#V_TIMPANI1
+			l12 VV(120)[2 [9 e RandV(100,110)]]
+			#V_TIMPANI2
+			VV(127)e4f4r4
+	}
+	IF(PIANOONLY=0) {
+		TR(10)
+			#TM
+			#DRUMSET
+			VV(127)E(127)
+
+			[4 r2.]
+			#r1={
+				Sub {
+					[2 Rythm{[18 S18]}]
+				}
+				Rythm{'b2.''b1.c1.''b4.s4.c4.''b8s8''b4s4'}
+				Rythm{'b2.s2.c2.'}
+			}
+			#r2={
+				Sub {
+					[1 Rythm{[26 S18]}]
+				}
+				Rythm{'b1.s1.' 'b4s4''b4s4'}
+				r4
+			}
+			#r3={
+				Sub {
+					[1 Rythm{[27 S18]}]
+				}
+				Rythm{'b2.''b1^8c1^8' s8s4 'b4.s4.c4.''b8s8''b4s4'}
+				Rythm{'b2.s2.c2.'}
+			}
+			#r1
+			[3 r2.]
+			#r1
+			[2 r2.]
+			#r2
+			[5 r2.]
+			#r3
+			[3 r2.]
+			#r1
+			[2 r2.]
+			#r2
+	}
+}

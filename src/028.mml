@@ -1,0 +1,441 @@
+Include(tokoroten.h)
+”Žq 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(125,0)
+	TmpChangeR(210,!4)
+	TmpChangeR(242,!2)
+	TmpChangeR(238,!4.)
+	TmpChangeR(242,!4.)
+	TmpChangeR(235,!2.^2.^2.)
+	TmpChangeR(240,!2.^2)
+	TmpChangeR(225,!2.)
+	TmpChangeR(200,!4)
+
+	TmpChangeR(215,0)
+	TmpChangeR(220,!2.)
+	TmpChangeR(205,0)
+	TmpChangeR(200,!4)
+	TmpChangeR(205,!4)
+	TmpChangeR(210,!4)
+	TmpChangeR(235,!2.^2.)
+	TmpChangeR(230,!2.)
+	TmpChangeR(220,!4)
+	TmpChangeR(225,!2.^2.)
+	TmpChangeR(207,!2)
+
+	TmpChangeR(215,0)
+	TmpChangeR(230,!2.^2.)
+	TmpChangeR(225,!2.^2.)
+	TmpChangeR(220,!2.) TmpChangeR(197,!2.)
+	TmpChangeR(230,!16) TmpChangeR(215,!2^8.)
+	TmpChangeR(235,!2.)
+	TmpChangeR(230,!2.^2.^2.) TmpChangeR(225,!2.)
+	TmpChangeR(213,!2^8) TmpChangeR(190,!8)
+	TmpChangeR(180,0) r8 TmpChangeR(195,!8) TmpChangeR(230,!2.^2.^2)
+
+	TmpChangeR(248,!2.^2.^2.^2.)
+	TmpChangeR(230,!2.^2.)
+	TmpChangeR(235,!2.)
+	TmpChangeR(250,!2.)
+	TmpChangeR(255,!2.^2.^2.^2.)
+
+	TmpChangeR(260,!2.^2.^2.^2.)
+	TmpChangeR(270,!2.^2.^2.^2.)
+
+	TmpChangeR(275,!2.^2.^2.^2.)
+	TmpChangeR(278,!2.^2.^4)
+	TmpChangeR(200,!2.^2)
+
+
+#melody={
+	l4
+	Q(100)
+	ET(95,110,!1.^1.,110,100,!1.^1.)
+	f2.^ e-.d-8
+	d-2. g-2.^2
+	Q(95) f4
+	Q(100) fe-d-
+	ET(100,110,!2.,110,90,!2.)
+	Q(95) b-2. b-2Q(80)b-4
+
+	ET(100,110,!2.,110,80,!2.)
+	Q(100) b-2e-4
+	e-4f32g32f8.^8e-8
+	ET(100,110,!2.,110,80,!2.,80,100,!2.100,90,!2.)
+	e-2.a-2.^4
+	g4f4
+	g4f4.Q(90) e-8>
+	ET(80,110,!1.)
+	Q(95) c2.c2 Q(80)c4
+	ET(110,90,!1.)
+	Q(100) c2.^4<b-4.a-8
+	ET(100,115,!1.,115,90,!2.)
+	a-2.>Q(85)d-2.
+	Q(100) d-2c4
+	EW(105,90,!2)
+	c4<b-4.a-8>
+	ET(80,115,!2.,115,60,!2.)
+	Q(95) f2.f2 Q(90)f4
+	ET(90,115,!2.,115,90,!2.)
+	Q(95) f2.
+	Q(100) e-d-<b->
+	ET(90,115,!2.,115,90,!2.)
+	Q(95) c2.<
+	Q(100) b-a- Q(95) f
+	ET(90,115,!2.,115,90,!2.)
+	Q(100) b-a-Q(80)g-
+	Q(100) g-32a-32g-8.f4.e8
+	e2.Q(70) f2
+}
+
+#melody0={
+	Q(100)
+	b1.
+	b2.b-2.
+	b1.
+	'b-2.>d-2.<'
+	'a-2.>d-2.<'
+	'g1.>d-1.'
+	d-2.c2.
+	d-1.
+	c1.
+}
+
+#melody11={
+	Q(100) a-4
+	a-2.>
+	c4<b-4.a-8
+	a-2.>Q(90) d-2.
+	Q(100) d-4.c8c4
+	c4.<b-8 Q(80) a-4>
+	Q(100) f2.
+	f2 Q(80) f4
+	Q(100) f2.
+	e-4d-4.< Q(95) b-8>
+	Q(100) c2.<
+	b-4a-4 Q(85) b-4
+
+	Q(100) b2b-4
+	b2.^2 b-4
+	b4b-4 Q(95) b4
+	Q(100) b2 Q(90) b-4>
+}
+#melody12={
+	Q(100)d-2.^2c4
+	d-4c4 Q(76) d-4
+	Q(100)d-2 Q(76)c4
+	Q(100)e-2 Q(76)e-4
+	Q(100)e-2 Q(76)d4
+	Q(100)f2 Q(76)f4
+	Q(100)f2 Q(76)e4
+	Q(100)g2 Q(76)g4
+	Q(100)g2 Q(76)a-4
+	Q(100)a2 Q(76)c4
+	d-4
+}
+
+#melody2={
+	r4
+	Q(100)
+	<a-2>c4^4
+	<b-4.a-8
+	a-2.> Q(90) 'd-2.a-2.'
+
+	Q(100)
+	Sub{'g-2a-2''g-4a-4'}
+	d-4.c8c4
+	'c4.g-4.a-4.''<b-8>g-8<' Q(80) 'a-4>g-4'
+	Q(100) 'f2.a-2.'
+	'f2a-2' Q(80) 'f4a-4'
+	'f2.a-2.'
+	'e-4g-4''d-4.g-4.'Q(95)'<b-8>g-8'
+	Q(100) 'c2.a-2.'<
+	Sub{b-4a-4 Q(95) b-4}>Q(100) g-4f4 Q(85) f4<
+
+	Q(100) Sub{b2b-4}>f2f4<
+	Sub{b2.^2 b-4}>f2.^2 f4<
+	Sub{b4b-4 Q(95) b4}>Q(100) f4f4 Q(95) f4<
+	Q(100) Sub{b2 Q(95) b-4}>Q(100) g-2 Q(90) g-4
+	Q(100) 'd-2.^2g2.^2' Q(95)l4'cg'
+	'd-g''cg''d-g'
+	Q(100)'d-2a-2'Q(95)'ca-'
+	Q(100)'e-2a2'Q(95)'e-a'
+	Q(100)'e-2a-2'Q(95)'da-'
+	Q(100)'f2b2'Q(95)'fb'
+	Q(100)'f2b-2'Q(95)'eb-'
+	Q(100)'g2>d2<'Q(95)'g>d<'
+	Q(100)'g2>c2<'Q(95)'a->c<'
+	Q(100)'a2>c2<'Q(95)'cg-'
+	'd-4f4'
+}
+
+TR(1)
+	#TM
+	#V_PICCOLO
+	E(100)
+	VV(100)
+	o7
+	[31 r2.]r2
+	Vibrate(!2,10)
+	IF(TIMIDITY=0) {
+		EW(110,70,!8)
+	} ELSE {
+		E(100)
+	}
+	#melody11
+	#melody12
+	Vibrate(0,0)
+
+TR(2)
+	#TM
+	#V_OBOE
+	E(100)
+	VV(100)
+	EW(105,90,!1.)
+	o6q100
+	Vibrate(!4,20)
+	#melody
+	#V_FLUTE3
+	E(110)
+	VV(110)
+	Vibrate(!4,20)
+	#melody11
+	#melody12
+	Vibrate(0,0)
+
+TR(6)
+	#TM
+	#V_VIOLIN2
+	E(120)
+	VV(100)
+	[32 r2.]r-4
+	o6
+	Vibrate(!4,20)
+	Sub{[12 r2.] ET(120,127,!1.^!.)}
+	#melody11
+	E(90)VV(127)
+	#V_VIOLIN
+	ET(90,115,!1.^1.^1.^1.^1.)
+	#melody12
+	Vibrate(0,0)
+
+TR(3)
+	#TM
+	#V_CLARINET
+	E(110)
+	VV(110)
+	o5q100
+	Vibrate(!4.,10)
+	EW(60,45,!2.)
+	#melody0
+	[15 r2.]r2
+	o6q100
+	EW(110,80,!4)
+	#melody2
+	Vibrate(0,0)
+
+#chord1={
+	l8
+	d-a->d-fd-<a-
+	d-b>d-fd-<b
+	g-b>d-g-d-<b
+	g-b->d-g-d-<b-
+	a-b>d-a-d-<b
+	fb>d-fd-<b
+	g-b->d-g-d-<b-
+	eb->d-a-d-<b-
+	e-b->d-gd-<b-
+	gb->d-gd-<b-
+	a->d-e-a-e-d-<
+	a->ce-a-e-c<
+	b->d-e-b-e-d-<
+	gb->d-gd-<b-
+	a->ce-a-e-c<
+	ga->ce-c<a-
+	[g-a->ce-c<a-]
+	fa->d-fd-<a-
+	fa->d-a-d-<a-
+	[e-a->cg-c<a-]
+	da-b>f<ba-
+	da-b->f<b-a-
+	e-g-b->e-<b-g-
+	<g->g-b->e-<b-g-
+	[<a->fa->d-<a-f]
+	[<a->g-a->c<a-g-]
+	d-a->d-fd-<b-
+	a->d-fa-fd-<
+}
+
+#chord2={
+	l8
+	[g-a->ce-c<a-]
+	fa->d-fd-<a-
+	fa->d-a-d-<a-
+	[e-a->cg-c<a-]
+	da-b>f<ba-
+	da-b->f<b-a-
+	e-g-b->e-<b-g-
+	<g->g-b->e-<b-g-
+	[<a->fa->d-<a-f]
+	[4 <a->fa->d<a-f]
+	<a->e-g->e-<g-e-
+	[3 <a->eg>e<ge]
+	<a->fa->f<a-f
+	<a->e-g->c<g-e-<
+	a->c-f>c-<fc-<
+	a->fa->d<a-f<
+	a->d-g>d-<gd-<
+	a->f-b->f-<b-f-<
+	a->e-g->e-<g-e-<
+	a->e-g->c<g-e-
+	#PEDALON Sub{l32 fa->d-f} r2 #PEDALOFF
+}
+
+TR(4)
+	#TM
+	#V_HARP
+	E(80)
+	VV(90)
+	o4
+	#chord1
+	#chord2
+
+#back={
+	'<a-1.>g-1.'
+	'<a-2.>f2.'
+	'd-2.a-2.'
+	Sub{g-1.}
+	c2.<a-2.>
+	Sub{f1.}
+	<b2.b-2a-4
+	'g-1.>e-1.'
+	'<f1.>d-1.'
+	Sub{<f2.^4f4f4}>d2.^4d4d4
+	'<f1.>d1.'
+	Sub{<g-2.g4g4g4}>e-2.e4e4e4
+	'<g1.>e1.'
+	'<a-2.>f2.'
+	'<e-2.>c2.'
+	'<d2.b2.>'
+	'<f2.>d2.'
+	'<g2.>d-2.'
+	'<g2.>e2.'
+	'<g-2.>e-2.'
+	'<g-2.>c2.'
+	'<f4>d-4'
+}
+TR(5)
+	#TM
+	#V_HORN
+	E(90)
+	VV(90)
+	o5q100
+	[32 r2.]
+	EW(90,120,!2.)
+	#back
+
+#bass1={
+	l4
+	d-2.^4 e-f
+	g-2.d-2.
+	a-2.d-2.
+	g-2.e2.
+	e-2.^4fg
+	a-2.e-2.
+	b-2.e-2.
+	a-2.g2.
+	g-2.^2.
+	f2.^2.
+	e-2.^2.
+	d2.b-2.
+	e-2.<g-2.
+	a-2.a-2.
+	a-2.a-2.>
+	d-2.<a-2.>
+}
+
+#bass2={
+	g-2.^4g-4.g-8
+	f2.f2.
+	e-2.<a-2.>
+	d2.<b-2.>
+	e-2.<g-2.
+	a-2.^2.
+	a-2.^4a-4a-4
+	a-2.^2.
+	a-2.^4a-4a-4
+	a-2.^2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+}
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	EW(100,90,!2)
+	VV(100)
+	o3q100
+	#bass1
+	EW(110,90,!2)
+	VV(110)
+	#bass2
+
+#tremoro1={
+	ET(70,110,!1.^1.)
+	'g-1a-1.>c1.e-1.<'
+	Sub{'f1.a-1'}>d-2.'f2a-2.<'
+	ET(110,100,!1.)
+	'a-1.>c1.g-1.'
+	ET(110,100,!1.)
+	Sub{'d1.f1.'}<b2.b-2a-4
+	ET(100,90,!1.^1.^1.^1.)
+	'g-1.b-1.>e-1.<'
+	'f1.a-1.>d-1.<'
+	Sub{'g-1.a-1.>c1.'}r2.e-2.<
+	ET(90,60,!1.)
+	'f1.a-1>d-1.<'
+}
+
+#tremoro2={
+	ET(80,110,!1.^1.)
+	'f1.^1.a-1.^1.>d1.^1.<'
+	'g-2.a-2.>c2.e-2.<'
+	'g1.^2.b-1.^2.>d-1.^2.e1.^2.<'
+	'a-2.>d-2.f2.<'
+	'g-2.>c2.e-2.<'
+	Sub{'f1.g#1.b1.'}r2.>d2.<
+	'd-2.g2.>d-2.<'
+	'e2.b-2.>e2.<'
+	'e-2.g-2.>e-2.<'
+	'e-2.g-2.>c2.<'
+
+}
+TR(11)
+	#TM
+	#V_TREMORO
+	[16 r2.]
+	o4
+	Q(100)VV(100)E(100)
+	#tremoro1
+	o4
+	[12 r2.]
+	#tremoro2
+
+TR(12)
+	#TM
+	#V_STRINGS2
+	[16 r2.]
+	o4
+	Q(100)VV(95)E(100)
+	#tremoro1
+	o4
+	[12 r2.]
+	#tremoro2

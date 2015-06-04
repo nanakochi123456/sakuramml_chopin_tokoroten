@@ -1,0 +1,9019 @@
+//////////////////////////////////////////////////////////////////////
+//
+// バイオリン協奏曲？第１番「ところてん」 仮リリース版
+//
+// by ななこっち★
+// 作曲：ショパン
+// （原曲：スケルツォ第２番変ロ短調作品３１）
+//
+//////////////////////////////////////////////////////////////////////
+//
+// とりあえず、この曲は、小５になって半年かけて覚えて、高３の頃まで
+// 連続してホール（注：所詮発表会）に出まくっていた曲です。
+// うちの場合、若干テンポを遅めにして、テクニカルな部分を省き、
+// 演奏感情を優先して出すクセがあるんですが、
+// おおまか、その通りに表現しています。
+// ですが、まんなかの部分はそれ以上に遅くなっていて、全体的に
+// 11分30秒程度になってしまってます。
+// 一応・・指は覚えてるんですが・・・もう、動かないかもなの＠＠
+//
+// MSGSやTWM2ですと、Gongの音がないため、代替でピッチベンドを下げて
+// います。その為、打楽器のピッチが変になる部分があります。
+// ちなみに、TWM2より、MSGSのが良く聴こえるはずです。
+//
+//////////////////////////////////////////////////////////////////////
+//
+// おまけ
+// なぜ、この曲名が「ところてん」なのかは、冒頭、しつこくよく聴けば
+// わかります。
+//
+// Int IGNORETEMPO=1 にして、追加で、「Tempo 400」とか加えてみてください。
+// よさげな行進曲風に聴こえますが、人間には演奏不能でしょう。
+// しつこくテンポが動きまくる曲なので、デバッグ用につけたんですが・・
+//
+//////////////////////////////////////////////////////////////////////
+
+// 音源設定
+Int TIMIDITY=0		// TiMidity++用
+Int TWM2=0			// TWM2用
+Int MSGS=1			// Microsoft GS用
+Int USEGONG=1		// MSGS/TWM2でgongぽい音を出す（他のドラム音に影響あり）
+Int USETAIHO=1		// 大砲を使用する
+
+// 軽量化設定
+Int TINY=0			// MIDIを軽量化する
+
+// 再生設定
+// Tempo 400
+Int IGNORETEMPO=0		// テンポを変化させない
+Int TEMPODIFF=0		// ベーステンポの調整（-15より下を設定しないでください。平均BPM260、最少BPM20、最大BPM500）
+Int KEY=0			// 移調
+
+// その他
+Int DEBUG=0			// メトロノーム出力＆テンポチェンジ時に雑音を出す
+Int VOCALOID=0		// 1.mml分だけボカロ出力
+
+//////////////////////////////////////////////////////////////////////
+// v?.? 2015/03/?? 冒頭の「ところてん」部分だけ入力してみる
+// v?.? 2015/04/27 この日から本格的作り始める
+// v0.1 2015/05/01 とりあえず全部入力完了
+// v0.2 2015/05/02 第一次調教完了
+// v0.3 2015/05/04 第二次調教完了、必要楽器構成の記載、大砲の追加
+// v1.0 2015/05/05 仮リリース、仮のボカロ追加
+//////////////////////////////////////////////////////////////////////
+// 必要楽器構成
+// バイオリンソロ＋ビオラソロ
+// 第１バイオリン
+// ビオラ
+// チェロ
+// コントラバス
+// トランペット
+// トロンボーン
+// バストローンボーン
+// ピッコロ
+// フルート
+// クラリネット
+// バスクラリネット
+// オーボエ
+// イングリッシュホルン
+// ファゴット（バスーン）
+// ハープ
+// 大太鼓
+// 小太鼓
+// トライアングル
+// シンバル
+// ゴング
+// ティンパニー（５台、ペダル音程調整機能付）
+// オプション：大砲（陸上自衛隊155mm榴弾砲FH-70が良いかも）
+//////////////////////////////////////////////////////////////////////
+// 実SF2
+// Sonatina Symphonic Orchestra (sfz->sf2変換)
+// Arco Celli.sf2(583,918bytes)
+// Timbres Of Heaven GM_GS_XG_SFX V 2.0.2.sf2(319,624,348bytes)
+// Solo Viola.sf2(902,314bytes)
+// tgsf21x.sf2(65,879,414bytes)
+// Titanic_200_GMGS_1.2.sf2(288,906,882bytes)
+// BbClarinet.sf2(135,389,972bytes)
+// aaviolin.sf2(50,584,050bytes)
+// Oboe.sf2(63,896,142bytes)
+// Papelmedia_Trombone.sf2(7,778,016bytes)
+// Papelmedia_Trumpet.sf2(7,085,336bytes)
+// airfont 380 final.sf2(275,887,780bytes)
+// Strings Pizzicato (4072KB).sf2(4,169,126bytes)
+// Orchestra Drums Kit.SF2(14,128,652bytes)
+// 要自作（大砲）
+//////////////////////////////////////////////////////////////////////
+
+拍子 3,4
+
+IF(IGNORETEMPO=0) {
+	IF(WITHVOCALOID=1) {
+		曲名={"ボーカロイド協奏曲第１番「ところてん」based on スケルツォ第２番変ロ短調作品３１"}
+	} ELSE {
+		曲名={"バイオリン協奏曲第１番「ところてん」based on スケルツォ第２番変ロ短調作品３１"}
+	}
+} ELSE {
+	Int TT=Tempo
+	IF(TT>299) {
+		IF(WITHVOCALOID=1) {
+		曲名={"ところてん行進曲第１番 based on スケルツォ第２番変ロ短調作品３１"}
+		}
+	} ELSE {
+		IF(WITHVOCALOID=1) {
+			曲名={"ボーカロイド協奏曲第１番「ところてん」debug based on スケルツォ第２番変ロ短調作品３１"}
+		} ELSE {
+			曲名={"バイオリン協奏曲第１番「ところてん」debug based on スケルツォ第２番変ロ短調作品３１"}
+		}
+	}
+}
+作者={"ななこっち★ based by Fryderyk Franciszek Chopin"}
+ 
+/////////////////////////////////////////////////////// 
+// tokoroten.h 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+ 
+Int PIANOONLY=0
+IF(TWM2=1) {
+	ResetGS
+	TINY=1
+}
+IF(MSGS=1) {
+	ResetGS
+}
+
+IF(TINY=1) {
+	Expression.Frequency(2);
+	Modulation.Frequency(8);
+	System.TimeBase=96
+} ELSE {
+	Expression.Frequency(1);
+	Modulation.Frequency(1);
+	System.TimeBase=12288
+}
+
+#PEDALON={Sub {r16y64,127}}
+#PEDALOFF={r-32 y64,0 r32}
+
+Int DB=0
+IF(DEBUG=1) {
+	#DEBUGMML1={Sub{@1v90V(127)'v90o5do6fo7a#o8d'}}
+	#DEBUGMML2={Sub{@1v90V(127)'v90o5co6eo7g#o8c'}}
+	#DEBUGMML3={Sub{@1v127V(127)'v127o4cdefgabo6cdefgab'}}
+	TR(10)
+		$M{n(MetronomeBell),}
+		$m{n(MetronomeClick),}
+		[1000
+			Rythm{M4m4m4}
+		]
+}
+Function TmpChangeR(tempo, len) {
+	IF(len=0) {
+		IF(DEBUG=1) {
+
+			#DEBUGMML1
+		}
+		IF(!(IGNORETEMPO<>1)) {
+			Tempo=tempo+TEMPODIFF
+		}
+	} ELSE {
+		TmpChange(tempo, len)
+		IF(DEBUG=1) {
+			#DEBUGMML2
+			r%(len)
+		} ELSE {
+			r%(len)
+		}
+	}
+}
+
+Function TmpChange(tempo, len) {
+	IF(len=0) {
+		IF(!(IGNORETEMPO<>1)) {
+			Tempo=tempo+TEMPODIFF
+		}
+	} ELSE {
+		IF(!(IGNORETEMPO<>1)) {
+			Int TT1=Tempo
+			Int TT2=tempo+TEMPODIFF
+			Int TTDIFF=(TT2 - TT1)
+			Int TTSTEP=TTDIFF
+			IF(TTSTEP < 0) {
+				TTSTEP=-TTDIFF
+			}
+			Int TTR=len / TTSTEP
+			For(Int I=1; I < TTSTEP; I++) {
+				Sub {
+					r%(I*TTR)
+					IF(TTDIFF < 0) {
+						TT1 = TT1 - 1;
+					} ELSE {
+						TT1 = TT1 + 1;
+					}
+					Tempo = TT1;
+				}
+			}
+			Sub{
+				r%(len)
+				Tempo=tempo+TEMPODIFF
+			}
+		}
+	}
+}
+
+Int QTemp
+Function QSet(value) {
+	QTemp=value
+}
+
+Int ETemp
+Function ESet(value) {
+	ETemp=value
+}
+
+Int VTemp
+
+Function VSet(value) {
+	VTemp=value
+}
+
+Function Q(value) {
+	Str MML="q"
+	MML=MML+(value * QTemp / 100)
+	MML
+}
+
+Function VVoice(Int v1, Int v2) {
+	IF(PIANOONLY=0) {
+		@(v1,v2)
+	} ELSE {
+		@(1,0)
+	}
+}
+
+Function Dy(Int value) {
+	Int D
+
+	D=80*128+127
+
+	IF(TWM2=1) {
+		D=100*128+110
+	} ELSE {
+		IF(TIMIDITY=1) {
+			D=105*128+120
+		}
+	}
+	Int Base = 127 - (D % 128)
+	Int Dynamic = D / 128
+	Int V
+	Int V2
+
+	V = value - Base
+	V = 127 - V
+	V = V * 10 * Dynamic
+	V = V / 1000
+	V = 127 - V
+	IF(V<0) {
+		V=0
+	}
+	IF(V>127) {
+		V=127
+	}
+ 	Result = V
+}
+
+Function VV(value) {
+	Str MML="v"
+	MML=MML+(ExpVol(value))
+	MML
+}
+
+Function ExpVol(value) {
+	Int VTempAll
+	RESULT=Dy(value)
+}
+
+Function ExpExp(value) {
+	RESULT=Dy(value)
+}
+
+Function RandV(Int MIN, Int MAX) {
+	Str MML="v"
+	MML=MML+Random(ExpVol(MIN), ExpVol(MAX))
+	MML
+}
+
+Str RMML
+Function RandR(Int MIN, Int MAX) {
+	Str MML="r"
+	RMML=RMML+"r"
+	Int VALUE=Random(0,10)
+	IF(VALUE<5) {
+		MML=MML+"-"
+	} ELSE {
+		RMML=RMML+"-"
+	}
+	Str RAND=Random(MIN,MAX)
+	MML=MML+RAND
+	RMML=RMML+RAND
+	MML
+}
+
+Function SyncR() {
+	Str MML=RMML
+	RMML=""
+	MML
+}
+
+Function BGHARP(Str MML) {
+　　Str BUF=""
+    Str FIRST=""
+　　Str ML=""
+　　Str M
+　　Str R
+    Str FM
+    Int C=0
+
+　　BUF=""
+    R=""
+　　For(Int i=1; MID(MML, i, 1)!=""; i++) {
+　　　　M=MID(MML, i, 1)
+//        Print("Count "+ C + " Str="+M)
+　　　　IF(M="a"||M="b"||M="c"||M="d"||M="e"||M="f"||M="g") {
+		C++
+	  	IF(C<3) {
+			FIRST=ML
+			ML=FM+M
+			FM=""
+		} ELSE {
+	　　　　　　R=R+"r"+Random(18,28)
+　　　　　　　　	BUF=BUF+"Sub" + CHR(123)+R+ML+CHR(125)
+	　　　　　　ML=M
+		}
+　　　　} ELSE {
+		IF(C>0) {
+	　　　　　　ML=ML+M
+		} ELSE {
+			FM=FM+M
+		}
+　　　　}
+　　}
+　　BUF=BUF+"Sub"+CHR(123)+R+ML+CHR(125)+FIRST
+//    Print(BUF)
+	IF(GAKUHU=1) {
+		BUF="'"+MML+"'"
+	}
+　　BUF
+}
+
+Function E(value) {
+	Expression(ExpExp(value))
+}
+
+Function ET(v11, v12, len1, v21, v22, len2, v31, v32, len3, v41, v42, len4, v51, v52, len5) {
+	Int	NowTime;
+	NowTime = Time;
+	Expression.onTime(ExpExp(v11), ExpExp(v12), len1)
+	IF(v21<>0) {
+		Time=NowTime+len1
+		Expression.onTime(ExpExp(v21), ExpExp(v22), len2)
+		IF(v31<>0) {
+			Time=NowTime+len1+len2
+			Expression.onTime(ExpExp(v31), ExpExp(v32), len3)
+			IF(v41<>0) {
+				Time=NowTime+len1+len2+len3
+				Expression.onTime(ExpExp(v41), ExpExp(v42), len4)
+				IF(v51<>0) {
+					Time=NowTime+len1+len2+len3+len4
+					Expression.onTime(ExpExp(v51), ExpExp(v52), len5)
+				}
+			}
+		}
+	}
+	Time=NowTime
+}
+
+Function EW(v11, v12, len1, v21, v22, len2, v31, v32, len3, v41, v42, len4, v51, v52, len5) {
+	IF(len5<>0) {
+		Expression.onNoteWave(ExpExp(v11), ExpExp(v12), len1, ExpExp(v21), ExpExp(v22), len2, ExpExp(v31), ExpExp(v32), len3, ExpExp(v41), ExpExp(v42), len4, ExpExp(v51), ExpExp(v52), len5)
+	} ELSE {
+		IF(len4<>0) {
+			Expression.onNoteWave(ExpExp(v11), ExpExp(v12), len1, ExpExp(v21), ExpExp(v22), len2, ExpExp(v31), ExpExp(v32), len3, ExpExp(v41), ExpExp(v42), len4)
+		} ELSE {
+			IF(len3<>0) {
+				Expression.onNoteWave(ExpExp(v11), ExpExp(v12), len1, ExpExp(v21), ExpExp(v22), len2, ExpExp(v31), ExpExp(v32), len3)
+			} ELSE {
+				IF(len2<>0) {
+					Expression.onNoteWave(ExpExp(v11), ExpExp(v12), len1, ExpExp(v21), ExpExp(v22), len2
+					)
+				} ELSE {
+					IF(len1<>0) {
+						Expression.onNoteWave(ExpExp(v11), ExpExp(v12), len1)
+					}
+				}
+			}
+		}
+	}
+}
+
+Function Vibrate(delay1, depth1, delay2, depth2, delay3, depth3, delay4, depth4, delay5, depth5) {
+	Int	NowTime;
+	NowTime = Time;
+	IF(delay1=0) {
+		Modulation(depth1)
+	} ELSE {
+		Modulation.onNoteWave(0, 0, delay1 /2, 0, depth1, delay1/2)
+		IF(delay2<>0) {
+			Time=NowTime+delay1
+			Modulation.onNoteWave(depth1, depth2, delay2)
+			IF(delay3<>0) {
+				Time=NowTime+delay1+delay2
+				Modulation.onNoteWave(depth2, depth3, delay3)
+				IF(delay4<>0) {
+					Time=NowTime+delay1+delay2+delay3
+					Modulation.onNoteWave(depth3, depth4, delay4)
+					IF(delay5<>0) {
+						Time=NowTime+delay1+delay2+delay3+delay4
+						Modulation.onNoteWave(depth4, depth5, delay5)
+					}
+				}
+			}
+		}
+	}
+	Time=NowTime
+}
+
+#REV={
+	IF(TWM2=1) {
+		REV(50)
+	}
+}
+
+#V_CELLO={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Cello,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_CELLO2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Cello,1)
+	} ELSE {
+		VVoice(Cello,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_CELLO3={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Cello,2)
+	} ELSE {
+		VVoice(Cello,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_CONTRABASS={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Contrabass,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_CONTRABASS2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Contrabass,1)
+	} ELSE {
+		VVoice(Contrabass,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_CONTRABASS3={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Contrabass,2)
+	} ELSE {
+		VVoice(Contrabass,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+
+#V_STRINGS1={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Strings1,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_VIOLIN={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Violin,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+#V_VIOLIN2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Violin,1)
+	} ELSE {
+		VVoice(Violin,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+#V_VIOLIN3={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Violin,2)
+	} ELSE {
+		VVoice(Violin,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+#V_VIOLA={
+	#REV
+	V(100)
+	M(0)
+//	VVoice(Viola,0)
+	VVoice(Violin,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_VIOLA2={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Viola,1)
+//	VVoice(Violin,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_TRUMPET={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Trumpet,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_TRUMPET2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Trumpet,1)
+	} ELSE {
+		VVoice(Trumpet,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_TROMBONE={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Trombone,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_BASSTROMBONE={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Trombone,1)
+	} ELSE {
+		VVoice(Trumpet,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+
+#V_HORN={
+	#REV
+	V(100)
+	M(0)
+	VVoice(FrenchHorn,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_HORN2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(FrenchHorn,1)
+	} ELSE {
+		VVoice(FrenchHorn,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_PICCOLO={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Piccolo,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+#V_FLUTE={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Flute,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_FLUTE2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Flute,1)
+	} ELSE {
+		VVoice(Flute,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_FLUTE3={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Flute,2)
+	} ELSE {
+		VVoice(Flute,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_CLARINET={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Clarinet,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_CLARINET2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Clarinet,1)
+	} ELSE {
+		VVoice(Clarinet,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_CLARINET3={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Clarinet,2)
+	} ELSE {
+		VVoice(Clarinet,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_CLARINET4={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Clarinet,3)
+	} ELSE {
+		VVoice(Clarinet,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_TIMPANI1={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Timpani,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_TIMPANI2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Timpani,1)
+	} ELSE {
+		VVoice(Timpani,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_PIZZ={
+	#REV
+	V(100)
+	M(0)
+	VVoice(PizzicatoStrings,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_BASSPIZZ={
+	#REV
+	V(100)
+	M(0)
+	VVoice(PizzicatoStrings,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+#V_PIZZ2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(PizzicatoStrings,1)
+	} ELSE {
+		VVoice(PizzicatoStrings,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_OBOE={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Oboe,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_OBOE2={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(Oboe,1)
+	} ELSE {
+		VVoice(Oboe,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_EHORN={
+	#REV
+	V(100)
+	M(0)
+	VVoice(EnglishHorn,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_BASSON={
+	#REV
+	V(100)
+	M(0)
+	VVoice(EnglishHorn,1)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+
+#V_HARP={
+	#REV
+	V(100)
+	M(0)
+	VVoice(OrchestralHarp,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_TREMORO={
+	#REV
+	V(100)
+	M(0)
+	IF(TIMIDITY=1) {
+		VVoice(TremoloStrings,0)
+	} ELSE {
+		VVoice(Strings2,0)
+	}
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_STRINGS2={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Strings2,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_TUBA={
+	#REV
+	V(100)
+	M(0)
+	VVoice(Tuba,0)
+	QSet(100)
+	VSet(127)
+	ESet(127)
+}
+
+#V_VOCALOID={
+	#REV
+	V(100)
+	M(0)
+	@1
+	QSet(100)
+	VSet(127)
+	ESet(127)
+	// for test Q
+
+
+	q82
+	// for test tempo 
+	Tempo 120
+
+}
+
+
+
+// シンバルのロテート
+Int CYMINIT=0
+Int TRIINIT=0
+Int SNAREINIT=0
+Int GONGINIT=0
+Int TAIHOINIT=0
+
+Function Snare() {
+	Int CC
+	IF(TIMIDITY=0) {
+		CC=Snare1
+	} ELSE {
+		CC=38+SNAREINIT
+		IF(SNAREINIT=3) {
+			SNAREINIT=0
+		} ELSE {
+			SNAREINIT=SNAREINIT+1
+		}
+	}
+	Result=CC
+}
+
+Function Triangle() {
+	Int CC
+	IF(TRIINIT=0) {
+		CC=80
+		TRIINIT=1
+	} ELSE {
+			CC=81
+		TRIINIT=0
+	}
+	Result=CC
+}
+
+
+
+Function Cymbal() {
+	Int CC
+	IF(CYMINIT=0) {
+		CC=56
+		CYMINIT=1
+	} ELSE {
+		CC=57
+		CYMINIT=0
+	}
+	Result=CC
+}
+
+Function Gong() {
+	Int CC
+	CC=58+GONGINIT
+	IF(GONGINIT=2) {
+		GONGINIT=0
+	} ELSE {
+		GONGINIT=GONGINIT+1
+	}
+	Result=CC
+}
+
+Function Taiho() {
+	Int CC
+	CC=29+TAIHOINIT
+	IF(TAIHOINIT=3) {
+		TAIHOINIT=0
+	} ELSE {
+		TAIHOINIT=TAIHOINIT+1
+	}
+	Result=CC
+}
+
+#DRUMSET={
+	#REV
+	Key(0)
+	PitchBendSensitivity(12)
+	VVoice(OrchestraSet)
+	$b{RandV(122,127) p%0 n(36),} //bd
+	IF(TIMIDITY=1) {
+		$X{RandV(125,127) p%0 n(Taiho()),} //fh70
+	} ELSE {
+		$X{RandV(125,127) p%0 n(36),} //bd
+	}
+	IF(TIMIDITY=1) {
+		$s{RandV(105,127) p%0 n(Snare()),} //sd1
+		$S{RandV( 80, 90) p%0 n(Snare()),} //sd2
+	} ELSE {
+		$s{RandV(105,127) p%0 n(38),} //sd1
+		$S{RandV( 80, 90) p%0 n(40),} //sd2
+	}
+
+	IF(TIMIDITY=1) {
+		$c{RandV(120,127) p%0 n(Cymbal()),} //classic cymbal
+	} ELSE {
+		$c{RandV(120,127) p%0 n(57),} //classic cymbal
+	}
+	IF(TIMIDITY=1) {
+		$g{RandV(120,127) n(Gong()),} //gong
+		$G{RandV(120,127) n(61),} //gong
+		$o{RandV( 50, 70) p%0 n(Triangle()),}
+		$O{p%0 n(Triangle()),}
+		$h{RandV( 50, 70) p%0 n(MuteTriangle),}
+	} ELSE {
+		IF(USEGONG=1) {
+			$g{RandV(120,127) p%-8192 n(57),} //gong
+			$G{RandV(120,127) p%-8192 n(57),} //gong
+		} ELSE {
+			$g{RandV(120,127) p%0 n(57),} //gong
+			$G{RandV(120,127) p%0 n(57),} //gong
+		}
+		$o{RandV( 50, 70) p%0 n(OpenTriangle),}
+		$O{p%0 n(OpenTriangle),}
+		$h{RandV( 50, 70) p%0 n(MuteTriangle),}
+	}
+}
+ 
+/////////////////////////////////////////////////////// 
+// 001.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	Int TMP=210+TEMPODIFF
+	IF(IGNORETEMPO=0) {
+		Tempo=TMP
+	}
+	#tokorotentmp={
+		TmpChangeR(210,0)
+		[1 r2]
+		[
+			TmpChangeR(255,0)
+			[3 r4]
+			TmpChangeR(240,0)
+			[1 r4]
+			:
+			TmpChangeR(175,0)
+			[1 r2]
+		]
+		TmpChangeR(230,0)
+	}
+	#tokorotentmp
+	#japantmp1={
+		TmpChangeR(220,0)
+		TmpChangeR(250,!2.^2.)
+		TmpChangeR(230,!2.)
+		TmpChangeR(223,0)
+		TmpChangeR(220,!2^8)
+		TmpChangeR(250,0)
+		r8
+		TmpChangeR(290,!0)
+	}
+
+	#japantmp2={
+		TmpChangeR(250,!2.^2.)
+		TmpChangeR(230,!2.)
+		TmpChangeR(223,0)
+		TmpChangeR(220,!2^8)
+		TmpChangeR(250,0)
+		r8
+		TmpChangeR(290,!0)
+		TmpChangeR(240,!0)
+		TmpChangeR(245,!2.^2.^2.)
+		TmpChangeR(220,!2.^2.)
+		TmpChangeR(245,0)
+		[1 r2.]
+		TmpChangeR(155,0)
+		[1 r2.]
+		TmpChangeR(245,0)
+	}
+
+	#japantmp1
+
+	#tokorotentmp
+	#japantmp2
+
+	#tokorotentmp
+	#japantmp1
+
+	#tokorotentmp
+	#japantmp2
+
+	TmpChangeR(200,!0)
+	[1 r2.]
+
+#tr201={
+	ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr<
+	[5 r2.]
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+	[12 r2.]<
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+	[5 r2.]<
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+}
+
+#tr301={
+	Q(98)b-4r2
+	>
+	EW(127,100,!4.,100,70,!1)
+	Q(86)'b-1.>g-1.b-1.<'
+	Q(98)'e-4.>c4.e-4.<'Q(86)'f8>c8f8<' Q(98)'f#4>c4f#4<'
+	Q(98)'f8>d-8f8<' r8 r2
+	[3 r2.]
+	<
+	a-4r2
+	>
+	Q(86)'a-1.>f1.a-1.<'
+	Q(98)'e-4.>c4.e-4.<'Q(86)'f8>c8f8<' Q(98)'f#4>c4f#4<'
+	'f8>d-8f8<' r8 r2
+	[10 r2.]
+	<
+	b-4r2
+	>
+	Q(86)'b-2.^4.>g-2.^4.b-2.^4.<' 'e-8>c8e-8<' 'e-4>c4e-4<'
+	Q(98)'e-4.>c4.e-4.<'Q(86)'f8>c8f8<' Q(98)'f#4>c4f#4<'
+	'f8>d-8f8<' r8 r2
+	[3 r2.]
+	<
+	c4r2
+	>>
+	Q(86)'c1.a-1.>c1.<'<
+	'g4.>e4.g4.<'Q(86)'a-8>e8a-8<' 'b-4>e4b-4<'
+	Q(98)'a-8>f8a-8<' r8 r2
+
+}
+
+#tr302={
+	Q(98)b-4r2
+	>
+//	EW(127,100,!4.,100,70,!1)
+	Q(86)b-1.
+	Q(98)e-4.Q(86)f8 Q(98)f#4
+	Q(98)f8 r8 r2
+	[3 r2.]
+	<
+	a-4r2
+	>
+	Q(86)a-1.
+	Q(98)e-4.Q(86)f8 Q(98)f#4
+	f8r8r2
+	[10 r2.]
+	<
+	b-4r2
+	>
+	Q(86)b-2.^4.e-8e-4
+	Q(98)e-4.Q(86)f8Q(98)f#4
+	f8 r8 r2
+	[3 r2.]
+	<
+	c4r2
+	>>
+	Q(86)c1.<
+	g4.Q(86)a-8b-4
+	Q(98)a-8 r8 r2
+
+}
+
+IF(VOCALOID=1) {
+	// IA
+	TR(5)
+		#TM
+		#V_VOCALOID
+		o4
+		VV(110)
+		l12Q(95)
+//		EW(90,110,!8.,110,70,!4.)
+		V(80)
+		Q(95)b-2
+//		EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+		V(80)
+		Sub{
+			r4[16 r2.]
+			o6f2.<f2.
+			[4 r2.]
+			[17 r2.]>
+			o6a-2.<a-2.
+
+		}
+		o4
+		#tr201
+
+	// GAKU
+	TR(6)
+		#TM
+		#V_VOCALOID
+		o3
+//		E(70)
+		VV(100)
+		l12Q(95)
+//		EW(90,110,!8.,110,70,!4.)
+		V(80)
+		Q(95)b-2
+//		EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+		V(80)
+		Sub{
+			r4[16 r2.]
+			r2.r2.
+			o4f2.^2.^4f#4r4
+			r2.
+			[17 r2.]
+			r2.r2.
+			o4e2.^2.^4f4r4
+		}
+		o3
+		#tr201
+
+	// MIKU
+	TR(1)
+		#TM
+		#V_VOCALOID
+		[4 r2.]
+		o4 E(127)VV(120)Q(98)
+		V(80)
+		EW(127,100,!4.)
+		o5 #tr302
+
+	// IA
+	TR(2)
+		#TM
+		#V_VOCALOID
+		[4 r2.]
+		o4 E(127)VV(120)Q(98)
+		V(80)
+		EW(127,100,!4.)
+		o5 #tr302
+
+	// GAKU
+	TR(3)
+		#TM
+		#V_VOCALOID
+		[4 r2.]
+		o3 E(127)VV(120)Q(98)
+		V(80)
+		EW(127,100,!4.)
+		o4 #tr302
+} ELSE {
+	TR(1)
+		#TM
+		o4
+		VV(110)
+		l12Q(95)
+		EW(90,110,!8.,110,70,!4.)
+		#V_CELLO2
+		V(80)
+		Q(95)b-2
+		EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+		#V_CELLO3
+		V(80)
+		#tr201
+
+	TR(2)
+		#TM
+		o3
+		E(70)
+		VV(100)
+		l12Q(95)
+		EW(90,110,!8.,110,70,!4.)
+		#V_CONTRABASS2
+		V(80)
+		Q(95)b-2
+		EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+		#V_CONTRABASS3
+		V(80)
+		#tr201
+
+	TR(3)
+		#TM
+		[4 r2.]
+		o4 E(127)VV(120)Q(98)
+		#V_STRINGS1
+		V(80)
+		EW(127,100,!4.)
+		Sub { o4 #tr301 }
+		o5 #tr301
+
+	TR(4)
+		#TM
+		#V_VIOLIN
+		[4 r2.]
+		Vibrate(!8,20)
+		o5 E(110)VV(120)Q(90)
+		EW(127,100,!4.)
+		o5 #tr301
+
+	TR(14)
+		#TM
+		#V_STRINGS2
+		[4 r2.]
+		o5 E(120)VV(120)Q(90)
+		EW(127,100,!4.)
+		o5 #tr301
+
+	IF(PIANOONLY=0) {
+		TR(7)
+			#TM
+			#V_HORN
+			[4 r2.]
+			o4
+			VV(110)Q(99)
+			EW(127,110,!2)
+			'>e-1.^1.f#1.^1.<'
+			'>d-4f4<'r2
+			[3 r2.]
+			'a-1.^2.>f1.^2.>c#1.^2.<<'
+			'a-2.>e-2.>c2.<<'
+			'a-4>f4>c#4<<'r2
+			o5
+			Q(95)
+			f2.<f2.
+			Q(99)
+			[8  r2.]
+			'>e-1.^1.f#1.^1.<'
+			'>d-4f4<'r2
+			[3 r2.]
+			'a-1.^2.>f1.^2.>c1.^2.<<'
+			'g2.>e2.>c2.<<'
+			'a-4>f4>c4<<'r2
+			r2.
+			Q(95)
+			f2.<f2.
+	}
+	TR(11)
+		#TM
+		#V_PICCOLO
+		VV(127)Q(99)
+		EW(127,100,!4)
+		[4 r2.]
+		o7
+		r2.
+		b-1.e-4.f8f#4
+		f4r2
+		[3 r2.]
+		r2.
+		a-1.e-4.f8f#4
+		f4r2
+		o7
+		EW(100,55,!2.)
+		f2.<f2.
+
+		[8 r2.]
+		>
+		r2.
+		EW(127,100,!4)
+		b-2.^4.e-8e-4e-4.f8f#4
+		f4r2
+		[3 r2.]
+		r2.
+		>c1.<g4.a-8b-4
+		a-4r2
+		o7
+		EW(100,55,!2.)
+		a-2.<a-2.
+
+
+	TR(12)
+		#TM
+		#V_FLUTE
+		E(127)VV(115)Q(90)
+		EW(90,50,!2.)
+		[17 r2.]
+		o6
+		a2.<a2.>
+		[21 r2.]
+		c2.<c2.
+
+	TR(13)
+		#TM
+		#V_CLARINET
+		E(115)VV(100)Q(90)
+		EW(90,50,!2.)
+		[17 r2.]
+		o6
+		c2.<c2.
+		[21 r2.]
+		f2.<f2.
+
+	TR(8)
+		#TM
+		#V_CONTRABASS
+		o3
+		E(127)VV(127)Q(95)
+		EW(127,110,!8.)
+		[4 r2.]
+		b-2.^2.^2.
+		b-4.b-8b-4
+		b-4 r2
+		[3 r2.]
+		a-2.^2.^2.
+		a-4.a-8a-4
+		>d-4 r2<
+		r1.
+		f2.^2.^4f#4r4
+		[5 r2.]
+		b-2.^2.^2.
+		b-4.b-8b-4
+		b-4 r2
+		[3 r2.]
+		c2.^2.^2.
+		c4.c8c4
+		f4r2
+		r2.
+		r2.
+		e2.^2.^4f4r4
+
+	IF(PIANOONLY=0) {
+		TR(9)
+			#TM
+			#V_TIMPANI1
+			o3
+			E(127)VV(127)Q(100)
+
+			[4 r2.]
+			#V_TIMPANI1
+			l12 VV(127)[3 [12 b- RandV(100,115)]]
+			#V_TIMPANI2
+			VV(127)b-2.
+			[3 r2.]
+			#V_TIMPANI1
+			l12 VV(127)[3 [12 a- RandV(100,115)]]>
+			#V_TIMPANI2
+			VV(127)d-2.
+			<
+			r1.
+			#V_TIMPANI1
+			l12 VV(127)[2 [9 f RandV(100,115)]]
+			#V_TIMPANI2
+			VV(127)f4f#4r4
+			[5 r2.]
+			#V_TIMPANI1
+			l12 VV(127)[3 [12 b- RandV(100,115)]]
+			#V_TIMPANI2
+			VV(127)b-2.
+			[3 r2.]
+			#V_TIMPANI1
+			>l12 VV(127)[3 [12 c RandV(105,115)]]<
+			#V_TIMPANI2
+			VV(127)f2.
+			r1.
+			#V_TIMPANI1
+			l12 VV(120)[2 [9 e RandV(100,110)]]
+			#V_TIMPANI2
+			VV(127)e4f4r4
+	}
+	IF(PIANOONLY=0) {
+		TR(10)
+			#TM
+			#DRUMSET
+			VV(127)E(127)
+
+			[4 r2.]
+			#r1={
+				Sub {
+					[2 Rythm{[18 S18]}]
+				}
+				Rythm{'b2.''b1.c1.''b4.s4.c4.''b8s8''b4s4'}
+				Rythm{'b2.s2.c2.'}
+			}
+			#r2={
+				Sub {
+					[1 Rythm{[26 S18]}]
+				}
+				Rythm{'b1.s1.' 'b4s4''b4s4'}
+				r4
+			}
+			#r3={
+				Sub {
+					[1 Rythm{[27 S18]}]
+				}
+				Rythm{'b2.''b1^8c1^8' s8s4 'b4.s4.c4.''b8s8''b4s4'}
+				Rythm{'b2.s2.c2.'}
+			}
+			#r1
+			[3 r2.]
+			#r1
+			[2 r2.]
+			#r2
+			[5 r2.]
+			#r3
+			[3 r2.]
+			#r1
+			[2 r2.]
+			#r2
+	}
+}
+ 
+/////////////////////////////////////////////////////// 
+// 002.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(48:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(240,0)
+	TmpChangeR(280,!2.)
+	[6 r2.]
+	TmpChangeR(260,!4.)
+	TmpChangeR(235,!4.)
+	TmpChangeR(240,0)
+	TmpChangeR(280,!2.)
+	[4 r2.]
+	TmpChangeR(265,!2.)
+	TmpChangeR(245,!2.)
+	TmpChangeR(230,0)
+	TmpChangeR(200,!2)
+	TmpChangeR(140,!8)
+	TmpChangeR(80,!8)
+
+TR(1)
+	#TM
+	#V_PICCOLO
+	VV(100)E(127)
+	[
+		o8
+		l8Q(98)
+		EW(127,90,!16.)
+		f2.^4 e-d-<a-f
+		e-d-<a-fe-d-<
+		ET(127,90,!16.,90,60,!4.)
+		a-4r2>
+
+		ET(80,127,!2.)
+		cd-e-fg-a-
+		ET(127,70,!2)
+		a2r4
+		ET(127,80,!2.)
+		ag-gg-fe
+		:
+		ET(60,30,!2)
+		e-2r4
+	]
+	ET(80,30,!4.)
+	e-2r4
+
+TR(2)
+	#TM
+	#V_CONTRABASS
+	VV(110)E(127)
+	EW(127,90,!4,90,80,!4)
+	l8
+	[
+		o3
+		Q(85)
+		d-2r4
+		a-2r4>
+		d-2r4<
+		r2.
+		a-2.
+		r2.
+		r2.
+		:
+		r4a-4a-4
+	]
+	VV(115)Q(100)
+	EW(65,70,!32,70,80,!16,80,75,!16)
+	aa-gg-fe-
+
+
+TR(3)
+	#TM
+	#V_PIZZ
+	l4
+	Q(100)VV(90)E(90)
+	[
+		o5
+		rr '<a->f'
+		'f>d-<'r'<a->f'
+		'f>d-<'rr
+		[5 r2.]
+	]
+
+TR(4)
+	#TM
+	l8o5
+	[
+		[4 r2.]
+		#V_EHORN
+		VV(100)
+		Q(100)
+		r2.
+		o5
+		ET(70,110,!2)
+		cd-e-fg-a-
+		ET(110,70,!2)
+		a2r4<
+		:
+		#V_CLARINET
+		VV(95)
+		ET(110,70,!2)
+		aa-gg-fe-
+	]
+
+TR(5)
+	#TM
+	#V_HORN
+	o5Q(85)l8
+	VV(90)E(100)
+	EW(90,100,!12,100,50,!1)
+	[
+		'<f2.^4>d-2.^4' '<f4.>d-4.' '<f8>d-8'
+		'<f2.^4>d-2.^4' r4r4
+
+		'<g-2.^4>c2.^4' ['<g-4>c4']
+		'<g-2.^4>c2.^4' r4r4
+	]
+
+IF(PIANOONLY=0) {
+	TR(10)
+		#TM
+		#DRUMSET
+		VV(100)E(70)
+
+		#r1={
+			Rythm{o2.o2.o1.}
+		}
+		#r2={
+			Rythm{o1.o1.}
+		}
+		#r1
+		#r2
+		#r1
+		#r2
+}
+ 
+/////////////////////////////////////////////////////// 
+// 003.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(64:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(125,0)
+	TmpChangeR(200,!4)
+	TmpChangeR(245,!2)
+	TmpChangeR(235,!4.)
+	TmpChangeR(240,!4.)
+	TmpChangeR(230,!2.^2.^2.)
+	TmpChangeR(240,!2.^2)
+	TmpChangeR(225,!2.)
+	TmpChangeR(195,!4)
+
+	TmpChangeR(210,0)
+	TmpChangeR(220,!2.)
+	TmpChangeR(200,0)
+	TmpChangeR(175,!4)
+	TmpChangeR(185,!4)
+	TmpChangeR(215,!4)
+	TmpChangeR(230,!2.^2.)
+	TmpChangeR(220,!2.)
+	TmpChangeR(215,!4)
+	TmpChangeR(225,!2.^2.)
+	TmpChangeR(200,!2)
+
+	TmpChangeR(210,0)
+	TmpChangeR(225,!2.^2.)
+	TmpChangeR(220,!2.^2.)
+	TmpChangeR(217,!2.) TmpChangeR(185,!2.)
+	TmpChangeR(230,!16) TmpChangeR(210,!2^8.)
+	TmpChangeR(230,!2.)
+	TmpChangeR(225,!2.^2.^2.) TmpChangeR(223,!2.)
+	TmpChangeR(205,!2^8) TmpChangeR(175,!8)
+	TmpChangeR(160,!8) TmpChangeR(185,!8) TmpChangeR(225,!2.^2.^2)
+
+	TmpChangeR(220,!2.^2.^2.^2.)
+	TmpChangeR(215,!2.^2.)
+	TmpChangeR(220,!2.)
+	TmpChangeR(225,!2.)
+	TmpChangeR(227,!2.^2.^2.^2.)
+	TmpChangeR(230,!2.^2.)
+	TmpChangeR(240,!2.^2)
+	TmpChangeR(255,!2.^4)
+	TmpChangeR(240,!2.^2.^2.)
+	TmpChangeR(230,!4)
+
+#melody={
+	l4
+	IF(TIMIDITY=1) {
+		#A={V(105)VV(110)}
+		#F={V(105)VV(117)}
+		#B={V(110)VV(120)}
+		#C={V(90)VV(120)}
+		#D={V(70)VV(120)}
+		#E={V(80)VV(90)}
+		#G={V(65)VV(85)}
+		#H={V(95)VV(120)}
+		#I={V(115)VV(120)}
+	}
+	Q(100)
+	ET(100,110,!1.^1.,110,100,!1.^1.,100,110,!2.,110,100,!2.)
+	#F
+	f2.^ e-.#E d-8
+	d-2. #F g-2.^2
+	Q(95)  f4
+	Q(100) f #C e- #G d-
+	ET(70,90,!2.,90,60,!2.)
+	Q(95) #A b-2. b-2Q(80)b-4
+
+	ET(80,100,!2,100,80,!4)
+	Q(100) b-2 #B e-4
+	ET(80,90,!4,60,80,!4)
+	#C e-4f32g32f8.^8e-8
+	ET(80,100,!2.,80,70,!2.^4,80,100,!2.100,90,!2.)
+	e-2. #H a-2.^4
+	#H g4 #I f4
+	#H g4 #I f4.#C Q(90) e-8>
+	ET(60,100,!2.,100,70,!2.)
+	#A Q(95) c2.c2 Q(80)c4
+	ET(80,100,!2.,100,90,!1.)
+	Q(100) #C c2.^4<b-4.a-8
+	ET(90,100,!2,100,90,!4,90,80,!1.^2.)
+	a-2.>Q(85)d-2.
+	Q(100) d-2c4
+	EW(90,80,!4.)
+	c4<b-4.a-8>
+	ET(60,90,!2.,90,60,!2.)
+	Q(95) f2.f2 Q(90)f4
+	ET(70,115,!2.,115,90,!2.)
+	Q(95) f2.
+	Q(100) e-d-<b->
+	ET(90,115,!2.,115,90,!2.)
+	Q(95) c2.<
+	Q(100) b-a- Q(95) #F f
+	ET(90,115,!2.,115,90,!2.)
+	Q(100) #A b-a-Q(80) g-
+	Q(100) #B g-32a-32g-8.f4. #C e8
+	e2.Q(70) ET(90,80,!4,80,30,!4)f2
+	V(127)
+}
+
+#melody1={
+	Q(98) a-4
+	a-2.>
+	c4<b-4.a-8
+	a-2.>Q(90) d-2.
+	Q(98) d-2c4
+	c4.<b-8 Q(80) a-4>
+	Q(98) f2.
+	f2 Q(80) f4
+	Q(98) f2.
+	e-4d-4.< Q(95) b-8>
+	Q(98) c2.<
+	b-4a-4 Q(85) b-4
+	Q(98) b2b-4
+	b2.^2 b-4
+	b4b-4 Q(85) b4
+	Q(98) b2 Q(60) b-4>
+	Q(95) b-2.^4r8
+	c8c4
+	c4.f8e-4
+	d-4
+}
+
+#melody2={
+	r4
+	Q(98)
+	<a-2>c4^4
+	<b-4.a-8
+	a-2.> Q(90) 'd-2.a-2.'
+
+	Q(98) Sub{a-2.^4.}
+	d-2c4
+	c4.<b-8 Q(80) a-4>
+	Q(98) 'f2.a-2.'
+	'f2a-2' Q(80) 'f4a-4'
+	'f2.a-2.'
+	'e-4g-4''d-4.g-4.'Q(95)'<b-8>g-8'
+	Q(98) 'c2.a-2.'<
+	Sub{b-4a-4 Q(95) b-4}>Q(98) g-4f4 Q(85) f4<
+
+	Q(98) Sub{b2b-4}>f2f4<
+	Sub{b2.^2 b-4}>f2.^2 f4<
+	Sub{b4b-4 Q(95) b4}>Q(98) f4f4 Q(85) f4<
+	Q(98) Sub{b2 Q(95) b-4}>Q(98) g-2 Q(60) g-4
+	Q(95) Sub{b-2.^4.}>g-2.^4r8<
+	'c8g-8''c4g-4'
+	'c4.g-4.''f8a-8''e-4g-4'
+	'd-4f4'
+}
+
+TR(1)
+	#TM
+	#V_PICCOLO
+	EW(70,90,!16)
+	VV(100)
+	o7
+	[31 r2.]r2
+	Vibrate(!2,10)
+	IF(TIMIDITY=0) {
+		EW(110,70,!8)
+	} ELSE {
+		E(100)
+	}
+	#melody1
+	Vibrate(0,0)
+
+TR(2)
+	#TM
+	#V_OBOE
+	E(100)
+	VV(100)
+	o6Q(100)
+	Vibrate(!4,20)
+	#melody
+	#V_FLUTE3
+	IF(TIMIDITY=0) {
+		EW(110,70,!8)
+	} ELSE {
+		E(100)
+	}
+	VV(100)
+	Vibrate(!4,40)
+	#melody1
+	Vibrate(0,0)
+
+TR(3)
+	#TM
+	#V_CLARINET3
+	E(100)
+	VV(110)
+	o6q100
+	[31 r2.]r2
+	Vibrate(!4.,10)
+	EW(110,80,!4)
+	#melody2
+	Vibrate(0,0)
+
+#chord1={
+	l8
+	d-a->d-fd-<a-
+	d-b>d-fd-<b
+	g-b>d-g-d-<b
+	g-b->d-g-d-<b-
+	a-b>d-a-d-<b
+	fb>d-fd-<b
+	g-b->d-g-d-<b-
+	eb->d-a-d-<b-
+	e-b->d-gd-<b-
+	gb->d-gd-<b-
+	a->d-e-a-e-d-<
+	a->ce-a-e-c<
+	b->d-e-b-e-d-<
+	gb->d-gd-<b-
+	a->ce-a-e-c<
+	ga->ce-c<a-
+}
+#chord2={
+	[g-a->ce-c<a-]
+	fa->d-fd-<a-
+	fa->d-a-d-<a-
+	[e-a->cg-c<a-]
+	da-b>f<ba-
+	da-b->f<b-a-
+	e-g-b->e-<b-g-
+	<g->g-b->e-<b-g-
+	[<a->fa->d-<a-f]
+	[<a->g-a->c<a-g-]
+	d-a->d-fd-<b-
+	a->d-fa-fd-<
+}
+
+#chord3={
+	l8
+	[g-a->ce-c<a-]
+	fa->d-fd-<a-
+	fa->d-a-d-<a-
+	[e-a->cg-c<a-]
+	da-b>f<ba-
+	da-b->f<b-a-
+	e-g-b->e-<b-g-
+	<g->g-b->e-<b-g-
+	[<a->fa->d-<a-f]
+	[4 <a->fa->d<a-f]
+	[<a->e-g->e-<g-e-]
+	[<a->e-g->c<g-e-]
+	#PEDALON Sub{l32 fa->d-f} r2 #PEDALOFF
+}
+
+TR(4)
+	#TM
+	#V_HARP
+	E(70)
+	VV(80)
+	o4
+	#chord1
+	VV(85)
+	#chord2
+	VV(90)
+	#chord3
+
+#back={
+	'<a-1.>g-1.'
+	'<a-2.>f2.'
+	'd-2.a-2.'
+	Sub{g-1.}
+	c2.<a-2.>
+	Sub{f1.}
+	<b2.b-2a-4
+	'g-1.>e-1.'
+	'<f1.>d-1.'
+	Sub{<f2.^4f4f4}>d2.^4d4d4
+	'<f1.>d1.'
+	Sub{<g-2.^4g-4g-4}>e-2.^4e-4e-4
+	'<g-1.>e-1.'
+	'<f4>d-4'
+}
+IF(PIANOONLY=0) {
+	TR(5)
+		#TM
+		#V_HORN
+		E(90)
+		VV(90)
+		o5q100
+		[32 r2.]
+		EW(90,115,!2.)
+		#back
+}
+
+#bass1={
+	l4
+	#A
+	d-2.^4 e-f
+	g-2.d-2.
+	a-2.d-2.
+	g-2.#B e2.
+	#A
+	e-2.^4fg
+	a-2.e-2.
+	b-2.e-2.
+	a-2.g2.
+	g-2.^2.
+	f2.^2.
+	e-2.^2.
+	d2.b-2.
+	e-2.<g-2.
+	a-2.a-2.
+	a-2.a-2.>
+	d-2.<a-2.>
+}
+
+#bass2={
+	#A
+	g-2.^4g-4.#B g-8
+	#A f2.f2.
+	e-2.<a-2.>
+	d2.<b-2.>
+	e-2.<g-2.
+	a-2.^2.
+	#C
+	a-2.^4a-4a-4
+	a-2.^2.
+	#D
+	a-2.^4a-4a-4
+	a-2.^2.
+}
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	#A={EW(70,95,!16,95,100,!8,100,90,!1.)}
+	#B={EW(70,90,!16,90,95,!8,95,90,!1.)}
+	#C={EW(90,95,!32,90,100,!8,100,90,!1.)}
+	#C={EW(90,100,!32,100,105,!8,105,95,!1.)}
+	VV(100)
+	o3q100
+	#bass1
+	VV(110)
+	#bass2
+
+#tremoro1={
+	ET(70,110,!1.^1.)
+	'g-1a-1.>c1.e-1.<'
+	Sub{'f1.a-1'}>d-2.'f2a-2.<'
+	ET(110,100,!1.)
+	'a-1.>c1.g-1.'
+	ET(110,100,!1.)
+	Sub{'d1.f1.'}<b2.b-2a-4
+	ET(100,90,!1.^1.^1.^1.)
+	'g-1.b-1.>e-1.<'
+	'f1.a-1.>d-1.<'
+	Sub{'g-1.a-1.>c1.'}r2.e-2.<
+	ET(90,60,!1.)
+	'f1.a-1>d-1.<'
+}
+
+#tremoro2={
+	ET(80,100,!1.^1.)
+	'f1.^1.a-1.^1.>d1.^1.<'
+	'g-1.^1.a-1.^1.>c1.^1.e-1.^1.'
+}
+
+TR(11)
+	#TM
+	#V_TREMORO
+	[16 r2.]
+	o4
+	V(70)Q(100)VV(90)E(100)
+	#tremoro1
+	o4
+	[12 r2.]
+	#tremoro2
+
+TR(11)
+	#TM
+	#V_TREMORO
+	[16 r2.]
+	o4
+	Q(100)VV(100)E(95)
+	#tremoro1
+	o4
+	[12 r2.]
+	#tremoro2
+
+TR(12)
+	#TM
+	#V_STRINGS2
+	[16 r2.]
+	o4
+	Q(100)VV(95)E(95)
+	#tremoro1
+	o4
+	[12 r2.]
+	#tremoro2
+ 
+/////////////////////////////////////////////////////// 
+// 004.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(116:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(200,0)
+	TmpChangeR(265,!2.)
+	TmpChangeR(260,!2.^2.^2.^2.^2.^2.)
+	TmpChangeR(250,!2.^2.^2.^2.)
+	TmpChangeR(240,!2.)
+	TmpChangeR(160,!2.^2.)
+	r2
+	TmpChangeR(93,0)
+
+#melody1={
+	l8
+	r2.
+	Q(75)
+	[
+		V(100)
+		#AAV<f>#BBV d-a-f>d- V(115) b-
+		'c2a-2'r4<
+		V(100)
+		#AAV<g->#BBV ca-g->c V(115)a-
+		'd-2f2'r4<
+	]
+	Q(65)
+	#AAV<f>#BBV d-a-f>d-a-
+	d-<f #CCV a- #BBV d-< #CCV f #BBV a-
+}
+#melody2={
+	l8
+	Q(65)
+	V(90)
+	d-<fa-d-<fa-
+}
+TR(6)
+	#TM
+	#V_VIOLIN
+	Vibrate(!8,20)
+	o6
+	VV(120)
+	EW(127,60,!16)
+	Q(80)
+	IF(TIMIDITY=1) {
+		#AAV={#V_VIOLA}
+		#BBV={#V_VIOLIN}
+		#CCV={#V_PIZZ2}
+	}
+	#melody1
+	r2.
+	r2.
+	ET(127,40,!1,40,0,!1)
+	#Q100 >>'d-1f1>d-1'
+
+#AAV={""}
+#BBV={""}
+#CCV={""}
+
+TR(7)
+	#TM
+	#V_VIOLA
+	o5
+	[11 r2.]
+	VV(115)
+	Q(80)
+	EW(127,80,!16)
+	#melody2
+	r2.
+	ET(127,40,!1,40,0,!1)
+	#Q100 >>'d-1>d-1'
+
+TR(8)
+	#TM
+	#V_STRINGS1
+	o6
+	VV(127)
+	EW(127,80,!16)
+	Q(60)
+	#melody1
+	#melody2
+	r2.
+	ET(127,40,!1,40,0,!1)
+	#Q100 >>'d-1>d-1'
+
+#cello={
+	l8
+	EW(127,100,!8,100,50,!2)
+	[3
+		r2 #Q95 <a->f>#Q90 d-2r4<
+		:
+		r2 #Q95 <a->e->#Q90 c2r4<
+	]
+	[2 r2.]
+	#Q100
+	'<d-4>d-4' r2
+	>>
+	ET(127,40,!1,40,0,!1)
+	'<d-1>d-1'
+}
+
+TR(9)
+	#TM
+	#V_CELLO
+	o4
+	#cello
+
+TR(11)
+	#TM
+	#V_STRINGS1
+	o4
+	#cello
+
+#bass1={
+	#Q95
+	[d-2.^2r4 < a-2.^2r4>]
+	EW(127,0,!1.^4)
+	d-2.^2.^2.r2 r4
+}
+#bass2={
+	d-2.^1
+}
+TR(12)
+	#TM
+	#V_CONTRABASS
+	o3VV(127)
+	EW(127,90,!16)
+	#bass1
+	EW(127,90,!1.)
+	#bass2
+
+
+#brass={
+	[3
+		'f>d-<'rr
+		rrr
+		:
+		'e->c<'rr
+		rrr
+	]
+	rrrrrr
+	<d-rr >
+	ET(127,00,!1)
+	'f1>d-1'
+}
+
+TR(13)
+	#TM
+	#V_TRUMPET
+	o6
+	VV(100)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(14)
+	#TM
+	#V_TROMBONE
+	o5
+	VV(100)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(15)
+	#TM
+	#V_HORN
+	o4
+	l4
+	VV(100)E(127)Q(80)
+	EW(127,100,!4,60,!2.)
+	[
+		'a-1>f1<' [2 'a->f<']
+		'a-1>e-1<' [2 'a->e-<']
+	]
+	ET(127,0,!1.^2)
+	'a-1.^1.>f1.^1.<'
+	ET(127,20,!1.)
+	d-4rr 'a-1>f1'
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS1
+	#r1={
+		VS1=25
+		r-2
+		Sub{[10 VS1=VS1+5 RandV(VS1, VS1+3) n(40),20]}r2
+		Rythm{'b1s1o1'o4o4}
+	}
+	#r2={
+		VS1=25
+		r-2
+		Sub{[10 VS1=VS1+5 RandV(VS1, VS1+3) n(40),20]}r2
+		Rythm{'b2.s2.o2.'}
+	}
+	#r3={
+		Rythm{'b2.s2.o2.'}
+		Sub{Rythm{'b2.s2.c2.'}}
+		Expression.onTime(127,0,!1^1)
+		[24 Rythm{o24}]
+	}
+	[4 #r1]
+	#r2
+	[3 r2.]
+	#r3
+ 
+/////////////////////////////////////////////////////// 
+// 005.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(131:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+
+	#tokorotentmp={
+		TmpChangeR(210,0)
+		[1 r2]
+		[
+			TmpChangeR(255,0)
+			[3 r4]
+			TmpChangeR(240,0)
+			[1 r4]
+			:
+			TmpChangeR(175,0)
+			[1 r2]
+		]
+		TmpChangeR(230,0)
+	}
+	#tokorotentmp
+	#japantmp1={
+		TmpChangeR(220,0)
+		TmpChangeR(250,!2.^2.)
+		TmpChangeR(230,!2.)
+		TmpChangeR(223,0)
+		TmpChangeR(220,!2^8)
+		TmpChangeR(250,0)
+		r8
+		TmpChangeR(290,!0)
+	}
+
+	#japantmp2={
+		TmpChangeR(240,!2.^2.^2.)
+		TmpChangeR(230,0)
+		TmpChangeR(280,!2.)
+		TmpChangeR(290,!0)
+		TmpChangeR(240,!0)
+		TmpChangeR(245,!2.^2.^2.)
+		TmpChangeR(220,!2.^2.)
+		TmpChangeR(245,0)
+		[2 r2.]
+	}
+	#japantmp1
+	#tokorotentmp
+
+	TmpChangeR(250,!2.^2.^2.)
+	TmpChangeR(90,0)
+	Sub{
+		TmpChangeR(135,!7)
+		TmpChangeR(150,!7)
+		TmpChangeR(140,!7)
+		TmpChangeR(150,!7)
+		TmpChangeR(140,!7)
+		TmpChangeR(500,0)
+	}
+	r2.
+	TmpChangeR(240,0)
+	TmpChangeR(265,!2.^2.^2.)
+	TmpChangeR(190,!2.^2.)
+	TmpChangeR(245,0)
+	[1 r2.]
+	TmpChangeR(180,0)
+	[1 r2.]
+
+	#tokorotentmp
+	#japantmp1
+	#tokorotentmp
+
+	TmpChangeR(250,!2.^2.^2.)
+	TmpChangeR(90,0)
+	Sub{
+		TmpChangeR(135,!6)
+		TmpChangeR(150,!6)
+		TmpChangeR(140,!6)
+		TmpChangeR(150,!6)
+		TmpChangeR(500,0)
+	}
+	r2.
+	TmpChangeR(260,0)
+	TmpChangeR(220,!2.^2.^2.^2.^2.^2.)
+	TmpChangeR(60,0)
+	TmpChangeR(90,!8)
+	TmpChangeR(140,!2^4)
+	TmpChangeR(100,!4.)
+	TmpChangeR(30,!4)
+
+TR(1)
+	#TM
+	#V_CELLO3
+	V(80)
+	o4
+	VV(110)
+	l12Q(95)
+	EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr<
+	[5 r2.]
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+	[12 r2.]<
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+	[5 r2.]<
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+
+TR(2)
+	#TM
+	#V_CONTRABASS3
+	o3
+	V(80)
+	E(70)
+	VV(100)
+	l12Q(95)
+	EW(100,90,!32,90,70,!32,70,40,!16,40,0,!16)
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr<
+	[5 r2.]
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+	[12 r2.]<
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+	[5 r2.]<
+	r2ab->d-
+	frr rrr <ab->d-
+	frr rrr rrr
+
+TR(3)
+	#TM
+	[4 r2.]
+	o4 E(127)VV(120)Q(98)
+	#V_STRINGS1
+	V(80)
+	#tr301={
+		EW(127,100,!4.,100,70,!1)
+		Q(98)
+		b-4r2
+		>
+		Q(86)'b-1.>g-1.b-1.<'
+		Q(98)'e-4.>c4.e-4.<'Q(86)'f8>c8f8<' Q(98)'f#4>c4f#4<'
+		'f8>d-8f8<' r8 r2
+		[3 r2.]
+		<
+		a-4r2
+		>
+		Q(80)'a-1.>f1.a-1.<'
+		EW(127,97,!7)
+		Q(90)
+		Sub{l7 'e->ce-<''e>ce<''f>cf<''a->ca-<''g->cg-<'}r2.
+		EW(127,100,!4.,100,70,!1)
+		Q(98)'f8>d-8f8<' r8 r2
+		[10 r2.]
+		<
+		b-4r2
+		>
+		Q(86)'b-2.^4.>g-2.^4.b-2.^4.<' 'e-8>c8e-8<' Q(98)'e-4>c4e-4<'
+		'e-4.>c4.e-4.<'Q(86)'f8>c8f8<' Q(98)'f#4>c4f#4<'
+		'f8>d-8f8<' r8 r2
+		[3 r2.]
+		<
+		c4r2
+		>>
+		Q(88)'c1.a-1.>c1.<'
+		EW(127,95,!6)
+		Q(92)
+		Sub{l6 'd-g>d-<''cg>c<''<f>cf''<g>cg<'}r2.
+		EW(127,100,!4.,100,70,!1)
+		'a-8>c8a-8<' r8 r2
+
+	}
+	EW(127,100,!4.)
+	Sub { o4 #tr301 }
+	o5 #tr301
+
+TR(4)
+	#TM
+	#V_VIOLIN
+	[4 r2.]
+	Vibrate(!8,20)
+	o5 E(120)VV(120)Q(90)
+	EW(127,100,!4.)
+	o5 #tr301
+
+TR(14)
+	#TM
+	#V_STRINGS2
+	[4 r2.]
+	o5 E(120)VV(120)Q(90)
+	EW(127,100,!4.)
+	o5 #tr301
+
+IF(0){
+	TR(5)
+		#TM
+		#V_TRUMPET2
+		[4 r2.]
+		o5 E(120)VV(127)Q(90)
+		EW(127,110,!8)
+		#tr301
+}
+
+TR(7)
+	#TM
+	#V_HORN
+	[4 r2.]
+	o4
+	VV(110)Q(99)
+	EW(127,110,!2)
+	'>e-1.^1.f#1.^1.<'
+	'>d-4f4<'r2
+	[3 r2.]
+	'a-1.^2.>f1.^2.>c#1.^2.<<'
+	'a-2.>e-2.>c2.<<'
+	'a-4>f4>c#4<<'r2
+	o5
+	Q(95)
+	f2.<f2.
+	Q(99)
+	[8  r2.]
+	'>e-1.^1.f#1.^1.<'
+	'>d-4f4<'r2
+	[3 r2.]
+	'a-1.^2.>f1.^2.>c1.^2.<<'
+	'g2.>e2.>c2.<<'
+	'a-4>f4>c4<<'r2
+	r2.
+	Q(95)
+	f2.<f2.
+
+TR(11)
+	#TM
+	#V_PICCOLO
+	VV(127)Q(99)
+	EW(127,100,!4)
+	[4 r2.]
+	o7
+	r2.
+	b-1.e-4.f8f#4
+	f4r2
+	[3 r2.]
+	r2.
+	a-1.
+	Sub{l7 e-efa-g-} r2.
+	f4r2
+	o7
+	EW(100,55,!2.)
+	f2.<f2.
+
+	[8 r2.]
+	>
+	EW(127,100,!4)
+	r2.
+	b-2.^4.e-8e-4e-4.f8f#4
+	f4r2
+	[3 r2.]
+	r2.
+	>c1.<
+	Sub{l6 >d-c<fg}r2.
+	a-4r2
+	o7
+	EW(100,55,!2.)
+	a-2.<a-2.
+
+
+TR(12)
+	#TM
+	#V_FLUTE
+	E(127)VV(115)Q(90)
+	EW(90,50,!2.)
+	[17 r2.]
+	o6
+	a2.<a2.>
+	[21 r2.]
+	c2.<c2.
+
+TR(13)
+	#TM
+	#V_CLARINET
+	E(110)VV(100)Q(90)
+	EW(90,50,!2.)
+	[17 r2.]
+	o6
+	c2.<c2.
+	[21 r2.]
+	f2.<f2.
+
+TR(8)
+	#TM
+	#V_CONTRABASS
+	o3
+	E(127)VV(127)Q(95)
+	EW(127,110,!8.)
+	[4 r2.]
+	b-2.^2.^2.
+	b-4.b-8b-4
+	b-4 r2
+	[3 r2.]
+	a-2.^2.^2.
+	Sub{l7 a-a-a-a-a-}r2.
+	>d-4 r2<
+	r1.
+	f2.^2.^4f#4r4
+	[5 r2.]
+	b-2.^2.^2.
+	b-4.b-8b-4
+	b-4 r2
+	[3 r2.]
+	c2.^2.^2.
+	Sub{l6cccc}r2.
+	f4r2
+	r2.
+	r2.
+	e2.^2.f2.
+
+TR(9)
+	#TM
+	#V_TIMPANI1
+	Int VS21
+	o3
+	E(127)VV(127)Q(100)
+
+	[4 r2.]
+	#V_TIMPANI1
+	l12 VV(127)[3 [12 b- RandV(100,115)]]
+	#V_TIMPANI2
+	VV(127)b-2.
+	[3 r2.]
+	#V_TIMPANI1
+	l12 VV(127)[3 [12 a- RandV(100,115)]]>
+	#V_TIMPANI2
+	VV(127)d-2.
+	<
+	r1.
+	#V_TIMPANI1
+	l12 VV(127)[2 [9 f RandV(100,115)]]
+	#V_TIMPANI2
+	VV(127)f4f#4r4
+	[5 r2.]
+	#V_TIMPANI1
+	l12 VV(127)[3 [12 b- RandV(100,115)]]
+	#V_TIMPANI2
+	VV(127)b-2.
+	[3 r2.]
+	#V_TIMPANI1
+	>l12 VV(127)[3 [12 c RandV(105,115)]]<
+	#V_TIMPANI2
+	VV(127)f2.
+	r1.
+	#V_TIMPANI1
+	l12 VV(120)[2 [9 e RandV(100,110)]]
+
+	l12
+	#V_TIMPANI2
+	VV(127)f2.
+	l24
+	#V_TIMPANI1
+	#V_TIMPANI1
+	VS21=94
+	VV(VS21)de- 
+	[16
+		VS21=VS21+1 
+		RandV(VS21-1,VS21) f
+		RandV(VS21-2,VS21) e-
+	]
+	#V_TIMPANI2
+	VV(110)de-d-
+IF(0){
+	de- 
+	[8 f RandV(100,110) e- RandV(100,110)]
+	[8 f RandV(100,110) e- RandV(100,110)]
+	#V_TIMPANI2
+	VV(110)de-d-
+}
+IF(0){
+	#V_TIMPANI1
+	VS21=78
+	VV(VS21)de- 
+	[16 VS21=VS21+2 f RandV(VS21-3,VS21 RandV(VS21-3,VS21) e-)]
+	#V_TIMPANI2
+	VV(110)de-d-
+}
+TR(10)
+	#TM
+	[4 r2.]
+	#DRUMSET
+	VV(127)E(127)
+	INT VS22
+	#r1={
+		Sub {
+			[2 Rythm{[18 S18]}]
+		}
+		Rythm{'b2.''b1.c1.''b4.s4.c4.''b8s8''b4s4'}
+		Rythm{'b2.s2.c2.'}
+	}
+	#r6={
+		Sub {
+			[2 Rythm{[18 S18]}]
+		}
+		Rythm{'b2.''b1.c2.^4.'s8s4 'b4.s4.c4.''b8s8''b4s4'}
+		Rythm{'b2.s2.c2.'}
+	}
+	#r4={
+		Sub {
+			[2 Rythm{[18 S18]}]
+		}
+		Rythm{'b2.''b1.c1.'}
+		Sub{Rythm{'b7s7'[4s7]}}r2.
+		Rythm{'b2.s2.c2.'}
+	}
+	#r2={
+		Sub {
+			[1 Rythm{[26 S18]}]
+		}
+		Rythm{'b1.s1.' 'b4s4''b4s4'}
+		r4
+	}
+	#r3={
+		Sub {
+			[1 Rythm{[27 S18]}]
+		}
+		Rythm{'b2.''b1.c1.'}
+		Sub{Rythm{'b6s6'[3s6]}}r2.
+		Rythm{'b2.s2.c2.'}
+	}
+	#r5={
+		Sub {
+			[1 Rythm{[26 S18]}]
+		}
+		Rythm{'b1.s1.' 'b4s4'}
+	}
+	#r1
+	[3 r2.]
+	#r4
+	[2 r2.]
+	#r2
+	[5 r2.]
+	#r6
+	[3 r2.]
+	#r3
+	[2 r2.]
+	#r5
+	ET(0,100,!1,100,115,!4.115,127,!8)
+	IF(TIMIDITY=1) {
+		Sub{Rythm{G1^1^1^1^1}}
+		r1^1
+	} ELSE {
+		Rythm{[8 g4]}
+	}
+	Rythm{'g1'}
+ 
+/////////////////////////////////////////////////////// 
+// 006.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(178:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(240,0)
+	TmpChangeR(283,!2.)
+	[6 r2.]
+	TmpChangeR(263,!4.)
+	TmpChangeR(235,!4.)
+	TmpChangeR(243,0)
+	TmpChangeR(283,!2.)
+	[4 r2.]
+	TmpChangeR(267,!2.)
+	TmpChangeR(245,!2.)
+	TmpChangeR(230,0)
+	TmpChangeR(200,!2)
+	TmpChangeR(140,!4)
+
+TR(1)
+	#TM
+	#V_PICCOLO
+	VV(100)E(127)
+	[
+		o8
+		l8Q(98)
+		EW(127,90,!16.)
+		f2.^4 e-d-<a-f
+		e-d-<a-fe-d-<
+		ET(127,90,!16.,90,60,!4.)
+		a-4r2>
+
+		ET(80,127,!2.)
+		cd-e-fg-a-
+		ET(127,70,!2)
+		a2r4
+		ET(127,80,!2.)
+		ag-gg-fe
+		:
+		ET(60,30,!2)
+		e-2r4
+	]
+	ET(80,30,!4.)
+	e-2r4
+
+TR(2)
+	#TM
+	#V_CONTRABASS
+	VV(110)E(127)
+	EW(127,90,!4,90,80,!4)
+	l8
+	[
+		o3
+		Q(85)
+		d-2r4
+		a-2r4>
+		d-2r4<
+		r2.
+		a-2.
+		r2.
+		r2.
+		:
+		r4a-4a-4
+	]
+	VV(115)Q(100)
+	ET(110,70,!2)
+	aa-gg-fe-
+
+
+TR(3)
+	#TM
+	#V_PIZZ
+	l4
+	Q(100)VV(90)E(90)
+	[
+		o5
+		rr '<a->f'
+		'f>d-<'r'<a->f'
+		'f>d-<'rr
+		[5 r2.]
+	]
+
+TR(4)
+	#TM
+	l8o5
+	[
+		[4 r2.]
+		#V_EHORN
+		VV(100)
+		Q(100)
+		r2.
+		o5
+		ET(70,110,!2)
+		cd-e-fg-a-
+		ET(110,70,!2)
+		a2r4<
+		:
+		#V_CLARINET
+		VV(95)
+		ET(110,70,!2)
+		aa-gg-fe-
+	]
+
+TR(5)
+	#TM
+	#V_HORN
+	o5Q(85)l8
+	VV(100)E(100)
+	EW(90,100,!12,100,50,!1)
+	[
+		'<f2.^4>d-2.^4' '<f4.>d-4.' '<f8>d-8'
+		'<f2.^4>d-2.^4' r4r4
+
+		'<g-2.^4>c2.^4' ['<g-4>c4']
+		'<g-2.^4>c2.^4' r4r4
+	]
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(100)E(70)
+
+	#r1={
+		Rythm{o2.o2.o1.}
+	}
+	#r2={
+		Rythm{o1.o1.}
+	}
+	#r1
+	#r2
+	#r1
+	#r2
+ 
+/////////////////////////////////////////////////////// 
+// 007.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(194:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(125,0)
+	TmpChangeR(210,!4)
+	TmpChangeR(242,!2)
+	TmpChangeR(238,!4.)
+	TmpChangeR(242,!4.)
+	TmpChangeR(235,!2.^2.^2.)
+	TmpChangeR(240,!2.^2)
+	TmpChangeR(225,!2.)
+	TmpChangeR(200,!4)
+
+	TmpChangeR(215,0)
+	TmpChangeR(220,!2.)
+	TmpChangeR(205,0)
+	TmpChangeR(200,!4)
+	TmpChangeR(205,!4)
+	TmpChangeR(210,!4)
+	TmpChangeR(235,!2.^2.)
+	TmpChangeR(230,!2.)
+	TmpChangeR(220,!4)
+	TmpChangeR(225,!2.^2.)
+	TmpChangeR(207,!2)
+
+	TmpChangeR(215,0)
+	TmpChangeR(230,!2.^2.)
+	TmpChangeR(225,!2.^2.)
+	TmpChangeR(220,!2.) TmpChangeR(197,!2.)
+	TmpChangeR(230,!16) TmpChangeR(215,!2^8.)
+	TmpChangeR(235,!2.)
+	TmpChangeR(230,!2.^2.^2.) TmpChangeR(225,!2.)
+	TmpChangeR(213,!2^8) TmpChangeR(190,!8)
+	TmpChangeR(180,0) r8 TmpChangeR(195,!8) TmpChangeR(230,!2.^2.^2)
+
+	TmpChangeR(248,!2.^2.^2.^2.)
+	TmpChangeR(225,!2.^2.)
+	TmpChangeR(230,!2.)
+	TmpChangeR(245,!2.)
+	TmpChangeR(240,!2.^2.^2.^2.)
+	TmpChangeR(245,!2.^2.)
+	TmpChangeR(250,!2.^2)
+	TmpChangeR(255,!2.^4)
+	TmpChangeR(258,!2)
+	TmpChangeR(250,!2.)
+	TmpChangeR(235,!4)
+
+#melody={
+	l4
+	IF(TIMIDITY=1) {
+		#A={V(105)VV(110)}
+		#F={V(105)VV(117)}
+		#B={V(110)VV(120)}
+		#C={V(90)VV(120)}
+		#D={V(70)VV(120)}
+		#E={V(80)VV(90)}
+		#G={V(65)VV(85)}
+		#H={V(95)VV(120)}
+		#I={V(115)VV(120)}
+	}
+	Q(100)
+	ET(100,110,!1.^1.,110,100,!1.^1.,100,110,!2.,110,100,!2.)
+	#F
+	f2.^ e-.#E d-8
+	d-2. #F g-2.^2
+	Q(95)  f4
+	Q(100) f #C e- #G d-
+	ET(70,90,!2.,90,60,!2.)
+	Q(95) #A b-2. b-2Q(80)b-4
+
+	ET(80,100,!2,100,80,!4)
+	Q(100) b-2 #B e-4
+	ET(80,90,!4,60,80,!4)
+	#C e-4f32g32f8.^8e-8
+	ET(80,100,!2.,80,70,!2.^4,80,100,!2.100,90,!2.)
+	e-2. #H a-2.^4
+	#H g4 #I f4
+	#H g4 #I f4.#C Q(90) e-8>
+	ET(60,100,!2.,100,70,!2.)
+	#A Q(95) c2.c2 Q(80)c4
+	ET(80,100,!2.,100,90,!1.)
+	Q(100) #C c2.^4<b-4.a-8
+	ET(90,100,!2,100,90,!4,90,80,!1.^2.)
+	a-2.>Q(85)d-2.
+	Q(100) d-2c4
+	EW(90,80,!4.)
+	c4<b-4.a-8>
+	ET(60,90,!2.,90,60,!2.)
+	Q(95) f2.f2 Q(90)f4
+	ET(70,115,!2.,115,90,!2.)
+	Q(95) f2.
+	Q(100) e-d-<b->
+	ET(90,115,!2.,115,90,!2.)
+	Q(95) c2.<
+	Q(100) b-a- Q(95) #F f
+	ET(90,115,!2.,115,90,!2.)
+	Q(100) #A b-a-Q(80) g-
+	Q(100) #B g-32a-32g-8.f4. #C e8
+	e2.Q(70) ET(90,80,!4,80,30,!4)f2
+	V(127)
+}
+
+#melody0={
+	Q(100)
+	b1.
+	b2.b-2.
+	b1.
+	'b-2.>d-2.<'
+	'a-2.>d-2.<'
+	'g1.>d-1.'
+	d-2.c2.
+	d-1.
+	c1.
+}
+
+#melody1={
+	Q(100) a-4
+	a-2.>
+	c4<b-4.a-8
+	a-2.>Q(90) d-2.
+	Q(100) d-4.c8c4
+	c4.<b-8 Q(80) a-4>
+	Q(100) f2.
+	f2 Q(80) f4
+	Q(100) f2.
+	e-4d-4.< Q(95) b-8>
+	Q(100) c2.<
+	b-4a-4 Q(85) b-4
+	Q(100) b2b-4
+	b2.^2 b-4
+	b4b-4 Q(95) b4
+	Q(100) b2 Q(90) b-4>
+	Q(95) b-2.^4.
+	c8c4
+	c4.f8e-4
+	d-4
+}
+
+#melody2={
+	r4
+	Q(100)
+	<a-2>c4^4
+	<b-4.a-8
+	a-2.> Q(90) 'd-2.a-2.'
+
+	Q(100)
+	Sub{'g-2a-2''g-4a-4'}
+	d-4.c8c4
+	'c4.g-4.a-4.''<b-8>g-8<' Q(80) 'a-4>g-4'
+	Q(100) 'f2.a-2.'
+	'f2a-2' Q(80) 'f4a-4'
+	'f2.a-2.'
+	'e-4g-4''d-4.g-4.'Q(95)'<b-8>g-8'
+	Q(100) 'c2.a-2.'<
+	Sub{b-4a-4 Q(95) b-4}>Q(100) g-4f4 Q(85) f4<
+
+	Q(100) Sub{b2b-4}>f2f4<
+	Sub{b2.^2 b-4}>f2.^2 f4<
+	Sub{b4b-4 Q(95) b4}>Q(100) f4f4 Q(95) f4<
+	Q(100) Sub{b2 Q(95) b-4}>Q(100) g-2 Q(90) g-4
+	Q(95) Sub{b-2.^4.}>g-2.^4.<
+	'c8g-8''c4g-4'
+	'c4.g-4.''f8a-8''e-4g-4'
+	'd-4f4'
+}
+
+TR(1)
+	#TM
+	#V_PICCOLO
+	EW(70,90,!16)
+	VV(100)
+	o7
+	[31 r2.]r2
+	Vibrate(!2,10)
+	IF(TIMIDITY=0) {
+		EW(110,70,!8)
+	} ELSE {
+		E(100)
+	}
+	#melody1
+	Vibrate(0,0)
+
+TR(2)
+	#TM
+	#V_OBOE
+	E(100)
+	VV(100)
+	o6Q(100)
+	Vibrate(!4,20)
+	#melody
+	#V_FLUTE3
+	IF(TIMIDITY=0) {
+		EW(110,70,!8)
+	} ELSE {
+		E(100)
+	}
+	VV(100)
+	Vibrate(!4,40)
+	#melody1
+	Vibrate(0,0)
+
+TR(3)
+	#TM
+	#V_CLARINET
+	E(110)
+	VV(110)
+	o5q100
+	Vibrate(!4.,10)
+	EW(60,45,!2.)
+	#melody0
+	[15 r2.]r2
+	o6q100
+	EW(110,80,!4)
+	#melody2
+	Vibrate(0,0)
+
+#chord1={
+	l8
+	d-a->d-fd-<a-
+	d-b>d-fd-<b
+	g-b>d-g-d-<b
+	g-b->d-g-d-<b-
+	a-b>d-a-d-<b
+	fb>d-fd-<b
+	g-b->d-g-d-<b-
+	eb->d-a-d-<b-
+	e-b->d-gd-<b-
+	gb->d-gd-<b-
+	a->d-e-a-e-d-<
+	a->ce-a-e-c<
+	b->d-e-b-e-d-<
+	gb->d-gd-<b-
+	a->ce-a-e-c<
+	ga->ce-c<a-
+	[g-a->ce-c<a-]
+	fa->d-fd-<a-
+	fa->d-a-d-<a-
+	[e-a->cg-c<a-]
+	da-b>f<ba-
+	da-b->f<b-a-
+	e-g-b->e-<b-g-
+	<g->g-b->e-<b-g-
+	[<a->fa->d-<a-f]
+	[<a->g-a->c<a-g-]
+	d-a->d-fd-<b-
+	a->d-fa-fd-<
+}
+
+#chord2={
+	l8
+	[g-a->ce-c<a-]
+	fa->d-fd-<a-
+	fa->d-a-d-<a-
+	[e-a->cg-c<a-]
+	da-b>f<ba-
+	da-b->f<b-a-
+	e-g-b->e-<b-g-
+	<g->g-b->e-<b-g-
+	[<a->fa->d-<a-f]
+	[4 <a->fa->d<a-f]
+	[<a->e-g->e-<g-e-]
+	[<a->e-g->c<g-e-]
+	#PEDALON Sub{l32 fa->d-f} r2 #PEDALOFF
+}
+
+TR(4)
+	#TM
+	#V_HARP
+	E(70)
+	VV(90)
+	o4
+	#chord1
+	#chord2
+
+#back={
+	'<a-1.>g-1.'
+	'<a-2.>f2.'
+	'd-2.a-2.'
+	Sub{g-1.}
+	c2.<a-2.>
+	Sub{f1.}
+	<b2.b-2a-4
+	'g-1.>e-1.'
+	'<f1.>d-1.'
+	Sub{<f2.^4f4f4}>d2.^4d4d4
+	'<f1.>d1.'
+	Sub{<g-2.^4g-4g-4}>e-2.^4e-4e-4
+	'<g-1.>e-1.'
+	'<f4>d-4'
+}
+TR(5)
+	#TM
+	#V_HORN
+	E(90)
+	VV(90)
+	o5q100
+	[32 r2.]
+	EW(90,120,!2.)
+	#back
+
+#bass1={
+	l4
+	#A
+	d-2.^4 e-f
+	g-2.d-2.
+	a-2.d-2.
+	g-2.#B e2.
+	#A
+	e-2.^4fg
+	a-2.e-2.
+	b-2.e-2.
+	a-2.g2.
+	g-2.^2.
+	f2.^2.
+	e-2.^2.
+	d2.b-2.
+	e-2.<g-2.
+	a-2.a-2.
+	a-2.a-2.>
+	d-2.<a-2.>
+}
+
+#bass2={
+	#A
+	g-2.^4g-4.#B g-8
+	#A f2.f2.
+	e-2.<a-2.>
+	d2.<b-2.>
+	e-2.<g-2.
+	a-2.^2.
+	#C
+	a-2.^4a-4a-4
+	a-2.^2.
+	#D
+	a-2.^4a-4a-4
+	a-2.^2.
+}
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	#A={EW(70,95,!16,95,100,!8,100,90,!1.)}
+	#B={EW(70,90,!16,90,95,!8,95,90,!1.)}
+	#C={EW(90,95,!32,90,100,!8,100,90,!1.)}
+	#C={EW(90,100,!32,100,105,!8,105,95,!1.)}
+	VV(100)
+	o3q100
+	#bass1
+	VV(110)
+	#bass2
+
+#tremoro1={
+	ET(70,110,!1.^1.)
+	'g-1a-1.>c1.e-1.<'
+	Sub{'f1.a-1'}>d-2.'f2a-2.<'
+	ET(110,100,!1.)
+	'a-1.>c1.g-1.'
+	ET(110,100,!1.)
+	Sub{'d1.f1.'}<b2.b-2a-4
+	ET(100,90,!1.^1.^1.^1.)
+	'g-1.b-1.>e-1.<'
+	'f1.a-1.>d-1.<'
+	Sub{'g-1.a-1.>c1.'}r2.e-2.<
+	ET(90,60,!1.)
+	'f1.a-1>d-1.<'
+}
+
+#tremoro2={
+	ET(80,110,!1.^1.)
+	'f1.^1.a-1.^1.>d1.^1.<'
+	'g-1.^1.a-1.^1.>c1.^1.e-1.^1.'
+}
+TR(11)
+	#TM
+	#V_TREMORO
+	[16 r2.]
+	o4
+	Q(100)VV(100)E(95)
+	#tremoro1
+	o4
+	[12 r2.]
+	#tremoro2
+
+TR(12)
+	#TM
+	#V_STRINGS2
+	[16 r2.]
+	o4
+	Q(100)VV(95)E(95)
+	#tremoro1
+	o4
+	[12 r2.]
+	#tremoro2
+ 
+/////////////////////////////////////////////////////// 
+// 008.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(246:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(220,0)
+	TmpChangeR(250,!2.)
+	TmpChangeR(260,!2.^2.^2.^2.^2.^2.)
+	TmpChangeR(240,!2.^2.^2.^2.)
+	TmpChangeR(230,!2.)
+	TmpChangeR(160,!2.^2.)
+	r2
+	TmpChangeR(60,0)
+
+#melody1={
+	l8
+	r2.
+	Q(75)
+	[
+		V(100)
+		#AAV<f>#BBV d-a-f>d- V(115) b-
+		'c2a-2'r4<
+		V(100)
+		#AAV<g->#BBV ca-g->c V(115)a-
+		'd-2f2'r4<
+	]
+	Q(65)
+	#AAV<f>#BBV d-a-f>d-a-
+	d-<f #CCV a- #BBV d-< #CCV f #BBV a-
+}
+#melody2={
+	l8
+	Q(65)
+	V(90)
+	d-<fa-d-<fa-
+}
+TR(6)
+	#TM
+	#V_VIOLIN
+	Vibrate(!8,20)
+	o6
+	VV(120)
+	EW(127,60,!16)
+	Q(80)
+	IF(TIMIDITY=1) {
+		#AAV={#V_VIOLA}
+		#BBV={#V_VIOLIN}
+		#CCV={#V_PIZZ2}
+	}
+	#melody1
+	r2.
+	r2.
+	ET(127,40,!1,40,0,!1)
+	#Q100 >>'d-1f1>d-1'
+
+#AAV={""}
+#BBV={""}
+#CCV={""}
+
+TR(7)
+	#TM
+	#V_VIOLA
+	o5
+	[11 r2.]
+	VV(115)
+	Q(80)
+	EW(127,80,!16)
+	#melody2
+	r2.
+	ET(127,40,!1,40,0,!1)
+	#Q100 >>'d-1>d-1'
+
+TR(8)
+	#TM
+	#V_STRINGS1
+	o6
+	VV(127)
+	EW(127,80,!16)
+	Q(60)
+	#melody1
+	#melody2
+	r2.
+	ET(127,40,!1,40,0,!1)
+	#Q100 >>'d-1>d-1'
+
+#cello={
+	l8
+	EW(127,100,!8,100,50,!2)
+	[3
+		r2 #Q95 <a->f>#Q90 d-2r4<
+		:
+		r2 #Q95 <a->e->#Q90 c2r4<
+	]
+	[2 r2.]
+	#Q100
+	'<d-4>d-4' r2
+	>>
+	ET(127,40,!1,40,0,!1)
+	'<d-1>d-1'
+}
+
+TR(9)
+	#TM
+	#V_CELLO
+	o4
+	#cello
+
+TR(11)
+	#TM
+	#V_STRINGS1
+	o4
+	#cello
+
+#bass1={
+	#Q95
+	[d-2.^2r4 < a-2.^2r4>]
+	EW(127,0,!1.^4)
+	d-2.^2.^2.r2 r4
+}
+#bass2={
+	d-2.^1
+}
+TR(12)
+	#TM
+	#V_CONTRABASS
+	o3VV(127)
+	EW(127,90,!16)
+	#bass1
+	EW(127,90,!1.)
+	#bass2
+
+
+#brass={
+	[3
+		'f>d-<'rr
+		rrr
+		:
+		'e->c<'rr
+		rrr
+	]
+	rrrrrr
+	<d-rr >
+	ET(127,00,!1)
+	'f1>d-1'
+}
+
+TR(13)
+	#TM
+	#V_TRUMPET
+	o6
+	VV(100)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(14)
+	#TM
+	#V_TROMBONE
+	o5
+	VV(100)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(15)
+	#TM
+	#V_HORN
+	o4
+	l4
+	VV(100)E(127)Q(80)
+	EW(127,100,!4,60,!2.)
+	[
+		'a-1>f1<' [2 'a->f<']
+		'a-1>e-1<' [2 'a->e-<']
+	]
+	ET(127,0,!1.^2)
+	'a-1.^1.>f1.^1.<'
+	ET(127,20,!1.)
+	d-4rr 'a-1>f1'
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS2
+	#r1={
+		VS2=25
+		r-2
+		Sub{[10 VS2=VS2+5 RandV(VS2, VS2+3) n(40),20]}r2
+		Rythm{'b1s1o1'o4o4}
+	}
+	#r2={
+		VS2=25
+		r-2
+		Sub{[10 VS2=VS2+5 RandV(VS2, VS2+3) n(40),20]}r2
+		Rythm{'b2.s2.o2.'}
+	}
+	#r3={
+		Rythm{'b2.s2.o2.'}
+		Sub{Rythm{'b2.s2.c2.'}}
+		Expression.onTime(127,0,!1^1)
+		[24 Rythm{o24}]
+	}
+	[4 #r1]
+	#r2
+	[3 r2.]
+	#r3
+ 
+/////////////////////////////////////////////////////// 
+// 009.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(262:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(120,0)
+	[
+		TmpChangeR(150,!1.)
+		TmpChangeR(100,!4)
+		:
+		TmpChangeR(135,!2)
+		TmpChangeR(120,!2.)
+	]
+	TmpChangeR(90,!2)
+	TmpChangeR(100,!2.)
+	TmpChangeR(80,!1.^1)
+	TmpChangeR(40,!8)
+	TmpChangeR(30,0)
+
+TR(1)
+	#TM
+	#V_HORN
+	V(90)VV(80)Q(100)
+	o5
+	[
+		ET(127,100,!2.,127,60,!2.^2.^2.)
+		Q(100)e2.Q(96)f#2.^2.^2.
+	]
+	ET(100,40,!1.^1.)
+	Q(100)
+	e2.^2.
+	c#2.^2
+
+TR(2)
+	#TM
+	#V_HORN
+	V(90)VV(70)Q(100)
+	o5
+	l4
+	[
+		ET(95,90,!2., 90,70,!2.^4, 70,90,!2, 90,70,!2)
+		Q(98)c#2.^2.^4
+		:
+		Q(100)<b>c#ed4c#4
+	]
+	<b>c#ed4.c#8
+	ET(90,80,!1.)
+	c#2.<b2a4
+
+TR(3)
+	#TM
+	#V_HORN
+	V(90)VV(70)Q(100)
+	o4
+	[
+		ET(127,100,!2.,127,60,!2.^2.^2.)
+		Q(100)e2.Q(95)f#2.^2.^2.
+	]
+	ET(100,70,!1.^1.)
+	g#2.^2r4
+
+TR(8)
+	#TM
+	#V_BASSTROMBONE
+	V(90)VV(55)Q(98)
+	o3
+	[
+		ET(127,100,!2.,127,70,!2.^2.^2.)
+		a1.^1.
+	]
+	>
+	ET(110,90,!1,100,50,!1.^1.)
+	d2.^2c#4
+	e2.^2
+
+TR(9)
+	#TM
+	#V_TUBA
+	V(90)VV(90)Q(100)
+	o2
+	[
+		ET(127,100,!2.,127,70,!2.^2.^2.)
+		a2.>Q(95)d2.^2.^2.<
+	]
+	ET(110,60,!1.^1.)
+	Q(100)
+	VV(70)>e2.^2<
+	VV(85)a4^2.^2
+ 
+/////////////////////////////////////////////////////// 
+// 010.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(274:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(130,0)
+	TmpChangeR(190,!2.)
+	TmpChangeR(150,!2.)
+	TmpChangeR(190,!2)
+	TmpChangeR(150,!4)
+	TmpChangeR(180,!4.)
+	TmpChangeR(100,!4.)
+	TmpChangeR(70,0)
+	TmpChangeR(200,!2.)
+	TmpChangeR(160,!2.)
+	TmpChangeR(110,!2)
+	TmpChangeR(65,!4)
+	TmpChangeR(50,0)
+
+TR(1)
+	#TM
+	#V_FLUTE2
+	VV(65)Q(95)
+	Vibrate(!8.,20)
+	o6
+	ET(80,100,!2.)
+	c#2.
+	ET(100,80,!2.)
+	<b32>c#32<b4^16a8b4>
+	ET(80,110,!2.)
+	c#4.d8c#4
+	ET(110,80,!2.)
+	<b32>c#32<b4^16a8b4>
+	ET(90,0,!2.^2.^2.^2.)
+	c#2.^2.^2.r2.
+
+TR(2)
+	#TM
+	#V_HARP
+	E(100)
+	Q(100)
+	IF(TIMIDITY=1) {
+		VV(35)
+	} ELSE {
+		VV(85)
+	}
+	o5
+	[4 r2.]
+	l8
+	ET(80,100,!2.)
+	rc#[>c#<g#]
+	ET(100,60,!1.)
+	>[g#c#][>c#<g#]>[g#c#]
+	ET(60,40,!4)
+	>c#4r2
+
+TR(3)
+	#TM
+	#V_CELLO
+	VV(65)Q(95)
+	o4l4
+	EW(65,100,!16.,100,70,!2)
+	r2'ega#'
+	'df#b'r'f#a>d<'
+	'e#2g#2>c#2<''ega#'
+	'df#b'r'f#a>d<'
+	Q(100)
+	ET(100,0,!2.^2.^2.)
+	'g#2.^2.^2.>f2.^2.^2.'
+
+TR(4)
+	#TM
+	#V_CONTRABASS
+	VV(90)Q(100)
+	[4 r2.]
+	o4
+	ET(110,0,!2.^2.^2.)
+	Sub{c#2.^2.^2.}
+	r2.<c#2.^2.
+ 
+/////////////////////////////////////////////////////// 
+// 011.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(282:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(130,0)
+	[
+		TmpChangeR(170,!1.)
+		TmpChangeR(130,!4)
+		:
+		TmpChangeR(140,!2)
+		TmpChangeR(130,!2.)
+	]
+	TmpChangeR(125,!2)
+	TmpChangeR(120,!2.)
+
+	TmpChangeR(60,0)
+	TmpChangeR(130,!2)
+	TmpChangeR(100,!8)
+	TmpChangeR(150,!8)
+	TmpChangeR(70,!1.^1)
+	TmpChangeR(40,0)
+
+TR(1)
+	#TM
+	#V_HORN
+	V(95)VV(85)Q(95)
+	o5
+	ET(127,100,!2.,127,80,!2.^2.^2.)
+	e2.f#2.^2.^2.
+	ET(127,100,!2.,127,80,!2.^2.^2.)
+	e2.f#2.^2.^2.^2.
+	Q(98)ET(100,70,!1.^1.)
+	e2.^2.
+	c#2.^2
+
+TR(2)
+	#TM
+	#V_HORN
+	V(95)VV(120)Q(100)
+	o5
+	l4
+	[
+		ET(127,100,!2., 100,90,!2.^4, 90,1127,!2, 1127,90,!2)
+		Q(100)
+		c#2.^2.^4
+		<b>c#ed4.Q(92)c#8
+	]
+	ET(90,127,!8,127,110,!2^8)
+	c#16a8.f#4Q(85)d4
+	ET(110,80,!1.)
+	Q(100)c#2.<b2a4
+
+TR(3)
+	#TM
+	#V_HORN
+	V(95)VV(90)Q(95)
+	o4
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	e2.f#2.^2.^2.
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	e2.f#2.^2.^2.^2.
+	ET(100,70,!1.^1.)
+	Q(100)g#2.^2r4
+
+TR(8)
+	#TM
+	#V_BASSTROMBONE
+	V(95)VV(90)Q(95)
+	o3
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a1.^1.
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a1.^1.^2.
+	>
+	ET(100,70,!2.^2,80,40,!1.^1.)
+	Q(100)
+	e2.d2c#4
+	e2.^2
+
+TR(9)
+	#TM
+	#V_TUBA
+	V(95)VV(110)Q(98)
+	o2
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a2.>Q(95)d2.^2.^2.<
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a2.>Q(95)d2.^2.^2.^2.<
+	ET(110,90,!1.^1.)
+	Q(100)>e2.^2<
+	a4^2.^2
+ 
+/////////////////////////////////////////////////////// 
+// 012.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(295:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(85,0)
+	r1.
+	TmpChangeR(80,0)
+	TmpChangeR(130,!2)
+	TmpChangeR(100,!4)
+	TmpChangeR(54,!0)
+	r8
+	TmpChangeR(200,0)
+	TmpChangeR(170,!4)
+	TmpChangeR(180,!4)
+	TmpChangeR(210,!2)
+	TmpChangeR(160,!4.)
+	TmpChangeR(140,!2.)
+	TmpChangeR(110,!2.)
+	TmpChangeR(140,!1.)
+	TmpChangeR(80,!2.)
+
+TR(1)
+	#TM
+	#V_CLARINET
+	Vibrate(!8.,20)
+	V(80)VV(85)Q(100)
+	o6
+	l8
+	ET(60,70,!16,70,50,!2,50,127,!1,127,60,!2.)
+	c#1.^d#f#eVV(75)c#<VV(65)a
+	ET(80,127,!2.)
+	VV(50)g#32g#32>VV(85)g#8.^2
+	ET(80,127,!8,127,90,!2^8)
+	f#32g#32f#4^16e8f#4
+	ET(100,127,!2,127,100,!4)
+	g#4.a8g#4
+	ET(80,127,!8,127,90,!2^8)
+	f#32g#32f#4^16e8f#4
+	ET(95,50,!1.^1.)
+	g#2.^2.^2.
+ 
+TR(2)
+	#TM
+	#V_HARP
+	E(100)
+	IF(TIMIDITY=1) {
+		VV(45)
+	} ELSE {
+		VV(85)
+	}
+	Q(100)
+	o5
+	l8[8 r2.]
+	ET(80,100,!2.,100,70,!2.,70,0,!8)
+	r4.g#>[g#d#][>d#<g#]>g#r
+
+
+TR(3)
+	#TM
+	#V_HORN
+	VV(70)Q(95)
+	o4l4
+	EW(100,70,!2)
+	[3 r2.]
+	r2 'b>df<'
+	'a>c#f#'r'c#ea'
+	'c2d#2g#2''<b>df<'
+	'a>c#f#'r'c#ea'
+	Q(100)
+	ET(100,0,!2.^2.^2.)
+	'c1.^1g#1.^1'
+
+TR(4)
+	#TM
+	#V_CONTRABASS
+	o4
+	VV(100)Q(100)
+	[7 r2.]
+	ET(20,60,!8,60,100,!8,100,0,!2.^2.^2.)
+	g#1.^1
+
+TR(5)
+	#TM
+	#V_CONTRABASS
+	o4
+	VV(100)Q(100)
+	[7 r2.]
+	<r2.
+	ET(20,60,!8,60,100,!8,100,0,!2.^2.)
+	g#1.^4
+ 
+/////////////////////////////////////////////////////// 
+// 013.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(305:2:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(100,0)
+	TmpChangeR(120,!2)
+	TmpChangeR(150,!2.)
+	TmpChangeR(160,!2.)
+	TmpChangeR(150,!2.)
+	TmpChangeR(165,!2.)
+	r2.
+	TmpChangeR(160,!2.)
+	TmpChangeR(165,!2.)
+	TmpChangeR(160,!2.^2,^1.)
+	TmpChangeR(165,!2.^2.)
+	r2.r2.
+	TmpChangeR(160,!2.)
+	TmpChangeR(155,!2.)
+	TmpChangeR(140,!4)
+	TmpChangeR(125,0)
+	r2
+	TmpChangeR(155,!2.)
+	TmpChangeR(160,!2.)
+	TmpChangeR(155,!1.)
+	TmpChangeR(160,!2.)
+	TmpChangeR(140,!2.)
+	TmpChangeR(80,!1.)
+
+TR(15)
+	#TM
+	#V_OBOE
+	VV(80)Q(100)
+	Vibrate(!8.,20)
+	o6
+	ET(90,110,!4,110,100,!4)
+	l4g#f#
+	ET(100,90,!4,90,0,!2.)
+	e2.r
+	ET(100,127,!4,127,90,!4)
+	ed#
+	ET(90,70,!4,70,0,!2.)
+	c#2.r
+	ET(95,127,!4,127,105,!4)
+	g#f#
+	ET(105,90,!4,90,0,!2.)
+	e2.r
+	ET(100,127,!4,127,90,!4)
+	ed#
+	ET(90,90,!4,90,0,!2.)
+	c#2.r
+	ET(100,127,!4,127,110,!4)
+	>c#<b
+	ET(110,90,!4,90,0,!2.)
+	a2.r
+	ET(100,127,!4,127,110,!4)
+	ag#
+	ET(110,90,!4,90,0,!2.)
+	f#2.r
+	ET(100,127,!4,127,110,!4)
+	>c#<b
+	ET(110,90,!4,90,0,!2.)
+	a2.r
+	ET(100,127,!4,127,110,!4)
+	ag#
+	ET(110,90,!4,90,100,!2,100,127,!4)
+	f#2.r
+	g#a
+
+	ET(127,90,!4,90,0,!2.)
+	g#2.
+	r
+	ET(100,127,!4,127,110,!4)
+	f#e
+	ET(110,90,!4,90,0,!2.)
+	d#2.r
+	ET(100,127,!4,127,100,!4)
+	d#c#
+	ET(100,90,!4,90,0,!2.)
+	c2.
+	r
+	ET(100,127,!4,127,110,!4)
+	f#e
+	ET(110,90,!4,90,127,!2,127,50,!4)
+	d#2.^
+	eQ(70)f#
+
+TR(2)
+	#TM
+	#V_FLUTE2
+	VV(60)Q(95)
+	Vibrate(!8.,20)
+	o5
+	l4rr
+	EW(110,100,!8)
+	r4g8g#8b12a12g#12
+	EW(110,40,!2.)
+	Q(80)g#2.^
+	[
+		EW(110,100,!8)
+		Q(95)g8g#8b12a12g#12
+		EW(110,60,!2.)
+		Q(80)g#2.^
+	]
+	>
+	[5
+		EW(110,100,!8)
+		Q(95)c8c#8e12d12c#12
+		EW(110,90,!2.)
+		:
+		Q(80)c#2.^
+	]
+	c#2r
+	<
+	EW(110,100,!8)
+	Q(95)r4g8g#8b12a12g#12
+	[
+		EW(110,90,!2.)
+		Q(80)g#2.^
+		EW(110,100,!8)
+		Q(95)g8g#8b12a12g#12
+	]
+	EW(110,90,!2.)
+	Q(80)g#2.
+	EW(110,100,!8)
+	r4a#8b8>d#12c#12<b12
+	ET(100,40,!4)
+	b4
+
+TR(7)
+	#TM
+	#V_EHORN
+	VV(80)Q(100)
+	o4
+	r2
+	[16 r2.]
+	l2.
+	ET(90,110,!1.,110,100,!1.)
+	d#
+	e
+	f#
+	e
+	ET(90,120,!1.,120,0,!1.)
+	f#
+	g#
+	a2.^4
+
+TR(8)
+	#TM
+	#V_VIOLA
+	IF(TIMIDITY=1) {
+		VV(40)
+	} ELSE {
+		VV(55)
+	}
+	Q(99)
+	Vibrate(!2,5)
+	o5l4
+	r2
+	ET(100,90,!2.)
+	re<g#2
+	ET(100,90,!2.)
+	b#g#2
+	ET(100,90,!2.)
+	>c#<g#2
+	ET(100,90,!2.)
+	>d#<g#2
+	ET(100,90,!2.)
+	>e<g#2
+	ET(100,90,!2.)
+	b#g#2
+	ET(100,90,!2.)
+	>c#<g#2
+	ET(100,90,!2.)
+	>g#c#2
+	ET(100,90,!2.)
+	ac#2
+	ET(100,90,!2.)
+	e#c#2
+	ET(100,90,!2.)
+	f#c#2
+	ET(100,90,!2.)
+	g#c#2
+	ET(100,90,!2.)
+	ac#2
+	ET(100,90,!2.)
+	e#c#2
+	ET(100,90,!2.)
+	f#c#2
+	ET(100,90,!2.)
+	c#<f#
+	[3
+		ET(100,90,!2.)
+		rb#f#
+		ET(100,90,!2.)
+		r>c#<g#
+	]
+	r
+	ET(80,127,!2,127,10,!4)
+	Sub{f#2^4}
+	Sub{ra4^4}
+	Sub{rr>d#4}
+
+TR(9)
+	#TM
+	#V_CELLO
+	o4
+	VV(70)Q(90)
+	r2
+	l2.
+	EW(60,127,!8,127,90,!4,90,80,!2)
+	Vibrate(!4,20)
+	c#'d#f#'ec
+	c#'d#f#'e'fb'
+	'f#a''g#b'af
+	'f#a''g#b'a<a
+	g#>e<g#>e<
+	g#>e<b2.^4r2
+
+ 
+/////////////////////////////////////////////////////// 
+// 014.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(330:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(160,0)
+	TmpChangeR(260,!2)
+	TmpChangeR(285,!1)
+	[22 r2.]
+	TmpChangeR(250,!2.^2.^2.^2.^2.^2.)
+	TmpChangeR(150,0)
+
+TR(1)
+	#TM
+	#V_CLARINET3
+	VV(100)Q(99)
+	o5l8
+
+	IF(TIMIDITY=0) {
+		EW(127,90,!16.,90,75,!16)
+	} ELSE {
+		E(127)
+	}
+
+	IF(TIMIDITY=1){Q(95)}ELSE{Q(99)}
+	IF(TIMIDITY=1) { r-64 }
+	g#b>
+	IF(TIMIDITY=1) { r64 r-42}
+	eg#f#e
+	g#b>eg#f#e
+	<bg#f#e<bg#
+	f#e<b>g#f# Q(45)e
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	[3 c#ef#a>]
+	<
+	g#f#d#<ag#f#
+	d#<b>d#c#<b Q(45)a
+
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	[g#b>eg#f#e]
+	<bg#f#e<bg#
+	f#e<b>g#f# Q(45)e
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	[3 c#ef#a>]
+	<
+	g#f#d#<ag#f#
+	d#<b>d#c#<b Q(45)a
+
+	[
+		IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+		[g#b>eg#f#e]
+		[2 c<af#e]
+		[1 c<af# Q(45)e]
+	]
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	r4
+	[4 b>eag#]
+	[4 e<bag#]
+	IF(TIMIDITY=1){r42}
+
+TR(8)
+	#TM
+	#V_CELLO
+	VV(100)Q(80)
+	l4o4
+	[2
+		[3
+			ET(110,100,!2)
+			r Sub{'b2>e2<'}rg#
+		]
+		r2.
+		[2
+			ET(110,100,!2)
+			r Sub{'a2>c#2<'}rf#
+		]
+			ET(110,100,!2)
+		r'b2^2.>d#2^2.<'
+	]
+	[
+		[2
+			ET(110,100,!2)
+			r Sub{'b2>e2<'}rg#
+		]
+		a4>c2^2r4<
+	]
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o4
+	EW(127,110,!8,110,100,!2)
+	l4
+	[
+		e2.
+		d#2.
+		c#4r2<
+		b2.
+		a2.
+		f#2.
+		b2>f#
+		g#f#g#
+	]
+	e2.<
+	b2.
+	a4>c2^2r4
+	<
+	e2.<
+	b2.
+	a4>c2^2r4
+	e2.^2.>
+	e2.^2.
+	r2.
+	l8
+	EW(127,80,!16.,80,75,!16)
+	e<bag#e<b
+	EW(127,80,!16,80,40,!2.)
+	e2.
+
+TR(3)
+	#TM
+	#V_TUBA
+	VV(100)Q(95)
+	Vibrate(!24,30)
+	o4
+	EW(127,110,!8,110,100,!2)
+	l4
+	[
+		e2.
+		d#2.
+		c#4r2<
+		b2.
+		a2.
+		f#2.
+		b1.>
+	]
+	e2.<
+	b2.
+	a4>c2^2r4
+	<
+	e2.<
+	b2.
+	a4>c2^2r4
+	ET(110,127,!1.,127,50,!1.^1.^2.)
+	e2.^2.^2.^2.^2.^2.^2.
+
+TR(5)
+	#TM
+	#V_HORN
+	VV(100)E(110)Q(85)
+	o5
+	l4
+	EW(127,90,!8)
+	[
+		[4 r '<g#2>e2']
+		[2 r '<a2>e2']
+		r'<f#2^2.>d#2^2.'
+	]
+	[
+		[2 r '<g#2>e2']
+		a4>c2^2r4<
+	]
+	r2.r2.
+	EW(127,60,!1.^1.)
+	'<g#1.^1.>e1.^1.<'
+
+TR(11)
+	#TM
+	#V_TRUMPET
+	VV(110)Q(95)
+	o5
+	EW(127,100,!4)
+	[18 r2.]
+	Sub{a4>c2^2r4}
+	a4>c2^2r4
+	r2.r2.
+	<<
+	a4>c2^2r4
+
+TR(12)
+	#TM
+	#V_TROMBONE
+	VV(110)Q(95)
+	o4
+	EW(127,100,!4)
+	[18 r2.]
+	a4>c2^2r4<
+	r2.r2.
+	a4>c2^2r4
+
+TR(14)
+	#TM
+	#V_PICCOLO
+	VV(127)E(127)Q(95)
+	o7
+	EW(127,90,!8,90,50,!1)
+	[18 r2.]
+	a4>c2^2r4<
+	r2.r2.
+	a4>c2^2r4
+
+
+TR(13)
+	#TM
+	#V_TIMPANI2
+	E(127)VV(127)
+	o3
+	[18 r2.]
+	a4>c2^2r4<
+	r2.r2.
+	a4>c2^2r4<
+	#V_TIMPANI1
+	Int VS4=10
+	[3
+		[9 VS4=VS4+3 RandV(VS4,VS4+10) e12]
+	]
+	[3
+		[9 VS4=VS4-3 RandV(VS4,VS4+10) e12]
+	]
+
+TR(15)
+	#V_HARP
+	VV(125)E(115)
+	[26 r2.]
+	l16o4
+	#PEDALON BGHARP(eb>eb>eg#)
+	r1.
+	r1.
+	#PEDALOFF
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(100)
+	Int VS3
+	#r1={
+		Rythm{b4's8o8'o8'S4o4'}
+		Rythm{b4's4o4''S4o4'}
+	}
+	#r2={
+		VS3=80
+		Rythm{b4}
+		Sub{[5 Rythm{S4}]}
+		Sub{[24 VS3=VS3-2 RandV(VS3-10,VS3) Rythm{O18}]}
+		r2.r2
+	}
+	#r3={
+		Rythm{'b4S4c4o4'}Rythm{'b4s4c4o4'}
+		r1
+	}
+	[
+		[3 #r1]
+		#r2
+	]
+	ET(100,127,!1)
+	[
+		#r1
+		#r3
+	]
+	Rythm{g1.}
+	VS3=110
+	Sub{Rythm{'b4s4c4'}}
+	Sub{[56 VS3=VS3-2 RandV(VS3-10,VS3) Rythm{O18}]}
+ 
+/////////////////////////////////////////////////////// 
+// 015.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(362:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(150,0)
+	[
+		TmpChangeR(170,!1.)
+		TmpChangeR(165,!4)
+		TmpChangeR(160,!2)
+		TmpChangeR(150,!2.)
+	]
+	TmpChangeR(70,0)
+	TmpChangeR(150,!2)
+	TmpChangeR(130,!8)
+	TmpChangeR(150,!8)
+	TmpChangeR(60,!1.^1)
+	TmpChangeR(30,!2)
+
+TR(1)
+	#TM
+	#V_HORN
+	VV(90)Q(100)
+	o5
+	ET(127,100,!2.,127,80,!2.^2.^2.)
+	e2.f#2.^2.^2.
+	ET(127,100,!2.,127,80,!2.^2.^2.)
+	e2.f#2.^2.^2.^2.
+	ET(100,40,!1.^1.)
+	e2.^2.
+	c#2.^2
+
+TR(11)
+	#TM
+	#V_TROMBONE
+	VV(90)Q(100)
+	o5
+	ET(127,100,!2.,127,60,!2.^2.^2.)
+	e2.f#2.^2.^2.
+	ET(127,100,!2.,127,60,!2.^2.^2.)
+	e2.f#2.^2.^2.^2.
+	ET(100,50,!1.^1.)
+	e2.^2.
+	c#2.^2
+
+TR(4)
+	#TM
+	#V_VIOLA
+	VV(90)Q(100)
+	o5
+	ET(127,100,!2.,127,60,!2.^2.^2.)
+	e2.f#2.^2.^2.
+	ET(127,100,!2.,127,60,!2.^2.^2.)
+	e2.f#2.^2.^2.^2.
+	ET(100,30,!1.^1.)
+	e2.^2.
+	c#2.^2
+
+
+TR(2)
+	#TM
+	#V_HORN
+	VV(125)Q(100)
+	o5
+	l4
+	[
+		ET(127,100,!2., 100,90,!2.^4, 90,1127,!2, 1127,90,!2)
+		c#2.^2.^4
+		<b>c#ed4.c#8
+	]
+	ET(90,127,!8,127,110,!2^8)
+	c#16a8.f#4d4
+	ET(110,80,!1.)
+	c#2.<b2a4
+
+TR(12)
+	#TM
+	#V_TRUMPET2
+	VV(127)Q(100)
+	o5
+	l4
+	[
+		ET(127,100,!2., 100,90,!2.^4, 90,1127,!2, 1127,90,!2)
+		c#2.^2.^4
+		<b>c#ed4.c#8
+	]
+	ET(90,127,!8,127,110,!2^8)
+	c#16a8.f#4d4
+	ET(110,50,!1.)
+	c#2.<b2a4
+
+TR(5)
+	#TM
+	#V_VIOLIN
+	VV(90)Q(100)
+	Vibrate(!4,30)
+	o5
+	l4
+	[
+		ET(127,100,!2., 100,90,!2.^4, 90,1127,!2, 1127,90,!2)
+		c#2.^2.^4
+		<b>c#ed4.c#8
+	]
+	ET(90,127,!8,127,110,!2^8)
+	c#16a8.f#4d4
+	ET(110,0,!1.^2.)
+	c#2.<b2a4>c#2.
+
+TR(6)
+	#TM
+	#V_PICCOLO
+	VV(127)Q(100)
+	o7
+	l4
+	[
+		ET(127,100,!2., 100,90,!2.^4, 90,1127,!2, 1127,90,!2)
+		Q(100)c#1.^<b>c#ed4r8c#8
+	]
+	ET(90,127,!8,127,110,!2^8)
+	c#16a8.f#4d4
+	ET(110,0,!1.^2.)
+	c#2.<b2a4>c#2.
+
+TR(7)
+	#TM
+	#V_CLARINET
+	VV(127)Q(100)
+	o5
+	l4
+	[
+		ET(127,100,!2., 100,90,!2.^4, 90,1127,!2, 1127,90,!2)
+		c#2.^2.^4
+		<b>c#ed4.c#8
+	]
+	ET(90,127,!8,127,110,!2^8)
+	c#16a8.f#4d4
+	ET(110,0,!1.^2.)
+	c#2.<b2a4>c#2.
+
+TR(3)
+	#TM
+	#V_HORN
+	VV(90)Q(100)
+	o4
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	e2.f#2.^2.^2.
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	e2.f#2.^2.^2.^2.
+	ET(100,50,!1.^1.)
+	g#2.^2r4
+
+TR(13)
+	#TM
+	#V_TROMBONE
+	VV(90)Q(100)
+	o4
+	ET(127,100,!2.,127,50,!2.^2.^2.)
+	e2.f#2.^2.^2.
+	ET(127,100,!2.,127,50,!2.^2.^2.)
+	e2.f#2.^2.^2.^2.
+	ET(100,50,!1.^1.)
+	g#2.^2r4
+
+
+TR(8)
+	#TM
+	#V_BASSTROMBONE
+	VV(90)Q(100)
+	o3
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a1.^1.
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a1.^1.^2.
+	>
+	ET(100,70,!2.^2,80,30,!1.)
+	e2.d2c#4
+	e2.^2
+
+TR(9)
+	#TM
+	#V_TUBA
+	VV(110)Q(100)
+	o2
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a2.>d2.^2.^2.<
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a2.>d2.^2.^2.^2.<
+	ET(110,50,!1.^1.)
+	>e2.^2<
+	a4^2.^2
+
+TR(14)
+	#TM
+	#V_TIMPANI1
+	Int VS5=40
+	o3
+	VV(127)
+	[
+		[1 Sub{[12 VS5=VS5+3 RandV(VS5,VS5+10) a16]}r2.]
+		[3 Sub{[12 VS5=VS5-1 RandV(VS5,VS5+10) >d16<]}r2.]
+	]
+	[1 Sub{[12 VS5=VS5-1 RandV(VS5,VS5+10) >d16<]}r2.]
+	VS5=40
+	[20 VS5=VS5+3 RandV(VS5,VS5+10) e16] RandV(VS5,VS5+10)
+	#V_TIMPANI2
+	a4
+	VS5=VS5-10
+	RandV(VS5,VS5+10) a2.
+
+TR(15)
+	#TM
+	#V_CONTRABASS
+	VV(110)Q(100)
+	o2
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a2.>d2.^2.^2.<
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a2.>d2.^2.^2.^2.<
+	ET(110,0,!1.^1.)
+	>e2.^2<
+	a4^2.^2
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(110)
+	Int VS6
+	[
+		Sub{
+			Rythm{'b2.s2.c2.'}
+			Rythm{'b2.s2.c2.'}
+		}
+		VS6=80
+		Sub{[60 VS6=VS6-1 RandV(VS6,VS6+10) Rythm{O18}]}
+		r1.r1.
+	]
+	r2.
+	Sub{
+		Rythm{'b2.s2.c2.'}
+		Rythm{'b2s2c2' s4}
+		Rythm{'b2.s2.'}
+	}
+	VS6=80
+	Sub{[60 VS6=VS6-3 RandV(VS6,VS6+10) Rythm{O18}]}
+	r1.r1.
+ 
+/////////////////////////////////////////////////////// 
+// 016.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(375:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(130,0)
+	TmpChangeR(135,!2)
+	TmpChangeR(140,!4)
+	TmpChangeR(70,0)
+	r8
+	TmpChangeR(180,0)
+	TmpChangeR(150,!4.)
+	TmpChangeR(140,!4)
+	TmpChangeR(130,!2)
+	TmpChangeR(120,!4)
+	TmpChangeR(80,0)
+	r8
+	TmpChangeR(180,0)
+	TmpChangeR(130,!4.)
+	TmpChangeR(90,!4.)
+
+	TmpChangeR(60,0)
+	TmpChangeR(190,!2.)
+	TmpChangeR(160,!2.)
+	TmpChangeR(110,!2)
+	TmpChangeR(65,!4)
+	TmpChangeR(56,!1^1)
+
+TR(1)
+	#TM
+	#V_VIOLIN2
+	VV(100)Q(100)
+	Vibrate(!8.,20)
+	o6
+	ET(80,100,!2.)
+	c#2.
+	ET(90,110,!2,110,80,!2.)
+	VV(96)<b32>c#32<VV(100)b4^16a8 Q(95)b4>
+	ET(80,120,!2.)
+	Q(100)c#4.d8c#4
+	ET(90,110,!2,110,100,!2.)
+	VV(96)<b32>c#32<VV(100)b4^16a8 b4>
+	ET(100,0,!2.^2.^2.^2.)
+	c#2.^2.^2.^2.
+
+TR(2)
+	#TM
+	#V_HARP
+	VV(60)Q(100)
+	o5
+	[4 r2.]
+	l8
+	ET(80,100,!2.)
+	rc#[>c#<g#]
+	ET(100,50,!1.)
+	>[g#c#][>c#<g#]>[g#c#]
+	>c#4r2
+
+TR(3)
+	#TM
+	#V_CELLO
+	VV(80)Q(95)
+	o4l4
+	EW(100,70,!2)
+	r2'ega#'
+	'df#b'r'f#a>d<'
+	'e#2g#2>c#2<''ega#'
+	'df#b'r'f#a>d<'
+	Q(100)
+	ET(100,0,!2.^2.^2.)
+	'g#2.^2.^2.>f2.^2.^2.'
+
+TR(4)
+	#TM
+	#V_CONTRABASS
+	VV(100)Q(100)
+	[4 r2.]
+	o4
+	ET(100,0,!2.^2.^2.)
+	Sub{c#2.^2.^2.}
+	r2.<c#2.^2.
+ 
+/////////////////////////////////////////////////////// 
+// 017.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(383:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(140,0)
+	[
+		TmpChangeR(170,!1.)
+		TmpChangeR(130,!4)
+		TmpChangeR(140,!2)
+		TmpChangeR(130,!2.)
+	]
+	TmpChangeR(20,0)
+	TmpChangeR(90,!16)
+	TmpChangeR(50,!16)
+	TmpChangeR(90,!8.)
+	TmpChangeR(80,!2^16)
+	TmpChangeR(135,0)
+	TmpChangeR(123,!8)
+	TmpChangeR(145,!8)
+	TmpChangeR(60,!1.)
+
+TR(1)
+	#TM
+	#V_HORN
+	VV(90)Q(100)
+	o5
+	ET(127,100,!2.,127,80,!2.^2.^2.)
+	e2.f#2.^2.^2.
+	ET(127,100,!2.,127,80,!2.^2.^2.)
+	e2.f#2.^2.^2.^2.
+	ET(100,80,!1.)
+	e2.^2.
+	ET(80,20,!1)
+	c#2.^2
+
+TR(2)
+	#TM
+	#V_CLARINET
+	VV(127)Q(100)
+	o5
+	l4
+	[
+		ET(117,100,!2., 100,90,!2.^4, 90,127,!2, 127,90,!2)
+		Q(100)c#2.^2.^4
+		<b>c#ed4.Q(95)c#8
+	]
+	ET(80,100,!8,100,127,!4,127,80,!2^8)
+	Q(100)l8c#32a16.g#baf#d
+	ET(110,80,!1.)
+	c#2.<b2a4>
+	ET(80,20,!1)
+	c#2.^2
+
+TR(3)
+	#TM
+	#V_HORN
+	VV(90)Q(100)
+	o4
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	e2.f#2.^2.^2.
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	e2.f#2.^2.^2.^2.
+	ET(100,70,!1.^1.)
+	g#2.^2r4
+
+TR(8)
+	#TM
+	#V_BASSTROMBONE
+	VV(95)Q(100)
+	o3
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a1.^1.
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a1.^1.^2.
+	>
+	ET(100,80,!1.)
+	e2.d2c#4
+	ET(80,20,!1)
+	e2.^2
+
+TR(9)
+	#TM
+	#V_TUBA
+	VV(115)Q(100)
+	o2
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a2.>d2.^2.^2.<
+	ET(127,100,!2.,127,70,!2.^2.^2.)
+	a2.>d2.^2.^2.^2.<
+	ET(110,80,!1.)
+	>e2.^2<
+	ET(80,20,!1)
+	a4^2.^2
+ 
+/////////////////////////////////////////////////////// 
+// 018.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(396:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(95,0)
+	r1.
+	TmpChangeR(100,0)
+	TmpChangeR(130,!2.)
+	TmpChangeR(55,0)
+	TmpChangeR(160,!4)
+	TmpChangeR(150,!2)
+
+	TmpChangeR(180,!4.)
+	TmpChangeR(160,!4.)
+	TmpChangeR(140,!2.)
+	TmpChangeR(110,!2.)
+	TmpChangeR(140,!1.)
+	TmpChangeR(80,!2.)
+
+TR(1)
+	#TM
+	#V_OBOE2
+	Vibrate(!8.,20)
+	VV(100)Q(100)
+	o6
+	l8
+	ET(60,100,!16,100,35,!2,35,40,!4,35,127,!1^4,127,90,!2.)
+	c#1.^d#f#ec#<a
+	ET(80,127,!2.)
+	g#32g#32>g#8.^2
+	ET(80,127,!8,127,90,!2^8)
+	f#32g#32f#4^16e8f#4
+	ET(100,127,!2,127,100,!4)
+	g#4.a8g#4
+	ET(80,127,!8,127,90,!2^8)
+	f#32g#32f#4^16e8f#4
+	ET(95,20,!1.^1.)
+	g#2.^2.^2.
+
+TR(2)
+	#TM
+	#V_HARP
+	VV(50)Q(100)
+	o5
+	l8[8 r2.]
+	ET(80,100,!2.,100,50,!2.)
+	r4.g#>[g#d#][>d#<g#]>g#r
+
+
+TR(3)
+	#TM
+	#V_HORN
+	VV(75)Q(95)
+	o4l4
+	EW(100,70,!2)
+	[3 r2.]
+	r2 'b>df<'
+	'a>c#f#'r'c#ea'
+	'c2d#2g#2''<b>df<'
+	'a>c#f#'r'c#ea'
+	Q(100)
+	ET(100,0,!2.^2.^2.)
+	'c1.^1g#1.^1'
+
+TR(4)
+	#TM
+	#V_CONTRABASS
+	o4
+	VV(100)Q(100)
+	[7 r2.]
+	ET(20,60,!8,60,100,!8,100,0,!2.^2.^2.)
+	g#1.^1
+
+TR(5)
+	#TM
+	#V_CONTRABASS
+	o4
+	VV(100)Q(100)
+	[7 r2.]
+	<r2.
+	ET(20,60,!8,60,100,!8,100,0,!2.^2.)
+	g#1.^4
+ 
+/////////////////////////////////////////////////////// 
+// 019.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(406:2:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(100,0)
+	TmpChangeR(120,!2)
+	TmpChangeR(150,!2.)
+	TmpChangeR(170,!2.)
+	TmpChangeR(175,!2.)
+	TmpChangeR(170,!2.)
+	r2.
+	TmpChangeR(170,!2.)
+	TmpChangeR(150,!2.)
+	TmpChangeR(175,!2.^2,^1.)
+	TmpChangeR(165,!2.^2.)
+	r2.r2.
+	TmpChangeR(160,!2.)
+	TmpChangeR(155,!2.)
+	TmpChangeR(150,!4)
+	TmpChangeR(130,0)
+	r2
+	TmpChangeR(165,!2.)
+	TmpChangeR(170,!2.)
+	TmpChangeR(165,!1.)
+	TmpChangeR(170,!2.)
+	TmpChangeR(155,!2.)
+	TmpChangeR(80,!1.)
+
+TR(15)
+	#TM
+	#V_VIOLIN2
+	V(85)
+	VV(127)Q(100)E(127)
+	Vibrate(!8.,20)
+	o6
+	ET(90,100,!2,100,80,!2)
+	VV(122)l4g#f#
+	e2.r
+	ET(127,110,!2,110,80,!2)
+	VV(122)ed#
+	c#2.r
+	ET(127,110,!2,110,80,!2)
+	VV(122)g#f#
+	e2.r
+	ET(127,110,!2,110,90,!2)
+	VV(122)ed#
+	c#2.^
+	ET(110,90,!2,75,65,!2)
+	VV(127)>c#<b
+	a2.r
+	ET(120,110,!2,110,80,!2)
+	VV(122)ag#
+	f#2.r
+	ET(120,100,!2,100,80,!2)
+	VV(127)>c#<b
+	VV(125)a2.r
+	ET(120,90,!2,90,100,!2,100,110,!4)
+	ag#
+	f#2.^
+	g#a
+
+	ET(110,80,!2.)
+	g#2.r
+	ET(127,110,!2,110,80,!2)
+	VV(122)f#e
+	d#2.r
+	ET(127,110,!2,110,80,!2)
+	d#c#
+	c2.r
+	ET(80,90,!4,90,110,!4,110,90,!2,90,100,!2)
+	VV(126)f#VV(125)e
+	VV(125)d#2.^
+	VV(122)
+	ET(122,100,!4)eQ(70)ET(100,40,!4)f#
+
+TR(2)
+	#TM
+	#V_VIOLIN
+	V(85)
+	VV(90)
+	Q(95)
+	Vibrate(!8.,20)
+	o5
+	l4rr
+	EW(110,100,!8)
+	Q(95)r4g8g#8b12a12g#12
+	EW(110,70,!2.)
+	Q(80)g#2.^
+	[
+		EW(110,100,!8)
+		Q(95)g8g#8b12a12g#12
+		EW(110,70,!2.)
+		Q(80)g#2.^
+	]
+	>
+	[5
+		EW(110,100,!8)
+		Q(95)c8c#8e12d12c#12
+		EW(110,70,!2.)
+		:
+		Q(80)c#2.^
+	]
+	Q(80)c#2r
+	<
+	EW(110,100,!8)
+	Q(95)r4g8g#8b12a12g#12
+	[
+		EW(110,70,!2.)
+		Q(80)g#2.^
+		EW(110,100,!8)
+		Q(95)g8g#8b12a12g#12
+	]
+	EW(110,80,!2.)
+	Q(85)g#2.
+	EW(110,100,!8)
+	Q(95)r4a#8b8>d#12c#12<b12
+	EW(110,90,!2.)
+	b4
+
+TR(7)
+	#TM
+	#V_HORN
+	V(90)
+	VV(100)Q(100)
+	o5
+	r2
+	[8 r2.]
+	ET(90,110,!1.,110,90,!1.,90,105,!1.,105,50,!1.)
+	c#1.^1.^1.^1r2
+	l2.
+	ET(90,110,!1.,110,100,!1.)
+	Sub{<g#1.^1.^1.b2.^4>}
+	c
+	c#
+	d#
+	c#
+	c
+	c#
+	ET(90,120,!1.,120,0,!1.)
+	d#2.^4
+
+TR(8)
+	#TM
+	#V_VIOLA
+	VV(80)Q(99)
+	V(85)
+	Vibrate(!4,10)
+	o5l4
+	r2
+	ET(100,90,!2.)
+	Q(99)re<Q(90)g#2
+	ET(100,90,!2.)
+	Q(99)b#Q(90)g#2
+	ET(100,90,!2.)
+	Q(99)>c#<Q(90)g#2
+	ET(100,90,!2.)
+	Q(99)>d#<Q(90)g#2
+	ET(100,90,!2.)
+	Q(99)>e<Q(90)g#2
+	ET(100,90,!2.)
+	Q(99)b#Q(85)g#2
+	ET(100,90,!2.)
+	Q(99)>c#<Q(90)g#2
+	ET(100,90,!2.)
+	Q(99)>g#Q(90)c#2
+	ET(100,90,!2.)
+	Q(99)aQ(90)c#2
+	ET(100,90,!2.)
+	Q(99)e#Q(90)c#2
+	ET(100,90,!2.)
+	Q(99)f#Q(90)c#2
+	ET(100,90,!2.)
+	Q(99)g#Q(90)c#2
+	ET(100,90,!2.)
+	Q(99)aQ(90)c#2
+	ET(100,90,!2.)
+	Q(99)e#Q(90)c#2
+	ET(100,90,!2.)
+	Q(99)f#Q(90)c#2
+	ET(100,90,!2.)
+	Q(97)c#<Q(75)f#
+	[3
+		ET(100,90,!2.)
+		rQ(99)b#Q(99)f#
+		ET(100,90,!2.)
+		r>c#<g#
+	]
+	r
+	ET(80,127,!2,127,10,!2)
+	Q(100)
+	Sub{f#2^4}
+	Sub{ra4^4}
+	Sub{rr>d#4}
+
+TR(9)
+	#TM
+	#V_CELLO
+	o4
+	VV(90)Q(90)
+	r2
+	l2.
+	EW(90,127,!16.,127,90,!4,90,80,!2)
+	Vibrate(!4,10)
+	c#'d#f#'ec
+	c#'d#f#'e'fb'
+	'f#a''g#b'af
+	'f#a''g#b'a<a
+	g#>e<g#>e<
+	g#>e<b2.^4r2
+
+TR(11)
+	#TM
+	#V_BASSON
+	VV(120)Q(100)
+	o4
+	r2
+	[16 r2.]
+	l2.
+	ET(90,110,!1.,110,100,!1.)
+	d#
+	e
+	f#
+	e
+	ET(90,120,!1.,120,0,!1.)
+	f#
+	g#
+	a2.^4
+ 
+/////////////////////////////////////////////////////// 
+// 020.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(431:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(180,0)
+	TmpChangeR(260,!2)
+	TmpChangeR(286,!1)
+	[22 r2.]
+	TmpChangeR(247,!2.^2.^2.^2.^2.^2.)
+	TmpChangeR(155,0)
+	r2.
+	TmpChangeR(280,0)
+
+TR(1)
+	#TM
+	#V_CLARINET3
+	VV(110)Q(99)
+	o5l8
+
+	IF(TIMIDITY=0) {
+		EW(127,90,!16.,90,75,!16)
+	} ELSE {
+		E(127)
+	}
+
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	IF(TIMIDITY=1) { r-60 }
+	g#b>
+	IF(TIMIDITY=1) { r64 r-44}
+	eg#f#e
+	g#b>eg#f#e
+	<bg#f#e<bg#
+	f#e<b>g#f# Q(45)e
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	[3 c#ef#a>]
+	<
+	g#f#d#<ag#f#
+	d#<b>d#c#<b Q(45)a
+
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	[g#b>eg#f#e]
+	<bg#f#e<bg#
+	f#e<b>g#f# Q(45)e
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	[3 c#ef#a>]
+	<
+	g#f#d#<ag#f#
+	d#<b>d#c#<b Q(45)a
+
+	[
+		IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+		[g#b>eg#f#e]
+		[2 c<af#e]
+		[1 c<af# Q(45)e]
+	]
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	r4
+	[4 b>eag#]
+	[4 e<bag#]
+	IF(TIMIDITY=1){r48}
+
+TR(8)
+	#TM
+	#V_CELLO
+	VV(100)Q(95)
+	l4o4
+	[2
+		[3
+			ET(110,100,!2)
+			r Sub{'b2>e2<'}rg#
+		]
+		r2.
+		[2
+			ET(110,100,!2)
+			r Sub{'a2>c#2<'}rf#
+		]
+			ET(110,100,!2)
+		r'b2^2.>d#2^2.<'
+	]
+	[
+		[2
+			ET(110,100,!2)
+			r Sub{'b2>e2<'}rg#
+		]
+		a4>c2^2r4<
+	]
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o4
+	EW(127,110,!8,110,100,!2)
+	l4
+	[
+		e2.
+		d#2.
+		c#4r2<
+		b2.
+		a2.
+		f#2.
+		b2>f#
+		g#f#g#
+	]
+	e2.<
+	b2.
+	a4>c2^2r4
+	<
+	e2.<
+	b2.
+	a4>c2^2r4
+	e2.^2.>
+	e2.^2.
+	r2.
+	l8
+	EW(127,80,!16.,80,75,!16)
+	e<bag#e<b
+	EW(127,80,!16,80,40,!2.)
+	Q(80)e1.
+
+TR(3)
+	#TM
+	#V_TUBA
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o4
+	EW(127,110,!8,110,100,!2)
+	l4
+	[
+		e2.
+		d#2.
+		c#4r2<
+		b2.
+		a2.
+		f#2.
+		b1.>
+	]
+	e2.<
+	b2.
+	a4>c2^2r4
+	<
+	e2.<
+	b2.
+	a4>c2^2r4
+	ET(110,127,!1.,127,70,!1.^1.^2.)
+	e2.^2.^2.^2.^2.^2.^2.
+
+TR(5)
+	#TM
+	#V_HORN2
+	VV(120)E(110)Q(85)
+	o5
+	l4
+	EW(127,80,!8)
+	[
+		[4 r '<g#2>e2']
+		[2 r '<a2>e2']
+		r'<f#2^2.>d#2^2.'
+	]
+	[
+		[2 r '<g#2>e2']
+		a4>c2^2r4<
+	]
+	r2.r2.
+	VV(127)
+	EW(127,80,!1.^1.)
+	'<g#1.^1.>e1.^1.<'
+
+TR(11)
+	#TM
+	#V_TRUMPET
+	VV(110)Q(95)
+	o5
+	EW(127,100,!4)
+	[18 r2.]
+	Sub{a4>c2^2r4}
+	a4>c2^2r4
+	r2.r2.
+	<<
+	a4>c2^2r4
+
+TR(12)
+	#TM
+	#V_TROMBONE
+	VV(110)Q(95)
+	o4
+	EW(127,100,!4)
+	[18 r2.]
+	a4>c2^2r4<
+	r2.r2.
+	a4>c2^2r4
+
+TR(14)
+	#TM
+	#V_PICCOLO
+	VV(127)E(127)Q(95)
+	o7
+	EW(127,90,!8,90,50,!1)
+	[18 r2.]
+	a4>c2^2r4<
+	r2.r2.
+	a4>c2^2r4
+
+
+TR(13)
+	#TM
+	#V_TIMPANI2
+	E(127)VV(127)
+	o3
+	[18 r2.]
+	a4>c2^2r4<
+	r2.r2.
+	a4>c2^2r4<
+	Int VS8=10
+	#V_TIMPANI1
+	[3
+		[9 VS8=VS8+3 RandV(VS8,VS8+10) e12]
+	]
+	[3
+		[9 VS8=VS8-3 RandV(VS8,VS8+10) e12]
+	]
+
+TR(15)
+	#V_HARP
+	VV(127)E(120)
+	[26 r2.]
+	l16o4
+	#PEDALON eb>eb>eg#
+	r1.
+	r1.
+	#PEDALOFF
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS7
+	#r1={
+		Rythm{b4's8o8'o8'S4o4'}
+		Rythm{b4's4o4''S4o4'}
+	}
+	#r2={
+		VS7=80
+		Rythm{b4}
+		Sub{[5 Rythm{S4}]}
+		Sub{[24 VS7=VS7-2 RandV(VS7-10,VS7) Rythm{O18}]}
+		r2.r2
+	}
+	#r3={
+		Rythm{'b4S4c4o4'}Rythm{'b4s4c4o4'}
+		r1
+	}
+	[
+		[3 #r1]
+		#r2
+	]
+	[
+		#r1
+		#r3
+	]
+	Rythm{g1.}
+	VS7=90
+	Sub{Rythm{'b4s4c4'}}
+	Sub{[56 VS7=VS7-2 RandV(VS7-10,VS7) Rythm{O18}]}
+ 
+/////////////////////////////////////////////////////// 
+// 021.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(463:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(180,0)
+	TmpChangeR(250,!2)
+	TmpChangeR(260,!1)
+	[4 r2.]
+	TmpChangeR(250,!1)
+
+TR(1)
+	#TM
+	#V_CLARINET3
+	VV(127)Q(99)
+	o4l8
+	IF(TIMIDITY=1) {r-58}
+	IF(TIMIDITY=0) {
+		EW(127,90,!16.,90,75,!16)
+	} ELSE {
+		E(127)
+		r-64
+	}
+	r4
+	dfag#
+	[3 b>fag#]
+	[3 f<bag#]
+	r2.r2.
+	IF(TIMIDITY=1){r64}
+
+TR(8)
+	#TM
+	#V_CELLO
+	VV(100)Q(95)
+	l4o4
+	EW(127,90,!1.)
+	d1.
+	EW(127,110,!8,110,40,!1.^1.)
+	'g#2.^2.^2.b2.^2.^2.>f2.^2.^2.<'
+	l8 f<bag#
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o3
+	EW(127,110,!8,110,100,!2)
+	l4o3
+	EW(127,0,!1.^1.^1.)
+	d1.^1.^1^4
+	l8f<bd1.
+
+TR(5)
+	#TM
+	#V_HORN
+	VV(100)E(110)Q(90)
+	o4
+	l4
+	EW(127,110,!8)
+	r2.r4
+	'g#4.>d4.f4.''<g#8>d8f8<'
+	EW(127,0,!1.^1.^1.)
+	'g#1.^1.>d1.^1.f1.^1.'
+
+TR(12)
+	#TM
+	#V_TROMBONE
+	VV(110)Q(95)
+	o4
+	l4
+	IF(TIMIDITY=0) {
+		EW(127,90,!16,90,20,!1.^1.^1.)
+	} ELSE {
+		E(0)
+	}
+	r2.r4
+	'g#4.>d4.f4.''<g#8>d8f8<'
+	EW(127,0,!1.^1.^1.)
+	'g#1.^1.>d1.^1.f1.^1.'
+
+
+TR(13)
+	#TM
+	#V_TIMPANI1
+	E(127)VV(127)
+	o3
+	Int VS9=10
+	[3
+		[9 VS9=VS9+3 RandV(VS9,VS9+10) d12]
+	]
+	[3
+		[9 VS9=VS9-3 RandV(VS9,VS9+10) d12]
+	]
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS10
+	Rythm{g1.}
+	VS10=110
+	Sub{Rythm{'b4s4c4'}}
+	Sub{[56 VS10=VS10-2 RandV(VS10-10,VS10) Rythm{O18}]}
+ 
+/////////////////////////////////////////////////////// 
+// 022.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(471:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(200,0)
+	TmpChangeR(250,!2)
+	TmpChangeR(280,!1)
+	[4 r2.]
+	TmpChangeR(270,!2.)
+	TmpChangeR(280,!2.)
+	[5 r2.]
+	TmpChangeR(270,!2.)
+	TmpChangeR(240,!2.)
+	TmpChangeR(160,!2.)
+
+TR(1)
+	#TM
+	#V_CLARINET
+	VV(110)Q(99)
+	o5l8
+	IF(TIMIDITY=0) {
+		EW(127,90,!16.,90,75,!16)
+		VV(127)
+	} ELSE {
+		E(127)
+	}
+	r4
+	[2 a#g#b>e#] a#g#<
+	a#>eg#ge<a#
+	g#ge<a#g#g<
+	a>d#g#f#a>d#
+	g#f#a>d#g#f#<
+	g#>c#f#e#c#<g#
+	f#e#c#<g#f#e#
+	[3 cf#ba>]<<
+	b>fag#f<b
+	ag#f<bag#<
+	[3 b->eag]
+	<a>dgf#d<a
+	gf#d<agf#
+
+TR(11)
+	#TM
+	VV(90)Q(99)
+	o6l8
+	IF(TIMIDITY=0) {
+		VV(90)
+		EW(127,90,!16.,90,75,!16)
+	} ELSE {
+		E(127)
+	}
+	r4
+	#V_PICCOLO
+	[2 a#g#b>e#] a#g#<
+	a#>eg#ge<a#
+	g#ge<a#g#g<
+	a>d#g#f#a>d#
+	g#f#a>d#g#f#<
+	g#>c#f#e#c#<g#
+	f#e#c#<g#f#e#
+	[3 cf#ba>]<<
+	b>fag#f<b
+	ag#f<bag#<
+	[3 b->eag]
+	<a>dgf#d<a
+	gf#d<agf#
+
+TR(8)
+	#TM
+	#V_CELLO
+	VV(100)Q(95)
+	Vibrate(!24,30)
+	l4o3
+	EW(127,110,!8,110,40,!1.^1.)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+TR(7)
+	#TM
+	#V_TRUMPET2
+	VV(100)Q(95)
+	IF(TIMIDITY=1) {
+		VV(115)
+	}
+	Vibrate(!24,30)
+	l4o4
+	EW(127,110,!8,110,40,!1.^1.)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+
+TR(12)
+	#TM
+	#V_TROMBONE
+	VV(100)Q(95)
+	IF(TIMIDITY=1) {
+		VV(110)
+	}
+	Vibrate(!24,30)
+	l4o3
+	EW(127,110,!8,110,40,!1.^1.)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o2l4
+	EW(127,110,!8,110,100,!2)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+TR(13)
+	#TM
+	#V_TUBA
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o2l4
+	EW(127,110,!8,110,100,!2)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+TR(14)
+	#TM
+	#V_TIMPANI2
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o3l4
+	EW(127,110,!8,110,100,!2)
+	c#2.
+	g#>d#c#
+	c#2.<
+	c#2.
+	c#2.
+	f#>d#c#
+	c# <gg#
+	g#>d#c#<
+	d2.
+	a>ed
+	d2.<
+	d2.
+	d2.
+	g>ed
+	dc#d
+	d<b>c<b-
+
+TR(5)
+	#TM
+	#V_HORN
+	VV(115)E(110)Q(90)
+	o4
+	r2.
+	r4'g#4.>c#4.<''g#8>c#8<'
+	'g#1.>c#1.<'
+	r2.
+	r4'f#4.>f#4.<''f#8>c#8<'
+	'c#4>c#4<'
+	Q(99)l4gg#g#>d#<c# Q(90)
+	r2.
+	r4'a4.>d4.<''a8>d8<'
+	'a1.>d1.<'
+	r2.
+	r4'g4.>g4.<''g8>d8<'
+	'g4>d4<'
+	c#dd<b>c<b-
+
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS11
+	[
+		Rythm{g2.}
+		Rythm{b4b4b4}
+		VS11=110
+		Sub{[28 VS11=VS11-2 RandV(VS11-10,VS11) Rythm{O18}]}
+		Rythm{'b1.c1.'}
+
+		Rythm{g2.}
+		Rythm{b4b4b4}
+		Rythm{'b4c4'}
+		VS11=40
+		Sub{[26 VS11=VS11+2 RandV(VS11-10,VS11) n(40),18]}
+		[5 Rythm{'b4'}]
+	]
+	Rythm{g1}
+ 
+/////////////////////////////////////////////////////// 
+// 023.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(487:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(140,0)
+	r4
+	TmpChangeR(200,0)
+	TmpChangeR(235,!2^2.)
+	[7 r2.]
+	TmpChangeR(240,!2.^2.)
+	TmpChangeR(230,!2.^2.)
+	TmpChangeR(240,!2.^2.)
+	[4 r2.]
+	TmpChangeR(235,!2.^2.)
+	TmpChangeR(210,!2.^2.)
+	TmpChangeR(140,!2.)
+
+TR(12)
+	#TM
+	#V_VIOLIN3
+	#VQ99={Q(97)}
+	#VQ80={Q(80)}
+	#VQ75={Q(68)}
+	#VQ70={Q(60)}
+
+	Vibrate(!8,20)
+	IF(TIMIDITY=0) {
+		ET(127,100,!1.^1.^1.^1.^1.^1.)
+	} ELSE {
+		ET(90,80,!1.^1.^1.^1.^1.^1.)
+	}
+	VV(110)#VQ99
+	o5l12
+	IF(TIMIDITY=1){v127}
+	#VQ70'd4g4>d4<'
+	#VQ99
+	>
+	IF(TIMIDITY=1){v118}
+	c#8d8fe-d
+	Sub{#VQ80 d1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4f#2}
+	r4>d4c4<
+	#VQ70'g4b-4'
+	
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	c#8d8fe-d
+	Sub{#VQ80 d1}
+	IF(TIMIDITY=1){v127}
+	#VQ99 r4'<b-4>b-4''<a4>a4'
+	#VQ70'<g4>g4'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	c#8d8fe-d
+	Sub{#VQ80 d1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4f#2}
+	r4>d4c4<
+	#VQ70'g4b-4'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	<f#8g8b-a-g
+	Sub{#VQ80 g1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4>d2}
+	r4g4f4
+	#VQ70'c4e-4'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	f#8g8b-a-g
+	Sub{#VQ80 g1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4b2}
+	>r4g4f4
+	#VQ70'c4e-4'<
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	f#8g8b-a-g
+	Sub{#VQ80 g1}
+	IF(TIMIDITY=1){v127}
+	#VQ99 r4'e-4>e-4<''d4>d4<'
+	#VQ70
+	'c4>c4<'
+
+	#VQ99
+	<
+	IF(TIMIDITY=1){v118}
+	f#8g8b-a-g
+	Sub{#VQ80 g1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4b2}
+	>r4g4f4
+	#VQ70'c4e-4'<
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4g2}
+	r4>e-4d-4<
+	#VQ70'a-4>c-4'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4b-2}
+	r4>e-4d-4<
+	#VQ70'a-4>c-4<'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-1}
+	IF(TIMIDITY=1){v127}
+	#VQ99 r4'c-4>c-4<<''b-4>b-4<'
+	#VQ70'a-4>a-4<'
+
+	#VQ99
+	>
+	IF(TIMIDITY=1) {
+		ET(80,100,!1.)
+	} ELSE {
+		ET(100,127,!1.)
+	}
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4g2}
+	r4>e-4d-4<
+	#VQ70'a-4>c-4'
+	<
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-2.}
+	IF(TIMIDITY=1){v127}
+	#VQ99 r4'c-4>c-4<<''b-4>b-4<'
+	ET(110,100,!4.,100,0,!4)
+	#VQ75'a-2.>f-2.a-2.<'
+
+TR(13)
+	#TM
+	#V_CELLO
+	VV(110)Q(95)E(110)
+	ET(127,90,!1.^1.^1.^1.^1.^1.)
+	Vibrate(!4,20)
+	o5l4
+	[
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2'<dg>'
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2'<da>'
+		:
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2'<db->'
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2'<f#a>'
+	]
+	[
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2<g>
+	]
+	ET(127,80,!2.)
+	Sub{r4e-2}
+	r2<g>
+	ET(127,80,!2.)
+	Sub{r4f2}
+	r2<'gb'>
+	ET(127,80,!2.)
+	Sub{r4g2}
+	r2<'g>c'
+	ET(127,80,!2.)
+	Sub{r4g2}
+	r2<'gb>'
+	ET(127,80,!2.)
+	Sub{r4e-2}
+	r2'<g>c'
+	ET(127,80,!2.)
+	Sub{r4d2}
+	r2<'g'>
+	ET(127,80,!2.)
+	Sub{r4c2}
+	r2'<e-g>'
+	ET(127,80,!2.)
+	Sub{r4d-2}
+	r2'<e-g>'
+
+	Sub{r4c-2}
+	r2'<e-a->'
+	Sub{r4e-2}
+	r2'<e-b->'
+	Sub{r4e-2}
+	r2'<e-a->c-'
+	Sub{r4e-2}
+	r2'<e-g>d-'
+	Sub{r4e-2}
+	r2'<e-a->c-'
+	Sub{r4e-2}
+	r2'<e-b->'
+	ET(100,127,!1.)
+	Sub{r4e-2}
+	r2'<e-a->c-'
+	Sub{r4e-2}
+	Q(70)r2'<e-g>d-'
+
+TR(4)
+	#TM
+	#V_CONTRABASS
+	VV(120)Q(92)E(120)
+	o3l2.
+	EW(127,100,!8,100,80,!2^8)
+	Vibrate(!4,20)
+	r2.
+	a
+	g
+	>c<
+	b-
+	a
+	g
+	b
+	>c
+	d
+	e-
+	f
+	e-
+	d
+	c
+	<b-
+	a-
+	g
+	a-
+	b-
+	>c-<
+	g
+	a-
+	b-
+
+TR(10)
+	#TM
+	#DRUMSET
+	Int VS12=100
+	ET(127,80,!1.^1.^1.^1.^1.^1.^1.^1.^1.^1.^1.)
+	#r={
+		Rythm{'b4o4'}[RandV(60,50) Rythm{O8} RandV(30,40) Rythm{O8}]
+		Rythm{'b4o4'}
+		VS12=70
+		Sub{[8 VS12=VS12-5 RandV(VS12-10,VS12) Rythm{O18}]}
+		r2
+	}
+	[11
+		#r
+	]
+	ET(90,127,!1.)
+	Rythm{'b4o4'}[RandV(60,50) Rythm{O8} RandV(30,40) Rythm{O8}]
+	Rythm{'b4o4'}
+	VS12=50
+	Sub{[12 VS12=VS12+5 RandV(VS12-10,VS12) n(40),24]}
+	r2
+
+ 
+/////////////////////////////////////////////////////// 
+// 024.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(511:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(200,0)
+	TmpChangeR(240,!4)
+	TmpChangeR(265,!2)
+	[5 r2.]
+	TmpChangeR(255,!2.)
+	TmpChangeR(235,0)
+	TmpChangeR(230,!2.)
+	TmpChangeR(250,!2.)
+	TmpChangeR(265,!2.)
+	[2 r2.]
+	TmpChangeR(275,0)
+	TmpChangeR(310,!1.^1.^1.^1.)
+	TmpChangeR(280,!1.)
+	TmpChangeR(230,!2.^4)
+	TmpChangeR(210,!2)
+	TmpChangeR(325,!4)
+	TmpChangeR(280,!1.^2.)
+	TmpChangeR(150,0)
+	TmpChangeR(110,!2.)
+
+TR(1)
+	#TM
+	#V_PICCOLO
+	VV(110)Q(97)
+	Vibrate(!8,25)
+	EW(127,90,!8.,90,75,!16)
+	o7l8
+	r2.
+	r-12g#12
+	>g#4f#e<bg#
+	f#e<bg#f#e< ET(70,50,!4)b4r2>>
+
+	#V_CLARINET
+	IF(TIMIDITY=1) {
+		E(127)
+	}
+	<
+	d#ef#g#ab
+	>c4r2
+	c<bag#f#e
+	d#4r2
+	>
+	#V_PICCOLO
+	EW(127,90,!8.,90,75,!16)
+	r-16g#16
+	>g#2.^4
+	f#e<bg#
+	f#e<bg#f#e<ET(70,50,!4)b4r2>>
+
+	#V_OBOE
+	<
+	IF(TIMIDITY=1) {
+		E(127)
+	} ELSE {
+		EW(110,100,!2)
+	}
+	ff#g#ab>c#
+	d2r4
+	dc#<bag#f#
+	e#2r4
+	#V_CLARINET
+	gg#a#b>c#d#
+	e2r4
+	ed#c#<ba#g#
+	g2r4
+	#V_PICCOLO
+	EW(127,90,!8.,90,75,!16)
+	ab->cd-e-f
+	g->e-<g-fe-d-
+	cd-de-ef
+	g->e-<g-fe-d-
+	cr>
+	fee-c<a4r4<
+	#V_CLARINET
+	IF(TIMIDITY=1) {
+		E(127)
+	}
+	fee-c<a4r4<
+	#V_HORN2
+	fee-c<Q(70)f4r4<
+
+TR(2)
+	#TM
+	#V_FLUTE2
+	VV(110)Q(97)
+	Vibrate(!8,25)
+	EW(127,90,!8.,90,75,!16)
+	[25 r2.]
+	o6l8
+	fee-c<a4r4
+	#V_OBOE
+	V(100)VV(100)
+	fee-c<a4r4
+
+TR(5)
+	#TM
+	#V_HORN2
+	VV(110)Q(97)
+//	IF(TIMIDITY=1) {
+//		VV(127)
+//	}
+	o4l4
+
+	EW(127,80,!4)
+	Q(55)r2'g#>e'<
+	Q(85)'b2>b2<'(Q55)'g#>e'<
+	'b2>b2<'r4
+	r2.
+	r2.
+	EW(100,80,!4)
+	'a>cd#f#<'
+	'a>cd#g#<'
+	'a>cd#f#<'
+	EW(100,20,!2.)
+	'a2.>c2.d#2.f#2.<'
+	r2.
+	EW(127,80,!4)
+	Q(50)r4['g#>e<']
+	Q(100)'b4.>b4.<''g#8>e8<'Q(80)'g#4>e4<'
+	Q(97)'b2>b2<'r4
+	r2.
+	Q(100)
+	'f1.^1.>d1.^1.<'
+	'g1.^1.>e1.^1.<'
+	'a1.^1.>f#1.^1.<'
+
+TR(15)
+	#TM
+	#V_STRINGS1
+	VV(95)Q(97)
+//	IF(TIMIDITY=1) {
+//		VV(127)
+//	}
+	o4l4
+	EW(127,80,!4)
+	Q(55)r2'g#>e'<
+	Q(85)'b2>b2<'(Q55)'g#>e'<
+	'b2>b2<'r4
+	r2.
+	r2.
+	EW(100,80,!4)
+	VV(110)
+	Q(95)
+	'a>cd#f#<'
+	'a>cd#g#<'
+	'a>cd#f#<'
+	EW(100,20,!2.)
+	'a2.>c2.d#2.f#2.<'
+	r2.
+	VV(100)
+	EW(127,80,!4)
+	Q(50)r4['g#>e<']
+	Q(100)'b4.>b4.<''g#8>e8<'Q(80)'g#4>e4<'
+	EW(127,80,!4,80,30,!4)
+	Q(97)'b2>b2<'r4
+	r2.
+	Q(100)
+	VV(70)
+	EW(70,127,!1,127,60,!1.)
+	'f1.^1.>d1.^1.<'
+	VV(85)
+	'g1.^1.>e1.^1.<'
+	VV(100)
+	'a1.^1.>f#1.^1.<'
+
+TR(14)
+	#TM
+	#V_TROMBONE
+	VV(90)Q(97)
+//	IF(TIMIDITY=1) {
+//		VV(127)
+//	}
+	o4l4
+	EW(110,127,!16,127,60,!4)
+	Q(55)r2'g#>e'<
+	Q(85)'b2>b2<'(Q55)'g#>e'<
+	'b2>b2<'r4
+	r2.
+	r2.
+
+	#V_VIOLA2
+	VV(60)
+	Q(95)
+	EW(100,40,!4)
+	'a>cd#f#<'
+	EW(110,40,!4)
+	'a>cd#g#<'
+	EW(100,40,!4)
+	'a>cd#f#<'
+	EW(95,100,!16,100,40,!2.)
+	'a2.>c2.d#2.f#2.<'
+	r2.
+	VV(100)
+	#V_TROMBONE
+	EW(110,127,!16,127,80,!4)
+	Q(50)r4['g#>e<']
+	Q(100)'b4.>b4.<''g#8>e8<'Q(80)'g#4>e4<'
+	EW(127,80,!4,80,30,!4)
+	Q(97)'b2>b2<'r4
+	r2.
+	#V_VIOLA2
+	VV(60)
+	Q(100)
+	EW(70,127,!1,127,60,!1.)
+	'f1.^1.>d1.^1.<'
+	'g1.^1.>e1.^1.<'
+	'a1.^1.>f#1.^1.<'
+
+TR(3)
+	#TM
+	#V_CELLO
+	VV(100)Q(97)
+	Vibrate(!32,20)
+	[13 r2.]
+	EW(127,100,!8,100,90,!4)
+	o4l4
+	'b>fg#<''b>fa<''bf>g#<'
+	'b2f2>g#2<'r4
+	r2.
+	r2.
+	>'c#g#a#''c#g#b''c#g#a#'
+	'c#2g2a#2'r4
+	r2.
+	r2
+	['ce-a''e-a>e-<'r]
+	<
+	g-g-g-g->
+	'ce-a'r2
+
+TR(4)
+	#TM
+	#V_CONTRABASS
+	VV(110)Q(97)
+	Vibrate(!8,20)
+	o2l4
+	ET(127,100,!8,100,0,!1.^1.)
+	'b1.^2.>b1.^2.<'r2.
+	ET(127,100,!8,100,0,!1.^1.)
+	'b1^1>b1^1<'r4
+	ET(127,100,!8,100,0,!1.^1.)
+	'b>b<''a>a<''>>c>c<<<'
+	ET(127,100,!8,100,0,!1.^1.)
+	'b1.^2.>b1.^2.<'r2.
+
+	ET(127,100,!8,100,0,!1.^1.)
+	>'d1.^2.>d1.^2.<'
+	ET(128,100,!8,100,80,!8)
+	'd>d<''c>c<''c#>c#'<<
+	ET(127,100,!8,100,0,!1.^1.)
+	>'e1.^2.>e1.^2.<'
+	ET(128,100,!8,100,80,!8)
+	'e>e<''d>d<''e->e-'<
+	EW(127,100,!8,100,0,!1.^1.)
+	'g-1.^2>g-1.^2<'
+	[4 'g-4>g-4<']
+	'f4>f4<'
+//	'f1.^2>f1.^2<'
+TR(10)
+	#TM
+	#DRUMSET
+	Int VS13=100
+	E(100)
+	Sub{Rythm{'bsc'}}
+	Sub{[36 VS13=VS13-2 RandV(VS13-10,VS13) Rythm{O16}]}
+	[4 r2.]
+	E(60)
+	Rythm{S2.S4S4S4S2.b4b4b4}
+	E(110)
+	Sub{Rythm{'bsc'}}
+	VS13=100
+	Sub{[36 VS13=VS13-2 RandV(VS13-10,VS13) Rythm{O16}]}
+	[4 r2.]
+	ET(60,127,!1.^1.^1.^1.)
+	VS13=30
+	Sub{[24 VS13=VS13+2 RandV(VS13-10,VS13) n(40),16]}
+	Rythm{'b1.c1.'}
+	Sub{[24 VS13=VS13-2 RandV(VS13-10,VS13) n(40),16]}
+	Rythm{b2.b4b4b4}
+	Sub{[24 VS13=VS13+2 RandV(VS13-10,VS13) n(40),16]}
+	Rythm{'b1.c1.'}
+	Sub{[24 VS13=VS13-2 RandV(VS13-10,VS13) n(40),16]}
+	Rythm{b2.b4b4b4}
+
+	E(127)
+	Sub{[24 VS13=VS13+2 RandV(VS13-10,VS13) n(40),16]}
+	Rythm{'b2.c2.'b2.}
+	Sub{[24 VS13=VS13-2 RandV(VS13-10,VS13) n(40),16]}
+	Rythm{b2b4b4b4b4}
+	Rythm{g1.^1^4}
+	Rythm{b4}
+ 
+/////////////////////////////////////////////////////// 
+// 025.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(539:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(200,0)
+	TmpChangeR(225,!1.)
+	TmpChangeR(220,!1.^1.^2.)
+	[16 r2.]
+	TmpChangeR(190,!1.^1.^2.)
+	TmpChangeR(180,0)
+	[6 r2.]
+	TmpChangeR(140,0)
+	TmpChangeR(130,!1.)
+	[1 r2.]
+	TmpChangeR(80,0)
+	TmpChangeR(50,!1.)
+
+TR(1)
+	#TM
+	#V_VIOLIN
+	VV(127)E(127)Q(99)
+	o6l4
+	IF(TIMIDITY=0) {
+		EW(127,100,!4,100,90,!1)
+	} ELSE {
+		E(100)
+	}
+	Q(80)'d-1>d-1<'Q(60)'e>e<''f>f<'
+	Q(80)'<b-1>b-1'Q(60)'c>c<''d->d-<'
+	Q(80)'<g-1>g-1'Q(60)'<a>a''<b->b-'
+	Sub{'<e-1>e-1'}<
+	r2.
+
+	Sub{g-2.}
+	r>'df''e-g-'<
+
+	Q(80)
+	Sub{r24 Sub{r-8'f8>c8'}'e-f<'}r2.
+	r4>'e->e-<''d->d-<'
+	Sub{r24 Sub{r-8'c8f8'}'a>c<'}r2.
+	r4'c>c<''<b->b-'
+	Sub{r24 Sub{r-8'<a8>c8'}'fa'}r2.<
+	r4>'e->e-<''d->d-<'
+	Sub{r24 Sub{r-8'c8f8'}'a>c<'}r2.
+	r4'c>c<''<b->b-'
+
+	Int VVI=127
+	[
+		VVI=VVI-10
+		VV(VVI)
+		Sub{r24 Sub{r-12'<a12>c12'}'fa'}r2.
+		r4'd->d-<''c>c<'
+		VVI=VVI-3
+		VV(VVI)
+		Sub{r24 Sub{r-12'<a12>c12'}'fa'}r2.
+		r4b-4a4
+	]
+	#V_VIOLIN2
+	IF(TIMIDITY=1) {
+		VVI=125
+	}
+	[
+		VVI=VVI-15
+		VV(VVI)
+		'<a>ca'r2
+		r4<b-4a4>
+	]
+	Q(70)'<a>ca'r2
+
+TR(2)
+	#TM
+	#V_PICCOLO
+	VV(120)E(120)Q(95)
+	o7
+	l12
+	EW(127,100,!8,100,60,!2.)
+	r4e8f8a-g-f
+	f2r4
+	r4c8d-8fe-d-
+	d-2r4<
+	r4a8b-8>d-c<b-
+	b-2r4
+	r4f8g-8b-a-g-
+	g-2r4
+	#V_FLUTE2
+	o5Q(70)
+	IF(TIMIDITY=1) { r-45 }
+	IF(TIMIDITY=1) {
+		E(127)
+	}
+	Int VP=125
+	[4
+		VP=VP-5
+		VV(VP)
+		r4e8f8a-g-f
+		f4r2
+	]
+	[2
+		VP=VP-5
+		VV(VP)
+		r4e8f8a-g-f
+		f4r2
+		VP=VP-5
+		VV(VP)
+		r4<b8>c8e-d-c
+		c4r2
+	]
+	[
+		VP=VP-5
+		VV(VP)
+		r4<b8>c8e-d-c
+		c4r2
+	]
+	IF(TIMIDITY=1) { r45 }
+	#V_CELLO3
+	r4<
+	[
+		Q(80)<b8>c8e-d-c
+		Q(50)c4b-4a4
+		f4
+	]
+	r1.
+	Q(80)<b8>c8e-d-c
+	Q(50)c4b-4a4
+	f4r4r4<
+	#V_CELLO
+	ET(70,40,!1.)
+	r4Q(100)b-4a4f2.
+
+TR(7)
+	#TM
+	#V_CELLO
+	VV(110)E(120)Q(90)
+	EW(127,100,!4,100,90,!1)
+	o5l4
+	r4 Sub{'<b-2>b-2'}r4'd-f'
+	r4 Sub{'<a-2>a-2'}r4'cf'
+	r4 Sub{'<g-2>g-2'}r4'<b->d-'
+	r4 Sub{'<f2>f2'}r4'<a->d-'
+	r4 Sub{'<e-2>e-2'}r4'<g-b->'
+	r4 Sub{'<d-2>d-2'}r4'<fb->'
+	r4 Sub{'<c2>c2'}r4'<e-g->'
+	r4 Sub{'<<b-2>b->'}r4'<e-g->'
+	l4
+	<<
+	'a'rr
+	[2
+		'<b->'>'e->e-<''d->d-<'<
+		'>ca<'rr
+		'<b->''>c>c<''<b->b-'<
+		'>ca<'rr
+	]
+	ET(125,70,!1.^1.^1.^1.^1.^1.^1.)
+	[
+		r>>d-c<<
+		'>ca<'rr
+		'c'>b-a<
+		'>ca<'rr
+	]
+	'c'>b-a<
+	'>ca<'rr
+	'c'>b-a<
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	VV(120)E(120)Q(90)
+	o2l2.
+	EW(127,100,!4,100,90,!1)
+	'b->b-'
+	'a->a-<'
+	'g->g-<'
+	'f>f<'
+	'e->e-<'
+	'd->d-<'
+	'c>c<'
+	'<b->b-'
+	l4
+	'<a>a'rr
+	[4
+		'<b->'rr
+		'f><'rr
+	]
+	ET(125,70,!1.^1.^1.^1.^1.^1.^1.)
+	[
+		rrr
+		'f><'rr
+		'<c>'rr
+		'f><'rr
+	]
+	'<c>'rr
+	'f><'rr
+	'<c>'rr
+	l12
+	f4
+	#V_CONTRABASS3
+	[
+		Q(90)<b8>c8e-d-c
+		Q(60)c4b-4a4
+		f4
+	]
+	r1.
+	#V_CONTRABASS2
+	Q(90)<b8>c8e-d-c
+	Q(60)c4b-4a4
+	f4r4r4<
+	ET(70,40,!1.)
+	r4Q(100)b-4a4f2.
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)Q(99)
+	Int VS15=100
+	[4
+		Rythm{'b4s4c4'}
+		VS15=70
+		Sub{[8 VS15=VS15-3 RandV(VS15-10,VS15) Rythm{O16}]} r2
+		Rythm{'b4s4o4'S4S4}
+	]
+	Sub{Rythm{c4}}
+	[4
+		Rythm{'b4s4o4'}
+		VS15=70
+		Sub{[8 VS15=VS15-3 RandV(VS15-10,VS15) Rythm{O16}]} r2
+		Rythm{'b4s4o4'S4S4}
+	]
+
+	ET(125,0,!1.^1.^1.^1.^1.^1.^1.)
+	[6
+		Rythm{'b4s4o4'}
+		VS15=70
+		Sub{[8 VS15=VS15-3 RandV(VS15-10,VS15) Rythm{O16}]} r2
+		Rythm{'b4s4o4'S4S4}
+	]
+
+ 
+ 
+/////////////////////////////////////////////////////// 
+// 026.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(579:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(230,0)
+	[4 r2.]
+	TmpChangeR(270,!2.^2.^2.)
+	TmpChangeR(230,!2.)
+	[4 r2.]
+	TmpChangeR(275,!2.^2.^2.)
+	TmpChangeR(230,!2.)
+	TmpChangeR(240,!2.^2.^2.)
+	TmpChangeR(220,!2.^2.)
+	TmpChangeR(240,0)
+	[2 r2.]
+	TmpChangeR(230,0)
+	[4 r2.]
+	TmpChangeR(270,!2.^2.^2.)
+	TmpChangeR(230,!2.)
+	[4 r2.]
+	TmpChangeR(270,!2.^2.^2.)
+	TmpChangeR(230,!2.)
+	TmpChangeR(250,0)
+	TmpChangeR(220,!2.^2.^2.^2.^2.^2.)
+	TmpChangeR(60,0)
+	TmpChangeR(90,!8)
+	TmpChangeR(160,!2^4)
+	TmpChangeR(100,!4.)
+	TmpChangeR(20,!4)
+
+TR(1)
+	#TM
+	o4
+	#AAV={#V_CELLO3 Q(95)V(80)}
+	#BBV={#V_CELLO2 Q(95)V(80)}
+	VV(110)
+	l12Q(95)
+	r2
+	#AAV
+	EW(110,80,!16)
+	ab->d-
+	frr rrr <ab->d-
+	#BBV
+	EW(110,80,!16,80,70,!1,70,30,!2)
+	f1.<
+	[4 r2.]
+	#AAV
+	EW(110,80,!16)
+	r2ab->d-
+	frr rrr <ab->d-
+	#BBV
+	EW(110,80,!16,80,70,!1,70,30,!2)
+	f1.<
+	[11 r2.]
+	#AAV
+	EW(110,80,!16)
+	r2ab->d-
+	frr rrr <ab->d-
+	EW(110,80,!16,80,70,!1,70,30,!2)
+	#BBV
+	f1.<
+	[4 r2.]
+	#AAV
+	EW(110,80,!16)
+	r2ab->d-
+	frr rrr <ab->d-
+	#BBV
+	EW(110,80,!16,80,70,!1,70,30,!2)
+	f1.<
+
+TR(2)
+	#TM
+	#AAV={#V_CONTRABASS3 Q(95)V(80)}
+	#BBV={#V_CONTRABASS2 Q(95)V(80)}
+	o3
+	E(70)
+	VV(110)
+	l12Q(95)
+	r2
+	#AAV
+	EW(110,80,!16)
+	ab->d-
+	frr rrr <ab->d-
+	#BBV
+	EW(110,80,!16,80,70,!1,70,30,!2)
+	f1.<
+	[4 r2.]
+	#AAV
+	EW(110,80,!16)
+	r2ab->d-
+	frr rrr <ab->d-
+	#BBV
+	EW(110,80,!16,80,70,!1,70,30,!2)
+	f1.<
+	[11 r2.]
+	#AAV
+	EW(110,80,!16)
+	r2ab->d-
+	frr rrr <ab->d-
+	EW(110,80,!16,80,70,!1,70,30,!2)
+	#BBV
+	f1.<
+	[4 r2.]
+	#AAV
+	EW(110,80,!16)
+	r2ab->d-
+	frr rrr <ab->d-
+	#BBV
+	EW(110,80,!16,80,70,!1,70,30,!2)
+	f1.<
+
+TR(3)
+	#TM
+	[4 r2.]
+	V(80)o4 E(127)VV(120)Q(98)
+	#V_STRINGS1
+	#tr301={
+		b-4r2
+		>
+		'b-1.>g-1.b-1.<'
+		'e-4.>c4.e-4.<''f8>c8f8<' 'f#4>c4f#4<'
+		'f8>d-8f8<' r8 r2
+		[3 r2.]
+		<
+		a-4r2
+		>
+		'a-1.>f1.a-1.<'
+		'e-4.>c4.e-4.<''f8>c8f8<' 'f#4>c4f#4<'
+		'f8>d-8f8<' r8 r2
+		[10 r2.]
+		<
+		b-4r2
+		>
+		'b-2.^4.>g-2.^4.b-2.^4.<' 'e-8>c8e-8<' 'e-4>c4e-4<'
+		'e-4.>c4.e-4.<''f8>c8f8<' 'f#4>c4f#4<'
+		'f8>d-8f8<' r8 r2
+		[3 r2.]
+		<
+		c4r2
+		>>
+		'c1.a-1.>c1.<'<
+		'g4.>e4.g4.<''a-8>e8a-8<' 'b-4>e4b-4<'
+		'a-8>f8a-8<' r8 r2
+
+	}
+	EW(127,100,!4.)
+	Sub { o4 #tr301 }
+	o5 #tr301
+
+TR(4)
+	#TM
+	#V_VIOLIN
+	[4 r2.]
+	Vibrate(!8,20)
+	o5 E(110)VV(120)Q(90)
+	EW(127,100,!4.)
+	o5 #tr301
+
+TR(14)
+	#TM
+	#V_STRINGS2
+	[4 r2.]
+	Vibrate(!8,20)
+	o5 E(110)VV(120)Q(90)
+	EW(127,100,!4.)
+	o5 #tr301
+
+IF(0){
+	TR(5)
+		#TM
+		#V_TRUMPET2
+		[4 r2.]
+		o5 E(120)VV(127)Q(90)
+		EW(127,110,!8)
+		#tr301
+}
+
+TR(7)
+	#TM
+	#V_HORN
+	[4 r2.]
+	o4
+	VV(110)Q(99)
+	EW(127,110,!2)
+	'>e-1.^1.f#1.^1.<'
+	'>d-4f4<'r2
+	[3 r2.]
+	'a-1.^2.>f1.^2.>c#1.^2.<<'
+	'a-2.>e-2.>c2.<<'
+	'a-4>f4>c#4<<'r2
+	o5
+	Q(95)
+	f2.<f2.
+	Q(99)
+	[8  r2.]
+	'>e-1.^1.f#1.^1.<'
+	'>d-4f4<'r2
+	[3 r2.]
+	'a-1.^2.>f1.^2.>c1.^2.<<'
+	'g2.>e2.>c2.<<'
+	'a-4>f4>c4<<'r2
+	r2.
+	Q(95)
+	EW(100,55,!2.)
+	f2.<f2.
+
+TR(11)
+	#TM
+	#V_PICCOLO
+	VV(127)Q(99)
+	EW(127,110,!4)
+	[4 r2.]
+	o7
+	r2.
+	b-1.e-4.f8f#4
+	f4r2
+	[3 r2.]
+	r2.
+	a-1.e-4.f8f#4
+	f4r2
+	o7
+	f2.<f2.
+
+	[8 r2.]
+	>
+	r2.
+	b-2.^4.e-8e-4e-4.f8f#4
+	f4r2
+	[3 r2.]
+	r2.
+	>c1.<g4.a-8b-4
+	a-4r2
+	o7
+	EW(100,55,!2.)
+	a-2.<a-2.
+
+
+TR(12)
+	#TM
+	#V_FLUTE
+	E(110)VV(100)Q(90)
+	EW(100,90,!2.)
+	[17 r2.]
+	o6
+	a2.<a2.>
+	[21 r2.]
+	EW(100,55,!2.)
+	c2.<c2.
+
+TR(13)
+	#TM
+	#V_CLARINET
+	E(110)VV(100)Q(90)
+	EW(100,90,!2.)
+	[17 r2.]
+	o6
+	c2.<c2.
+	[21 r2.]
+	f2.<f2.
+
+TR(8)
+	#TM
+	#V_CONTRABASS
+	o3
+	E(127)VV(127)Q(95)
+	EW(127,110,!8.)
+	[4 r2.]
+	b-2.^2.^2.
+	b-4.b-8b-4
+	b-4 r2
+	[3 r2.]
+	a-2.^2.^2.
+	a-4.a-8a-4
+	>d-4 r2<
+	r1.
+	f2.^2.^4f#4r4
+	[5 r2.]
+	b-2.^2.^2.
+	b-4.b-8b-4
+	b-4 r2
+	[3 r2.]
+	c2.^2.^2.
+	c4.c8c4
+	f4r2
+	r2.
+	r2.
+	e2.^2.^4f4r4
+
+TR(9)
+	#TM
+	#V_TIMPANI1
+	o3
+	E(127)VV(127)Q(100)
+
+	[4 r2.]
+	#V_TIMPANI1
+	l12 VV(127)[3 [12 b- RandV(100,115)]]
+	#V_TIMPANI2
+	VV(127)b-2.
+	[3 r2.]
+	#V_TIMPANI1
+	l12 VV(127)[3 [12 a- RandV(100,115)]]>
+	#V_TIMPANI2
+	VV(127)d-2.
+	<
+	r1.
+	#V_TIMPANI1
+	l12 VV(127)[2 [9 f RandV(100,115)]]
+	#V_TIMPANI2
+	VV(127)f4f#4r4
+	[5 r2.]
+	#V_TIMPANI1
+	l12 VV(127)[3 [12 b- RandV(100,115)]]
+	#V_TIMPANI2
+	VV(127)b-2.
+	[3 r2.]
+	#V_TIMPANI1
+	>l12 VV(127)[3 [12 c RandV(105,115)]]<
+	#V_TIMPANI2
+	VV(127)f2.
+	r1.
+	#V_TIMPANI1
+	l12 VV(120)[2 [9 e RandV(100,110)]]
+
+	l12
+	#V_TIMPANI2
+	VV(127)f2.
+	l24
+	#V_TIMPANI1
+	de- 
+	[8 f RandV(100,110) e- RandV(100,110)]
+	[8 f RandV(100,110) e- RandV(100,110)]
+	#V_TIMPANI2
+	VV(110)de-d-
+
+TR(10)
+	#TM
+	[4 r2.]
+
+	#DRUMSET
+	VV(127)E(127)
+
+	#r1={
+		Sub {
+			[2 Rythm{[18 S18]}]
+		}
+		Rythm{'b2.''b1.c1.''b4.s4.c4.''b8s8''b4s4'}
+		Rythm{'b2.s2.c2.'}
+	}
+	#r6={
+		Sub {
+			[2 Rythm{[18 S18]}]
+		}
+		Rythm{'b2.''b1.c2.^4.'s8s4 'b4.s4.c4.''b8s8''b4s4'}
+		Rythm{'b2.s2.c2.'}
+	}
+	#r4={
+		Sub {
+			[2 Rythm{[18 S18]}]
+		}
+		Rythm{'b2.''b1.c1.'}
+		Sub{Rythm{'b7s7'[4s7]}}r2.
+		Rythm{'b2.s2.c2.'}
+	}
+	#r2={
+		Sub {
+			[1 Rythm{[26 S18]}]
+		}
+		Rythm{'b1.s1.' 'b4s4''b4s4'}
+		r4
+	}
+	#r3={
+		Sub {
+			[1 Rythm{[27 S18]}]
+		}
+		Rythm{'b2.''b1.c1.'}
+		Sub{Rythm{'b6s6'[3s6]}}r2.
+		Rythm{'b2.s2.c2.'}
+	}
+	#r5={
+		Sub {
+			[1 Rythm{[26 S18]}]
+		}
+		Rythm{'b1.s1.' 'b4s4'}
+	}
+	#r1
+	[3 r2.]
+	#r1
+	[2 r2.]
+	#r2
+	[5 r2.]
+	#r1
+	[3 r2.]
+	#r1
+	[2 r2.]
+	#r5
+	ET(0,127,!1.)
+	IF(TIMIDITY=1) {
+		Rythm{G1^1}
+	} ELSE {
+		Rythm{[8 g4]}
+	}
+	Rythm{'g1'}
+ 
+/////////////////////////////////////////////////////// 
+// 027.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(626:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(240,0)
+	TmpChangeR(283,!2.)
+	[6 r2.]
+	TmpChangeR(263,!4.)
+	TmpChangeR(235,!4.)
+	TmpChangeR(243,0)
+	TmpChangeR(283,!2.)
+	[4 r2.]
+	TmpChangeR(267,!2.)
+	TmpChangeR(245,!2.)
+	TmpChangeR(230,0)
+	TmpChangeR(200,!2)
+	TmpChangeR(140,!4)
+
+TR(1)
+	#TM
+	#V_PICCOLO
+	VV(100)E(127)
+	[
+		o8
+		l8Q(98)
+		EW(127,90,!16.)
+		f2.^4 e-d-<a-f
+		e-d-<a-fe-d-<
+		ET(127,90,!16.,90,60,!4.)
+		a-4r2>
+
+		ET(80,127,!2.)
+		cd-e-fg-a-
+		ET(127,70,!2)
+		a2r4
+		ET(127,80,!2.)
+		ag-gg-fe
+		:
+		ET(60,30,!2)
+		e-2r4
+	]
+	ET(80,30,!4.)
+	e-2r4
+
+TR(2)
+	#TM
+	#V_CONTRABASS
+	VV(110)E(127)
+	EW(127,90,!4,90,80,!4)
+	l8
+	[
+		o3
+		Q(85)
+		d-2r4
+		a-2r4>
+		d-2r4<
+		r2.
+		a-2.
+		r2.
+		r2.
+		:
+		r4a-4a-4
+	]
+	VV(115)Q(100)
+	ET(110,70,!2)
+	aa-gg-fe-
+
+
+TR(3)
+	#TM
+	#V_PIZZ
+	l4
+	Q(100)VV(90)E(90)
+	[
+		o5
+		rr '<a->f'
+		'f>d-<'r'<a->f'
+		'f>d-<'rr
+		[5 r2.]
+	]
+
+TR(4)
+	#TM
+	l8o5
+	[
+		[4 r2.]
+		#V_EHORN
+		VV(100)
+		Q(100)
+		r2.
+		o5
+		ET(70,110,!2)
+		cd-e-fg-a-
+		ET(110,70,!2)
+		a2r4<
+		:
+		#V_CLARINET
+		VV(95)
+		ET(110,70,!2)
+		aa-gg-fe-
+	]
+
+TR(5)
+	#TM
+	#V_HORN
+	o5Q(85)l8
+	VV(100)E(100)
+	EW(90,100,!12,100,50,!1)
+	[
+		'<f2.^4>d-2.^4' '<f4.>d-4.' '<f8>d-8'
+		'<f2.^4>d-2.^4' r4r4
+
+		'<g-2.^4>c2.^4' ['<g-4>c4']
+		'<g-2.^4>c2.^4' r4r4
+	]
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(100)E(70)
+
+	#r1={
+		Rythm{o2.o2.o1.}
+	}
+	#r2={
+		Rythm{o1.o1.}
+	}
+	#r1
+	#r2
+	#r1
+	#r2
+ 
+/////////////////////////////////////////////////////// 
+// 028.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(642:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(125,0)
+	TmpChangeR(210,!4)
+	TmpChangeR(242,!2)
+	TmpChangeR(238,!4.)
+	TmpChangeR(242,!4.)
+	TmpChangeR(235,!2.^2.^2.)
+	TmpChangeR(240,!2.^2)
+	TmpChangeR(225,!2.)
+	TmpChangeR(200,!4)
+
+	TmpChangeR(215,0)
+	TmpChangeR(220,!2.)
+	TmpChangeR(205,0)
+	TmpChangeR(200,!4)
+	TmpChangeR(205,!4)
+	TmpChangeR(210,!4)
+	TmpChangeR(235,!2.^2.)
+	TmpChangeR(230,!2.)
+	TmpChangeR(220,!4)
+	TmpChangeR(225,!2.^2.)
+	TmpChangeR(207,!2)
+
+	TmpChangeR(215,0)
+	TmpChangeR(230,!2.^2.)
+	TmpChangeR(225,!2.^2.)
+	TmpChangeR(220,!2.) TmpChangeR(197,!2.)
+	TmpChangeR(230,!16) TmpChangeR(215,!2^8.)
+	TmpChangeR(235,!2.)
+	TmpChangeR(230,!2.^2.^2.) TmpChangeR(225,!2.)
+	TmpChangeR(213,!2^8) TmpChangeR(190,!8)
+	TmpChangeR(180,0) r8 TmpChangeR(195,!8) TmpChangeR(230,!2.^2.^2)
+
+	TmpChangeR(248,!2.^2.^2.^2.)
+	TmpChangeR(230,!2.^2.)
+	TmpChangeR(235,!2.)
+	TmpChangeR(250,!2.)
+	TmpChangeR(255,!2.^2.^2.^2.)
+
+	TmpChangeR(260,!2.^2.^2.^2.)
+	TmpChangeR(270,!2.^2.^2.^2.)
+
+	TmpChangeR(275,!2.^2.^2.^2.)
+	TmpChangeR(278,!2.^2.^4)
+	TmpChangeR(200,!2.^2)
+
+
+#melody={
+	l4
+	Q(100)
+	ET(95,110,!1.^1.,110,100,!1.^1.)
+	f2.^ e-.d-8
+	d-2. g-2.^2
+	Q(95) f4
+	Q(100) fe-d-
+	ET(100,110,!2.,110,90,!2.)
+	Q(95) b-2. b-2Q(80)b-4
+
+	ET(100,110,!2.,110,80,!2.)
+	Q(100) b-2e-4
+	e-4f32g32f8.^8e-8
+	ET(100,110,!2.,110,80,!2.,80,100,!2.100,90,!2.)
+	e-2.a-2.^4
+	g4f4
+	g4f4.Q(90) e-8>
+	ET(80,110,!1.)
+	Q(95) c2.c2 Q(80)c4
+	ET(110,90,!1.)
+	Q(100) c2.^4<b-4.a-8
+	ET(100,115,!1.,115,90,!2.)
+	a-2.>Q(85)d-2.
+	Q(100) d-2c4
+	EW(105,90,!2)
+	c4<b-4.a-8>
+	ET(80,115,!2.,115,60,!2.)
+	Q(95) f2.f2 Q(90)f4
+	ET(90,115,!2.,115,90,!2.)
+	Q(95) f2.
+	Q(100) e-d-<b->
+	ET(90,115,!2.,115,90,!2.)
+	Q(95) c2.<
+	Q(100) b-a- Q(95) f
+	ET(90,115,!2.,115,90,!2.)
+	Q(100) b-a-Q(80)g-
+	Q(100) g-32a-32g-8.f4.e8
+	e2.Q(70) f2
+}
+
+#melody0={
+	Q(100)
+	b1.
+	b2.b-2.
+	b1.
+	'b-2.>d-2.<'
+	'a-2.>d-2.<'
+	'g1.>d-1.'
+	d-2.c2.
+	d-1.
+	c1.
+}
+
+#melody11={
+	Q(100) a-4
+	a-2.>
+	c4<b-4.a-8
+	a-2.>Q(90) d-2.
+	Q(100) d-4.c8c4
+	c4.<b-8 Q(80) a-4>
+	Q(100) f2.
+	f2 Q(80) f4
+	Q(100) f2.
+	e-4d-4.< Q(95) b-8>
+	Q(100) c2.<
+	b-4a-4 Q(85) b-4
+
+	Q(100) b2b-4
+	b2.^2 b-4
+	b4b-4 Q(95) b4
+	Q(100) b2 Q(90) b-4>
+}
+#melody12={
+	Q(100)d-2.^2c4
+	d-4c4 Q(76) d-4
+	Q(100)d-2 Q(76)c4
+	Q(100)e-2 Q(76)e-4
+	Q(100)e-2 Q(76)d4
+	Q(100)f2 Q(76)f4
+	Q(100)f2 Q(76)e4
+	Q(100)g2 Q(76)g4
+	Q(100)g2 Q(76)a-4
+	Q(100)a2 Q(76)c4
+	d-4
+}
+
+#melody2={
+	r4
+	Q(100)
+	<a-2>c4^4
+	<b-4.a-8
+	a-2.> Q(90) 'd-2.a-2.'
+
+	Q(100)
+	Sub{'g-2a-2''g-4a-4'}
+	d-4.c8c4
+	'c4.g-4.a-4.''<b-8>g-8<' Q(80) 'a-4>g-4'
+	Q(100) 'f2.a-2.'
+	'f2a-2' Q(80) 'f4a-4'
+	'f2.a-2.'
+	'e-4g-4''d-4.g-4.'Q(95)'<b-8>g-8'
+	Q(100) 'c2.a-2.'<
+	Sub{b-4a-4 Q(95) b-4}>Q(100) g-4f4 Q(85) f4<
+
+	Q(100) Sub{b2b-4}>f2f4<
+	Sub{b2.^2 b-4}>f2.^2 f4<
+	Sub{b4b-4 Q(95) b4}>Q(100) f4f4 Q(95) f4<
+	Q(100) Sub{b2 Q(95) b-4}>Q(100) g-2 Q(90) g-4
+	Q(100) 'd-2.^2g2.^2' Q(95)l4'cg'
+	'd-g''cg''d-g'
+	Q(100)'d-2a-2'Q(95)'ca-'
+	Q(100)'e-2a2'Q(95)'e-a'
+	Q(100)'e-2a-2'Q(95)'da-'
+	Q(100)'f2b2'Q(95)'fb'
+	Q(100)'f2b-2'Q(95)'eb-'
+	Q(100)'g2>d2<'Q(95)'g>d<'
+	Q(100)'g2>c2<'Q(95)'a->c<'
+	Q(100)'a2>c2<'Q(95)'cg-'
+	'd-4f4'
+}
+
+TR(1)
+	#TM
+	#V_PICCOLO
+	E(100)
+	VV(100)
+	o7
+	[31 r2.]r2
+	Vibrate(!2,10)
+	IF(TIMIDITY=0) {
+		EW(110,70,!8)
+	} ELSE {
+		E(100)
+	}
+	#melody11
+	#melody12
+	Vibrate(0,0)
+
+TR(2)
+	#TM
+	#V_OBOE
+	E(100)
+	VV(100)
+	EW(105,90,!1.)
+	o6q100
+	Vibrate(!4,20)
+	#melody
+	#V_FLUTE3
+	E(110)
+	VV(110)
+	Vibrate(!4,20)
+	#melody11
+	#melody12
+	Vibrate(0,0)
+
+TR(6)
+	#TM
+	#V_VIOLIN2
+	E(120)
+	VV(100)
+	[32 r2.]r-4
+	o6
+	Vibrate(!4,20)
+	Sub{[12 r2.] ET(120,127,!1.^!.)}
+	#melody11
+	E(90)VV(127)
+	#V_VIOLIN
+	ET(90,115,!1.^1.^1.^1.^1.)
+	#melody12
+	Vibrate(0,0)
+
+TR(3)
+	#TM
+	#V_CLARINET
+	E(110)
+	VV(110)
+	o5q100
+	Vibrate(!4.,10)
+	EW(60,45,!2.)
+	#melody0
+	[15 r2.]r2
+	o6q100
+	EW(110,80,!4)
+	#melody2
+	Vibrate(0,0)
+
+#chord1={
+	l8
+	d-a->d-fd-<a-
+	d-b>d-fd-<b
+	g-b>d-g-d-<b
+	g-b->d-g-d-<b-
+	a-b>d-a-d-<b
+	fb>d-fd-<b
+	g-b->d-g-d-<b-
+	eb->d-a-d-<b-
+	e-b->d-gd-<b-
+	gb->d-gd-<b-
+	a->d-e-a-e-d-<
+	a->ce-a-e-c<
+	b->d-e-b-e-d-<
+	gb->d-gd-<b-
+	a->ce-a-e-c<
+	ga->ce-c<a-
+	[g-a->ce-c<a-]
+	fa->d-fd-<a-
+	fa->d-a-d-<a-
+	[e-a->cg-c<a-]
+	da-b>f<ba-
+	da-b->f<b-a-
+	e-g-b->e-<b-g-
+	<g->g-b->e-<b-g-
+	[<a->fa->d-<a-f]
+	[<a->g-a->c<a-g-]
+	d-a->d-fd-<b-
+	a->d-fa-fd-<
+}
+
+#chord2={
+	l8
+	[g-a->ce-c<a-]
+	fa->d-fd-<a-
+	fa->d-a-d-<a-
+	[e-a->cg-c<a-]
+	da-b>f<ba-
+	da-b->f<b-a-
+	e-g-b->e-<b-g-
+	<g->g-b->e-<b-g-
+	[<a->fa->d-<a-f]
+	[4 <a->fa->d<a-f]
+	<a->e-g->e-<g-e-
+	[3 <a->eg>e<ge]
+	<a->fa->f<a-f
+	<a->e-g->c<g-e-<
+	a->c-f>c-<fc-<
+	a->fa->d<a-f<
+	a->d-g>d-<gd-<
+	a->f-b->f-<b-f-<
+	a->e-g->e-<g-e-<
+	a->e-g->c<g-e-
+	#PEDALON Sub{l32 fa->d-f} r2 #PEDALOFF
+}
+
+TR(4)
+	#TM
+	#V_HARP
+	E(80)
+	VV(90)
+	o4
+	#chord1
+	#chord2
+
+#back={
+	'<a-1.>g-1.'
+	'<a-2.>f2.'
+	'd-2.a-2.'
+	Sub{g-1.}
+	c2.<a-2.>
+	Sub{f1.}
+	<b2.b-2a-4
+	'g-1.>e-1.'
+	'<f1.>d-1.'
+	Sub{<f2.^4f4f4}>d2.^4d4d4
+	'<f1.>d1.'
+	Sub{<g-2.g4g4g4}>e-2.e4e4e4
+	'<g1.>e1.'
+	'<a-2.>f2.'
+	'<e-2.>c2.'
+	'<d2.b2.>'
+	'<f2.>d2.'
+	'<g2.>d-2.'
+	'<g2.>e2.'
+	'<g-2.>e-2.'
+	'<g-2.>c2.'
+	'<f4>d-4'
+}
+TR(5)
+	#TM
+	#V_HORN
+	E(90)
+	VV(90)
+	o5q100
+	[32 r2.]
+	EW(90,120,!2.)
+	#back
+
+#bass1={
+	l4
+	d-2.^4 e-f
+	g-2.d-2.
+	a-2.d-2.
+	g-2.e2.
+	e-2.^4fg
+	a-2.e-2.
+	b-2.e-2.
+	a-2.g2.
+	g-2.^2.
+	f2.^2.
+	e-2.^2.
+	d2.b-2.
+	e-2.<g-2.
+	a-2.a-2.
+	a-2.a-2.>
+	d-2.<a-2.>
+}
+
+#bass2={
+	g-2.^4g-4.g-8
+	f2.f2.
+	e-2.<a-2.>
+	d2.<b-2.>
+	e-2.<g-2.
+	a-2.^2.
+	a-2.^4a-4a-4
+	a-2.^2.
+	a-2.^4a-4a-4
+	a-2.^2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+	a-2.
+}
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	EW(100,90,!2)
+	VV(100)
+	o3q100
+	#bass1
+	EW(110,90,!2)
+	VV(110)
+	#bass2
+
+#tremoro1={
+	ET(70,110,!1.^1.)
+	'g-1a-1.>c1.e-1.<'
+	Sub{'f1.a-1'}>d-2.'f2a-2.<'
+	ET(110,100,!1.)
+	'a-1.>c1.g-1.'
+	ET(110,100,!1.)
+	Sub{'d1.f1.'}<b2.b-2a-4
+	ET(100,90,!1.^1.^1.^1.)
+	'g-1.b-1.>e-1.<'
+	'f1.a-1.>d-1.<'
+	Sub{'g-1.a-1.>c1.'}r2.e-2.<
+	ET(90,60,!1.)
+	'f1.a-1>d-1.<'
+}
+
+#tremoro2={
+	ET(80,110,!1.^1.)
+	'f1.^1.a-1.^1.>d1.^1.<'
+	'g-2.a-2.>c2.e-2.<'
+	'g1.^2.b-1.^2.>d-1.^2.e1.^2.<'
+	'a-2.>d-2.f2.<'
+	'g-2.>c2.e-2.<'
+	Sub{'f1.g#1.b1.'}r2.>d2.<
+	'd-2.g2.>d-2.<'
+	'e2.b-2.>e2.<'
+	'e-2.g-2.>e-2.<'
+	'e-2.g-2.>c2.<'
+
+}
+TR(11)
+	#TM
+	#V_TREMORO
+	[16 r2.]
+	o4
+	Q(100)VV(100)E(100)
+	#tremoro1
+	o4
+	[12 r2.]
+	#tremoro2
+
+TR(12)
+	#TM
+	#V_STRINGS2
+	[16 r2.]
+	o4
+	Q(100)VV(95)E(100)
+	#tremoro1
+	o4
+	[12 r2.]
+	#tremoro2
+ 
+/////////////////////////////////////////////////////// 
+// 029.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(702:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(220,0)
+	TmpChangeR(260,!2.)
+	TmpChangeR(270,!2.)
+	[5 r2.]
+	r2r8
+	TmpChangeR(50,0)
+
+#melody1={
+	l8
+	[
+		#AAV<f>#BBV d-a-f>d-b-
+		'c2a-2'r4<
+		:
+		#AAV<g->#BBV ca-g->ca-
+		'd-2f2'r4<
+	]
+	#AAV<g->#BBV ca-g->c Q(50)a-
+}
+#melody2={
+	l8
+	d-<fa-d-<fa-
+}
+TR(6)
+	#TM
+	r2.
+	#V_VIOLIN
+	Vibrate(!8,20)
+	o6
+	VV(110)
+	EW(127,60,!16)
+	Q(80)
+	IF(TIMIDITY=1) {
+		#AAV={#V_VIOLA}
+		#BBV={#V_VIOLIN}
+	}
+	#melody1
+
+#AAV={""}
+#BBV={""}
+
+TR(8)
+	#TM
+	r2.
+	#V_STRINGS1
+	o6
+	VV(127)
+	EW(127,80,!16)
+	#melody1
+
+#cello={
+	l8
+	[2
+		r2 #Q95 <a->f>#Q90 d-2r4<
+		r2 #Q95 <a->e->#Q90 c2r4<
+	]
+}
+
+TR(9)
+	#TM
+	#V_CELLO
+	o4
+	#cello
+
+TR(11)
+	#TM
+	#V_STRINGS1
+	o4
+	#cello
+
+#bass1={
+	#Q95
+	[d-2.^2r4 < a-2.^2r4>]
+}
+TR(12)
+	#TM
+	#V_CONTRABASS
+	o3VV(127)
+	EW(127,90,!16)
+	#bass1
+
+
+#brass={
+	[2
+		'f>d-<'rr
+		rrr
+		'e->c<'rr
+		rrr
+	]
+}
+
+TR(13)
+	#TM
+	#V_TRUMPET
+	o6
+	VV(127)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(14)
+	#TM
+	#V_TROMBONE
+	o5
+	VV(127)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(15)
+	#TM
+	#V_HORN
+	o4
+	l4
+	VV(100)E(127)Q(80)
+	EW(127,100,!4)
+	[
+		'a-1>f1<' [2 'a->f<']
+		'a-1>e-1<' [2 'a->e-<']
+	]
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS16
+	#r1={
+		VS16=25
+		r-2
+		Sub{[10 VS16=VS16+5 RandV(VS16, VS16+3) n(40),20]}r2
+		Rythm{'b1s1o1'o4o4}
+	}
+	#r2={
+		VS16=25
+		r-2
+		Sub{[10 VS16=VS16+5 RandV(VS16, VS16+3) n(40),20]}r2
+		Rythm{'b2.s2.o2.'}
+	}
+	#r3={
+		Rythm{'b2.s2.o2.'}
+		Sub{Rythm{'b2.s2.c2.'}}
+		Expression.onTime(127,0,!1^1)
+		[24 Rythm{o24}]
+	}
+	[4 #r1]
+ 
+/////////////////////////////////////////////////////// 
+// 030.mml 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+#TM={Time(710:1:1)} 
+ 
+拍子 3,4
+
+TR(16)
+	#TM
+	Sub {
+		TmpChangeR(220,0)
+		TmpChangeR(310,!2.)
+		TmpChangeR(320,!1.^1.^1.)
+		TmpChangeR(270,!2.)
+		TmpChangeR(320,!2.)
+		TmpChangeR(355,!1.^1.)
+		TmpChangeR(320,!1.)
+		TmpChangeR(190,!2.)
+		TmpChangeR(250,0)
+	}
+	[16 r2.]r2
+	[
+		[3
+			TmpChangeR(350,0)
+			r4
+			TmpChangeR(475,0)
+			r2
+		]
+		TmpChangeR(370,0)
+		[2 r2.]
+		TmpChangeR(340,0)
+		[2 r2.]
+	]
+	TmpChangeR(350,0)
+	TmpChangeR(420,!1.^1.^1.^2.^2)
+	TmpChangeR(260,!1)
+	TmpChangeR(350,!2.)
+	TmpChangeR(390,!1.^2.)
+	TmpChangeR(400,!1.^1.)
+	TmpChangeR(450,!1.^1.)
+	TmpChangeR(410,!1.)
+	TmpChangeR(330,0)
+	r1.
+	TmpChangeR(350,0)
+	TmpChangeR(270,!1.^1.)
+	TmpChangeR(230,!1.^1.)
+	TmpChangeR(120,0)
+	r4r16
+	TmpChangeR(20,0)
+	r32
+	TmpChangeR(300,0)
+	TmpChangeR(400,!2)
+	TmpChangeR(500,!2)
+	TmpChangeR(240,!2)
+
+#a0302={
+	l12
+	Q(99)
+	cd-f
+	a-4r4
+	<b>cf
+	a-4r4
+	<ab->f
+	a-4r4
+}
+
+TR(1)
+	#TM
+	#V_VIOLIN
+	V(110)VV(127)E(120)
+	[
+		o7l8
+		Q(95)
+		EW(120,110,!8)
+		c#32>c#8..<baec#<
+		baec#<ba
+		r2.
+		ET(122,110,!2.)
+		Q(100)f2 Q(50)e4
+	]
+	EW(110,100,!8)
+	Q(50)l4fr2
+	V(80)
+	>'d-f'r2
+	[2 'd-f'r2]
+	'df'r2
+	'dg-'r2
+	'e-g-'r2
+	'eg'
+	V(80)
+	E(127)
+	Q(95)l8<a->d-fa-
+	l4>'fa-'
+
+	V(100)
+	[
+		o5
+		r4
+		EW(120,100,!8)
+		#a0302
+		r2.r4
+		o7l4
+		EW(120,100,!4)
+		'f1a-1'['e-a-''fa-']'e-a-'
+		:
+		'd-fa-'
+	]
+	l2<
+	#V_VIOLIN2
+	V(70)Q(70)
+	VV(120)E(127)
+	ET(125,90,!2.)
+	Q(70)'a->fa-'Q(40)e-4<
+	[
+		ET(125,90,!2.)
+		Q(70)'a>fa'Q(40)e-4<
+	]
+	[
+		ET(126,90,!2.)
+		Q(70)'b->g-b-'Q(40)f-4<
+	]
+	[
+		EW(127,90,!2.)
+		Q(70)'b>gb'Q(40)f4<
+	]
+	EW(127,100,!2.)
+	Q(70)'>ca->c<'Q(30)g-4
+
+	#V_VIOLIN
+	V(110)VV(120)E(120)
+	[
+		l8
+		EW(127,100,!4)
+		Q(99)o8f4
+		Q(80)[3 e-d-<a-f]
+		e-d-<Q(60)a-4
+		EW(127,100,!2)
+		Q(99)'a2>a2<'Q(60)'a-4>a-4<'
+	]
+	
+	V(60)
+	[1
+		Q(99)
+		E(125)
+		l4'a->fa-<'rr
+		'a2>fa2<''a->a-<'
+	]
+	V(70)
+	[2
+		Q(99)
+		l4'a->fa-<'rr
+		'a2>a2<''a->a-<'
+	]
+	V(80)
+	[3
+		EW(127,60,!4)
+		Q(70)'a>fa<''a->fa-<'
+	]
+	V(90)
+	l2.
+	EW(127,100,!4,50,!4)
+	Q(62)
+	'a>fa<'
+	>
+	'eb->c<'
+	'>cfa'
+	'e-g-a-'
+	l1.
+	EW(127,0,!1)
+	'<a->d-f'
+	<
+	'<a->d-f'
+	'd-8a-8>d-8<'Q(100)o8
+	ET(127,70,!1.)
+	f1.^1.^1.
+
+TR(2)
+	#TM
+	#V_VIOLA
+	V(110)VV(120)E(100)
+	[
+		o5l8
+		Q(95)
+		[2 r2.]
+		EW(120,110,!8)
+		ec#<baQ(55)e4
+		ET(122,110,!2.)
+		Q(100)f2 Q(80)e4
+	]
+	V(95)
+	EW(90,70,!8)
+	Q(60)
+	f4
+	Q(70)fa>d-f<
+	r4 fa>d-f<
+	r4 fb->d-f<
+	r4 fb->df<
+	r4 g-b->dg-<
+	r4 g-b->e-g-<
+	r4 g>d-eg<
+	Q(60)r4r4r4 >>'a-4>d-4<'
+
+	[
+		o4
+		r4
+		EW(110,90,!8)
+		#a0302
+		r2.r4
+		o6l4
+		EW(120,100,!4)
+		a-1[5 a-]
+		:
+		'a->d-'
+	]
+	V(60)
+	o5l2
+	[3
+		ET(120,90,!2.)
+		 'g->cf'e-4<]
+	
+	[2
+		ET(120,90,!2.)
+		 'g>d-g-'f-4<
+	]
+	[2
+		ET(120,90,!2.)
+		'a->dg'f4<
+	]
+	ET(120,90,!2.)
+	'a->e-a-'
+	ET(120,90,!2.)
+	g-4<
+	[16 r2.]
+	l2.
+	EW(127,100,!4,50,!4)
+	Q(62)
+	r2.
+	c
+	a
+	'g-a->c<'
+	EW(127,110,!1)
+	f1.<f1.
+
+
+TR(3)
+	#TM
+	#V_HORN2
+	V(100)VV(120)E(127)
+	Q(70)
+	o3
+	l4
+	[
+		a>d#e
+		e1d#e
+		f2e<
+	]
+	>f4r2
+	[7 r2.]
+	r4
+	[
+		[4 r2.]
+		Q(90)
+		o4
+		r2
+		'g-1>c1f1<' Q(70)[3 'g->ce-<':'g->cfe-<']
+		:
+		'fa->d-<'
+	]
+
+TR(4)
+	#TM
+	#V_STRINGS1
+	V(110)VV(110)E(110)
+	Q(70)
+	o4
+	[
+		l4
+		a>d#e
+		e1d#e
+		f2e<
+	]
+	>f4r2
+	[7 r2.]
+
+TR(5)
+	#TM
+	#V_TRUMPET
+	V(70)VV(100)E(110)
+	Q(90)
+	[
+		r4'a4>e4<''a4>e4<'
+		'a2.>e2.<'
+		l4
+		rd#ef2e
+	]
+	l4
+	[5'f>f<'rr]
+	[2'f#>f#<'rr]
+	[1'g>g<'rr]
+	Sub{'a-2>a-2<'}
+	>
+	[
+		[4 r2.]
+		Q(90)
+		r2.
+		f1 Q(70)e-fe-fe-
+	]
+	[8 r2.]
+	o5
+	[
+		[3 r2.]
+		'a2>a2<''g#4>g#4<'
+	]
+	l4
+	[3
+		'g#>g#<'rr
+		'a2>a2<''g#>g#<'
+	]
+	[3
+		'a>a<''g#>g#<'
+	]
+	l2.
+	EW(127,70,!2)
+	Q(62)
+	'a>a<'
+	>
+	'c>c<'
+	'a>a<'
+	'g#>g#<'
+	ET(127,50,!1)
+	'f1.>f1.<'
+
+TR(6)
+	#TM
+	#V_PICCOLO
+	V(95)VV(110)E(127)
+	[48 r2.]
+	o7l4
+	[3
+		g#rr
+		a2g#
+	]
+	[3
+		ag#
+	]
+	l2.
+	Q(75)EW(127,100,!4,50,!4)
+	a
+	>c
+	a
+	g#
+	ET(127,50,!1)
+	f1.
+
+TR(13)
+	#TM
+	#V_CLARINET
+	V(90)VV(110)E(127)
+	[48 r2.]
+	o5l4
+	[3
+		g#rr
+		a2g#
+	]
+	[3
+		ag#
+	]
+	l2.
+	Q(75)EW(127,100,!4,50,!4)
+	a
+	>c
+	a
+	g#
+	ET(127,50,!1)
+	f1.
+
+
+#bass={
+	l4
+	EW(127,110,!8)
+	[
+		Q(60)'<a>a''d#>d#<''e>e<'
+		Q(115)'e2.>e2.<'
+		Q(60)rd#e
+		Q(99)'<a2>f2'Q(60)'a4e4'
+	]
+	EW(127,95,!8)
+	'<a>f'r'<a>a'
+	'f>f<'r'<a>a'
+	'f>f<'r'<b->b-'
+	'f>f<'r'<b->b-'
+	'f>f<'r'<b->b-'
+	'g->g-<'r'<b->b-'
+	'g->g-<'r'<a>a'
+	'a>a<'r'<a->a-'
+	'a->a-<'
+	r-4
+	Q(99)
+	[
+		[4 r2.]
+		ET(127,80,!1.^1.)
+		'a-1.^1.>a-1.^1.<'
+	]
+	[8 r2.]
+
+	l4
+	Q(75)
+	EW(127,105,!16,90,!2)
+	[
+		'd->d-<'ga-
+		a-'g->g-<''f>f<'
+		'f>f<' ga-
+		a2a-
+	]
+	[3
+		'd->d-<'ga-
+		r'g->g-<''f>f<'
+	]
+	[3
+		'd-a''d-a-'
+	]
+	l2.
+	Q(70)
+	'ca'
+	'c>c<'
+	'f>f<'
+	'a->a-<'
+	l1.
+	Q(80)
+	'>d->d-<<'
+	'd->d-<'
+	'd-8>d-8<'Q(100)o2
+}
+
+TR(7)
+	#TM
+	#V_TROMBONE
+	o4
+	V(90)VV(100)E(127)
+	#bass
+
+TR(8)
+	#TM
+	#V_TUBA
+	o3
+	V(90)VV(115)E(127)
+	#bass
+
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	o3
+	V(100)VV(110)E(127)
+	#bass
+
+	ET(127,70,!1.)
+	'd-1.>d-1.'
+
+TR(11)
+	#TM
+	#V_TIMPANI2
+	V(75)VV(127)E(127)
+	Int VS18
+	o3
+	l4
+	[
+		a>d#e e1 d#e f2e<
+	]
+	[8 r2.]
+
+	#V_TIMPANI1
+	[2
+		VS18=126
+		[4 r2.]
+		l12 VV(127)[36 VS18=VS18-2 RandV(VS18-10, VS18) a-]
+	]
+	[8 r2.]
+	#V_TIMPANI2
+	V(80)
+	VV(127)
+	l4
+	[2
+		d-ga-
+		a-1
+		ga-
+		a2g-
+	]
+	[3
+		d-ga-
+		rg-f
+	]
+	[6 d-]
+	l2.
+	ccfa-d-1.d-1.r8d-1.
+
+TR(12)
+	#TM
+	#V_STRINGS1
+	V(90)VV(127)E(127)
+	[40 r2.]
+	#str={
+		l4
+		Q(75)
+		EW(127,105,!16,90,!2)
+		[
+			'd->d-<'ga-
+			a-1
+				ga-
+			a2a-
+		]
+		[3
+			'd->d-<'ga-
+			r'g->g-<''f>f<'
+		]
+		[3
+			'd-a''d-a-'
+		]
+		l2.
+		Q(70)
+		'ca'
+		'c>c<'
+		'f>f<'
+		'a->a-<'
+		l1.
+		Q(80)
+		'>d->d-<<'
+		'd->d-<'
+		'd-8>d-8<'Q(100)o2
+		ET(127,70,!1.)
+		'd-1.^1.>d-1.^1.'
+	}
+	Sub{o4 #str}
+	o3 #str
+
+TR(14)
+	#TM
+	#V_HARP
+	V(85)VV(100)E(110)
+	[40 r2.]
+	[
+		o4l8
+		d-<a->d-fa->d-
+		fd-fa->d-f
+		a-fa->d-fa-
+		<<
+		l2 BGHARP(<a2>a2>a2<)l4 BGHARP(<g#4>g#4>g#4<)
+	]
+	[3
+		o4l8
+		d-fa->d-fa-
+		l2 BGHARP(<a2>a2>a2<)l4 BGHARP(<g#4>g#4>g#4<)
+	]
+	[3
+		o6
+		l4
+		<
+		l4 BGHARP(<a4>a4>a4<)l4 BGHARP(<g#4>g#4>g#4<)
+	]
+	o5
+	l2.
+	r-35
+	BGHARP(fa>cf<)
+	BGHARP(egb->ce<)
+	BGHARP(fa>cfa<)
+	BGHARP(g#b#>d#f#g#>c<<)
+	l1.
+	BGHARP(d-fa->d-fa->d-f<<)
+	<
+	BGHARP(d-fa->d-fa->d-f<<)
+	r8
+	BGHARP(d-fa->d-fa->d-fa->d-f<<)
+
+TR(10)
+	#TM
+	#DRUMSET
+	V(115)VV(127)E(127)
+	Int VS20
+	Int VS19
+	[
+		VS19=90
+		Sub{[36 VS19=VS19-1 RandV(VS19, VS19+3) Rythm{O16}]}
+		VS19=90
+		Sub{r2.r2.r2.[12 VS19=VS19-3 RandV(VS19, VS19+3) n(40),16]}
+		IF(USETAIHO=1) {
+			Sub{Rythm{r2.X1.^1.}}
+		}
+		Rythm{'g4b4'b4b4b1b4b4'c2b2'b4}
+	]
+	[8 Rythm{S2.}]
+
+	Sub{Rythm{'c2'}}
+	[
+		Rythm{'b2'}
+		[3[3 VS19=20 VS19=VS19+7 RandV(VS19,VS19+10)n(40),12]Rythm{S2}]
+		r4
+		VS19=90
+		Sub{[48 VS19=VS19-1 RandV(VS19, VS19+3) Rythm{O16}]}
+		Rythm{'b2.c2.'}
+		VS20=100
+		Sub{[24 VS20=VS20-3 RandV(VS20, VS20+3) n(40),16]}
+		r2.r2.r2.
+	]
+	[8 Rythm{o2.}]
+
+	[
+		Rythm{b4b4b4}
+		VS19=80
+		Sub{[48 VS19=VS19-2 RandV(VS19, VS19+3) n(40),16]}
+		Rythm{g2.}
+		IF(USETAIHO=1) {
+			Sub{Rythm{X1.^1.}}
+		}
+		Rythm{b4b4b4}
+		Rythm{'b2c2'b4}
+	]
+
+	[3
+		Sub{Rythm{S4S4S2s4S4}}
+		[
+			Rythm{'b2.o2.c2.'}
+		]
+	]
+	Sub{Rythm{c1}}
+	[6 Rythm{'b4o4s4'}]
+	[4 Rythm{'b2.s2.o2.c2.'}]
+	Rythm{'b1.s1.o1.c1.g1.'}
+End 
+ 
+/////////////////////////////////////////////////////// 
+// tokoroten.cfg 
+/////////////////////////////////////////////////////// 
+Key(KEY) 
+ 
+##############################################################################
+# Tokoroten
+# by @nanakochi123456
+
+#
+# TiMidiTy Config (v2.0)
+
+dir "../patches/sf2_all/Timbres Of Heaven"
+dir ../patches/guspat/izumo/inst
+dir ../patches/guspat/izumo
+dir ../patches/guspat
+dir ../patches
+dir ../patches/sf2_all
+dir ../patches/sf2_all/atomic
+dir ../patches/sf2_all/fluid3
+dir ../patches/sf2_all/realgs
+dir ../patches/sf2_all/ultimate
+dir ../patches/sf2_all/scc
+dir ../patches/sf2_all/SGM
+dir ../patches/sf2_all/Evanessence2
+dir ../patches/sf2_all/GMRBasico
+dir ../patches/sf2_all/ForClassicalMusic
+dir ../patches/sf2_drum/Drumkit
+dir ../patches/sf2_drum/Drum
+dir ../patches/sf2_drum/Drum/pettinhouse
+dir ../patches/sf2_drum/Drumkit/the_open_source_drumkit
+dir ../patches/sf2_drum/Drum/the_open_source_drumkit
+dir ../patches/sf2_part/piano
+dir ../patches/sf2_part/VintageKeys
+dir ../patches/sf2_part/ORCHESTRAL/
+dir ../patches/sf2_part/OrchHit/
+dir ../patches/sf2_part/strings
+dir ../patches/sf2_part/wood
+dir ../patches/sf2_all/musix
+dir ../patches/sf2_all/SGM
+dir ../patches/sf2_all/airfont
+dir ../patches/sf2_all/Giant
+dir ../patches/sf2_all/orch
+dir ../patches/sf2_all/Titanic
+dir "../patches/sf2_part/Sonatina Symphonic Orchestra"
+dir "../patches/sf2_collection/3.5G HQ Orchestral"
+dir "../patches/sf2_collection/3.5G HQ Orchestral/Strings part 1"
+dir "../patches/sf2_collection/3.5G HQ Orchestral/Brass and Woodwinds/Brass"
+dir "../patches/sf2_collection/Free Soundfont Kit/STRINGS"
+dir "../patches/sf2_collection/Free Soundfont Kit/STRINGS"
+dir "../patches/sf2_collection/Free Soundfont Kit/Brass"
+
+##############################################################################
+#soundfont "Timbres Of Heaven GM_GS_XG_SFX V 2.0.2.sf2"
+
+bank 0
+	# cello solo
+	42 %font "Arco Celli.sf2" 0 0 amp=170 pan=40
+
+	# contrabass
+	43 %font "Strings - Basses Sustain.sf2" 0 0 amp=100
+	43 %font "Timbres Of Heaven GM_GS_XG_SFX V 2.0.2.sf2" 0 48 amp=100 pan=55
+
+	# strings1
+	48 %font "Strings - Violas Sustain.sf2" 0 0 amp=130 pan=-30
+
+	# strings2
+	49 %font "Strings - Violas Sustain.sf2" 0 0 amp=90 pan=0
+
+	# tremoro
+#	44 %font "Strings - 2nd Violins Sustain.sf2" 0 0 amp=100
+	44 %font "Timbres Of Heaven GM_GS_XG_SFX V 3.0 Final !!!.sf2" 0 48 amp=45 pan=-25
+
+	# violin (fast violin)
+	40 %font "Strings part 1/aaviolin.sf2" 0 1 amp=180 pan=-20
+
+	# violas
+	41 %font "Solo Viola.sf2" 0 0 amp=180 pan=20
+
+	# timpani
+	47 %font "Percussion - Timpani.sf2" 0 0 amp=180 tune=-12 pan=-60
+#	47 %font "Timbres Of Heaven GM_GS_XG_SFX V 3.0 Final !!!.sf2" 0 47 amp=55 pan=-60
+
+	# harp
+	46 %font "Timbres Of Heaven GM_GS_XG_SFX V 3.0 Final !!!.sf2" 0 46 amp=190 pan=-60
+
+	# pizz
+	45 %font "tgsf21x.sf2" 0 45 amp=90 pan=-25
+
+	# trumpets
+	56 %font "Brass - Trumpets Sustain.sf2" 0 0 amp=100 pan=-30
+	56 %font "Papelmedia_Trumpet.sf2" 0 0 amp=100 pan=-30
+
+	# trombones
+	57 %font "Timbres Of Heaven GM_GS_XG_SFX V 2.0.2.sf2" 0 57 amp=110 pan=20
+	57 %font "Papelmedia_Trombone.sf2" 0 0 amp=100 pan=20
+
+	# horns
+	60 %font "tgsf21x.sf2" 0 60 amp=120 pan=45
+
+	# piccolo
+	72 %font "Woodwinds - Piccolo Solo.sf2" 0 0 amp=240 tune=-12 pan=-45
+
+	# flute
+	73 %font "Woodwinds - Flutes Sustain.sf2" 0 0 amp=190 tune=-12 pan=-25
+
+	# clarinet
+	71 %font "Woodwinds - Clarinets Sustain.sf2" 0 0 amp=240 keep=loop rate=:0:0 pan=-30
+
+	# oboe
+	68 %font "Woodwinds - Oboe Solo.sf2" 0 0 amp=230 pan=20
+
+	# english horn
+	69 %font "tgsf21x.sf2" 0 69 amp=140 pan=35
+
+	# tuba
+	58 %font "Brass - Tuba Sustain.sf2" 0 0 amp=100 pan=40
+
+bank 1
+	# bass trombone
+	57 %font "Brass - Bass Trombone Solo.sf2" 0 0 amp=100 pan=20
+	57 %font "Papelmedia_Trombone.sf2" 0 0 amp=100 pan=20
+
+	# timpani
+	47 %font "Timbres Of Heaven GM_GS_XG_SFX V 3.0 Final !!!.sf2" 0 47 amp=55 pan=-60
+
+	# trumpets
+	56 %font "Titanic_200_GMGS_1.2.sf2" 0 56 amp=160 pan=-30
+	56 %font "Papelmedia_Trumpet.sf2" 0 0 amp=110 pan=-30
+
+	# trombones
+#	57 %font "Titanic_200_GMGS_1.2.sf2" 1 57 amp=110 pan=20
+
+	# clarinet
+	71 %font "BbClarinet.sf2" 0 0 amp=160 pan=-30
+
+	# violin
+	40 %font "Strings part 1/aaviolin.sf2" 0 3 amp=200 pan=-20
+
+	# basson
+	69 %font "Woodwinds - Bassoon Solo.sf2" 0 0 amp=100 pan=35
+
+	# Flutes
+	73 %font "Titanic_200_GMGS_1.2.sf2" 0 73 amp=180 pan=-25
+
+	# oboe
+	68 %font "Oboe.sf2" 0 0 amp=150 pan=20
+
+	# horns
+	60 %font "airfont 380 final.sf2" 0 60 amp=180 pan=45
+
+	# cello solo
+	42 %font "Strings - 1st Violins Sustain.sf2" 0 0 amp=150 pan=40
+
+	# violas
+	41 %font "Strings - Violas Sustain.sf2" 0 0 amp=150 pan=30
+
+	# contrabass
+	43 %font "Strings - Basses Sustain.sf2" 0 0 amp=100 pan=55
+
+	# pizz
+#	45 %font "045_Florestan_Pizzicato.sf2" 0 45 amp=90
+	45 %font "Strings Pizzicato (4072KB).sf2" 0 19 amp=85 pan=-15
+
+bank 2
+	# violin
+	40 %font "Strings part 1/aaviolin.sf2" 0 0 amp=200 pan=-15
+
+	# cello st
+	42 %font "Strings - 2nd Violins Staccato.sf2" 0 0 amp=100 pan=40
+
+	# contra st
+	43 %font "Strings - Basses Staccato.sf2" 0 0 amp=100 pan=55
+
+	# Flute
+	73 %font "Woodwinds - Flute Solo.sf2" 0 0 amp=240 tune=-12 pan=-25
+
+	# clarinet
+	71 %font "Woodwinds - Clarinets Sustain.sf2" 0 0 amp=240 keep=loop rate=255 pan=-30
+
+drumset 0
+	33 %font "Titanic_200_GMGS_1.2.sf2" 128 0 33 amp=200 pan=0
+	34 %font "Titanic_200_GMGS_1.2.sf2" 128 0 34 amp=200 pan=0
+
+	# bd
+	36 %font "Percussion - All Percussion.sf2" 128 0 37 amp=300 pan=-25
+
+	# sd
+	38 %font "Percussion - All Percussion.sf2" 128 0 38 amp=400 pan=-60
+	39 %font "Percussion - All Percussion.sf2" 128 0 40 amp=400 pan=-60
+	40 %font "Percussion - All Percussion.sf2" 128 0 38 amp=400 pan=-60
+	41 %font "Percussion - All Percussion.sf2" 128 0 40 amp=400 pan=-60
+
+	# cymbal
+	57 %font "Percussion - All Percussion.sf2" 128 0 45 amp=180 pan=-45
+
+	# gong
+	58 %font "Percussion - All Percussion.sf2" 128 0 67 amp=511 pan=-20
+	59 %font "Percussion - All Percussion.sf2" 128 0 68 amp=511 pan=-20
+
+	# Triangle Open
+	81 %font "Orchestra Drums Kit.SF2" 128 0 81 amp=400 pan=-40
+	# Triangle Close
+	80 %font "Orchestra Drums Kit.SF2" 128 0 80 amp=400 pan=-40
+
+	# 大砲
+	29 %font "canon.sf2" 128 0 60 amp=511 pan=60
+	30 %font "canon.sf2" 128 0 60 amp=511 pan=50
+	31 %font "canon.sf2" 128 0 60 amp=511 pan=40
+	32 %font "canon.sf2" 128 0 60 amp=511 pan=30
+#	29 %font "fh70.sf2" 128 0 60 amp=511 pan=60
+#	30 %font "fh70.sf2" 128 0 60 amp=511 pan=50
+#	31 %font "fh70.sf2" 128 0 60 amp=511 pan=40
+#	32 %font "fh70.sf2" 128 0 60 amp=511 pan=30
+
+drumset 48
+	# 大砲
+	29 %font "canon.sf2" 128 0 60 amp=511 pan=60
+	30 %font "canon.sf2" 128 0 60 amp=511 pan=50
+	31 %font "canon.sf2" 128 0 60 amp=511 pan=40
+	32 %font "canon.sf2" 128 0 60 amp=511 pan=30
+#	29 %font "fh70.sf2" 128 0 60 amp=511 pan=60
+#	30 %font "fh70.sf2" 128 0 60 amp=511 pan=50
+#	31 %font "fh70.sf2" 128 0 60 amp=511 pan=40
+#	32 %font "fh70.sf2" 128 0 60 amp=511 pan=30
+
+	# bd
+	36 %font "Percussion - All Percussion.sf2" 128 0 37 amp=300 pan=-25
+
+	# sd
+	38 %font "Percussion - All Percussion.sf2" 128 0 38 amp=400 pan=-60
+	39 %font "Percussion - All Percussion.sf2" 128 0 40 amp=400 pan=-60
+	40 %font "Percussion - All Percussion.sf2" 128 0 38 amp=400 pan=-60
+	41 %font "Percussion - All Percussion.sf2" 128 0 40 amp=400 pan=-60
+
+	# cymbal
+	56 %font "Percussion - All Percussion.sf2" 128 0 45 amp=190 pan=-45
+	57 %font "Percussion - All Percussion.sf2" 128 0 45 amp=190 pan=-45
+
+	# gong
+	58 %font "Percussion - All Percussion.sf2" 128 0 67 amp=511 pan=-40
+	59 %font "Percussion - All Percussion.sf2" 128 0 68 amp=511 pan=-40
+	60 %font "Percussion - All Percussion.sf2" 128 0 69 amp=511 pan=-40
+
+	# gong roll
+	61 %font "Percussion - All Percussion.sf2" 128 0 44 amp=511 tune=-9 pan=-40
+
+	# Triangle Open
+	81 %font "Orchestra Drums Kit.SF2" 128 0 81 amp=200 pan=-35
+	# Triangle Close
+	80 %font "Orchestra Drums Kit.SF2" 128 0 81 amp=200 pan=-35
+	# Triangle Loop
+	82 %font "Percussion - All Percussion.sf2" 128 0 58 amp=300 pan=-25
+ 
+/////////////////////////////////////////////////////// 
+// 7zip + base64 files (work files)
+/////////////////////////////////////////////////////// 
+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
+XQAQAAAMhp8KAQOYqzgAAA==

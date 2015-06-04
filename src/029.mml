@@ -1,0 +1,149 @@
+Include(tokoroten.h)
+îèéq 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(220,0)
+	TmpChangeR(260,!2.)
+	TmpChangeR(270,!2.)
+	[5 r2.]
+	r2r8
+	TmpChangeR(50,0)
+
+#melody1={
+	l8
+	[
+		#AAV<f>#BBV d-a-f>d-b-
+		'c2a-2'r4<
+		:
+		#AAV<g->#BBV ca-g->ca-
+		'd-2f2'r4<
+	]
+	#AAV<g->#BBV ca-g->c Q(50)a-
+}
+#melody2={
+	l8
+	d-<fa-d-<fa-
+}
+TR(6)
+	#TM
+	r2.
+	#V_VIOLIN
+	Vibrate(!8,20)
+	o6
+	VV(110)
+	EW(127,60,!16)
+	Q(80)
+	IF(TIMIDITY=1) {
+		#AAV={#V_VIOLA}
+		#BBV={#V_VIOLIN}
+	}
+	#melody1
+
+#AAV={""}
+#BBV={""}
+
+TR(8)
+	#TM
+	r2.
+	#V_STRINGS1
+	o6
+	VV(127)
+	EW(127,80,!16)
+	#melody1
+
+#cello={
+	l8
+	[2
+		r2 #Q95 <a->f>#Q90 d-2r4<
+		r2 #Q95 <a->e->#Q90 c2r4<
+	]
+}
+
+TR(9)
+	#TM
+	#V_CELLO
+	o4
+	#cello
+
+TR(11)
+	#TM
+	#V_STRINGS1
+	o4
+	#cello
+
+#bass1={
+	#Q95
+	[d-2.^2r4 < a-2.^2r4>]
+}
+TR(12)
+	#TM
+	#V_CONTRABASS
+	o3VV(127)
+	EW(127,90,!16)
+	#bass1
+
+
+#brass={
+	[2
+		'f>d-<'rr
+		rrr
+		'e->c<'rr
+		rrr
+	]
+}
+
+TR(13)
+	#TM
+	#V_TRUMPET
+	o6
+	VV(127)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(14)
+	#TM
+	#V_TROMBONE
+	o5
+	VV(127)E(127)Q(100)
+	l4
+	EW(127,100,!4)
+	#brass
+
+TR(15)
+	#TM
+	#V_HORN
+	o4
+	l4
+	VV(100)E(127)Q(80)
+	EW(127,100,!4)
+	[
+		'a-1>f1<' [2 'a->f<']
+		'a-1>e-1<' [2 'a->e-<']
+	]
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS16
+	#r1={
+		VS16=25
+		r-2
+		Sub{[10 VS16=VS16+5 RandV(VS16, VS16+3) n(40),20]}r2
+		Rythm{'b1s1o1'o4o4}
+	}
+	#r2={
+		VS16=25
+		r-2
+		Sub{[10 VS16=VS16+5 RandV(VS16, VS16+3) n(40),20]}r2
+		Rythm{'b2.s2.o2.'}
+	}
+	#r3={
+		Rythm{'b2.s2.o2.'}
+		Sub{Rythm{'b2.s2.c2.'}}
+		Expression.onTime(127,0,!1^1)
+		[24 Rythm{o24}]
+	}
+	[4 #r1]

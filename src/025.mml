@@ -1,0 +1,238 @@
+Include(tokoroten.h)
+”Žq 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(200,0)
+	TmpChangeR(225,!1.)
+	TmpChangeR(220,!1.^1.^2.)
+	[16 r2.]
+	TmpChangeR(190,!1.^1.^2.)
+	TmpChangeR(180,0)
+	[6 r2.]
+	TmpChangeR(140,0)
+	TmpChangeR(130,!1.)
+	[1 r2.]
+	TmpChangeR(80,0)
+	TmpChangeR(50,!1.)
+
+TR(1)
+	#TM
+	#V_VIOLIN
+	VV(127)E(127)Q(99)
+	o6l4
+	IF(TIMIDITY=0) {
+		EW(127,100,!4,100,90,!1)
+	} ELSE {
+		E(100)
+	}
+	Q(80)'d-1>d-1<'Q(60)'e>e<''f>f<'
+	Q(80)'<b-1>b-1'Q(60)'c>c<''d->d-<'
+	Q(80)'<g-1>g-1'Q(60)'<a>a''<b->b-'
+	Sub{'<e-1>e-1'}<
+	r2.
+
+	Sub{g-2.}
+	r>'df''e-g-'<
+
+	Q(80)
+	Sub{r24 Sub{r-8'f8>c8'}'e-f<'}r2.
+	r4>'e->e-<''d->d-<'
+	Sub{r24 Sub{r-8'c8f8'}'a>c<'}r2.
+	r4'c>c<''<b->b-'
+	Sub{r24 Sub{r-8'<a8>c8'}'fa'}r2.<
+	r4>'e->e-<''d->d-<'
+	Sub{r24 Sub{r-8'c8f8'}'a>c<'}r2.
+	r4'c>c<''<b->b-'
+
+	Int VVI=127
+	[
+		VVI=VVI-10
+		VV(VVI)
+		Sub{r24 Sub{r-12'<a12>c12'}'fa'}r2.
+		r4'd->d-<''c>c<'
+		VVI=VVI-3
+		VV(VVI)
+		Sub{r24 Sub{r-12'<a12>c12'}'fa'}r2.
+		r4b-4a4
+	]
+	#V_VIOLIN2
+	IF(TIMIDITY=1) {
+		VVI=125
+	}
+	[
+		VVI=VVI-15
+		VV(VVI)
+		'<a>ca'r2
+		r4<b-4a4>
+	]
+	Q(70)'<a>ca'r2
+
+TR(2)
+	#TM
+	#V_PICCOLO
+	VV(120)E(120)Q(95)
+	o7
+	l12
+	EW(127,100,!8,100,60,!2.)
+	r4e8f8a-g-f
+	f2r4
+	r4c8d-8fe-d-
+	d-2r4<
+	r4a8b-8>d-c<b-
+	b-2r4
+	r4f8g-8b-a-g-
+	g-2r4
+	#V_FLUTE2
+	o5Q(70)
+	IF(TIMIDITY=1) { r-45 }
+	IF(TIMIDITY=1) {
+		E(127)
+	}
+	Int VP=125
+	[4
+		VP=VP-5
+		VV(VP)
+		r4e8f8a-g-f
+		f4r2
+	]
+	[2
+		VP=VP-5
+		VV(VP)
+		r4e8f8a-g-f
+		f4r2
+		VP=VP-5
+		VV(VP)
+		r4<b8>c8e-d-c
+		c4r2
+	]
+	[
+		VP=VP-5
+		VV(VP)
+		r4<b8>c8e-d-c
+		c4r2
+	]
+	IF(TIMIDITY=1) { r45 }
+	#V_CELLO3
+	r4<
+	[
+		Q(80)<b8>c8e-d-c
+		Q(50)c4b-4a4
+		f4
+	]
+	r1.
+	Q(80)<b8>c8e-d-c
+	Q(50)c4b-4a4
+	f4r4r4<
+	#V_CELLO
+	ET(70,40,!1.)
+	r4Q(100)b-4a4f2.
+
+TR(7)
+	#TM
+	#V_CELLO
+	VV(110)E(120)Q(90)
+	EW(127,100,!4,100,90,!1)
+	o5l4
+	r4 Sub{'<b-2>b-2'}r4'd-f'
+	r4 Sub{'<a-2>a-2'}r4'cf'
+	r4 Sub{'<g-2>g-2'}r4'<b->d-'
+	r4 Sub{'<f2>f2'}r4'<a->d-'
+	r4 Sub{'<e-2>e-2'}r4'<g-b->'
+	r4 Sub{'<d-2>d-2'}r4'<fb->'
+	r4 Sub{'<c2>c2'}r4'<e-g->'
+	r4 Sub{'<<b-2>b->'}r4'<e-g->'
+	l4
+	<<
+	'a'rr
+	[2
+		'<b->'>'e->e-<''d->d-<'<
+		'>ca<'rr
+		'<b->''>c>c<''<b->b-'<
+		'>ca<'rr
+	]
+	ET(125,70,!1.^1.^1.^1.^1.^1.^1.)
+	[
+		r>>d-c<<
+		'>ca<'rr
+		'c'>b-a<
+		'>ca<'rr
+	]
+	'c'>b-a<
+	'>ca<'rr
+	'c'>b-a<
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	VV(120)E(120)Q(90)
+	o2l2.
+	EW(127,100,!4,100,90,!1)
+	'b->b-'
+	'a->a-<'
+	'g->g-<'
+	'f>f<'
+	'e->e-<'
+	'd->d-<'
+	'c>c<'
+	'<b->b-'
+	l4
+	'<a>a'rr
+	[4
+		'<b->'rr
+		'f><'rr
+	]
+	ET(125,70,!1.^1.^1.^1.^1.^1.^1.)
+	[
+		rrr
+		'f><'rr
+		'<c>'rr
+		'f><'rr
+	]
+	'<c>'rr
+	'f><'rr
+	'<c>'rr
+	l12
+	f4
+	#V_CONTRABASS3
+	[
+		Q(90)<b8>c8e-d-c
+		Q(60)c4b-4a4
+		f4
+	]
+	r1.
+	#V_CONTRABASS2
+	Q(90)<b8>c8e-d-c
+	Q(60)c4b-4a4
+	f4r4r4<
+	ET(70,40,!1.)
+	r4Q(100)b-4a4f2.
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)Q(99)
+	Int VS15=100
+	[4
+		Rythm{'b4s4c4'}
+		VS15=70
+		Sub{[8 VS15=VS15-3 RandV(VS15-10,VS15) Rythm{O16}]} r2
+		Rythm{'b4s4o4'S4S4}
+	]
+	Sub{Rythm{c4}}
+	[4
+		Rythm{'b4s4o4'}
+		VS15=70
+		Sub{[8 VS15=VS15-3 RandV(VS15-10,VS15) Rythm{O16}]} r2
+		Rythm{'b4s4o4'S4S4}
+	]
+
+	ET(125,0,!1.^1.^1.^1.^1.^1.^1.)
+	[6
+		Rythm{'b4s4o4'}
+		VS15=70
+		Sub{[8 VS15=VS15-3 RandV(VS15-10,VS15) Rythm{O16}]} r2
+		Rythm{'b4s4o4'S4S4}
+	]
+
+ 

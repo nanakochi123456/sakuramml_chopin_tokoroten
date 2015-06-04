@@ -1,0 +1,264 @@
+Include(tokoroten.h)
+”Žq 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(160,0)
+	TmpChangeR(260,!2)
+	TmpChangeR(285,!1)
+	[22 r2.]
+	TmpChangeR(250,!2.^2.^2.^2.^2.^2.)
+	TmpChangeR(150,0)
+
+TR(1)
+	#TM
+	#V_CLARINET3
+	VV(100)Q(99)
+	o5l8
+
+	IF(TIMIDITY=0) {
+		EW(127,90,!16.,90,75,!16)
+	} ELSE {
+		E(127)
+	}
+
+	IF(TIMIDITY=1){Q(95)}ELSE{Q(99)}
+	IF(TIMIDITY=1) { r-64 }
+	g#b>
+	IF(TIMIDITY=1) { r64 r-42}
+	eg#f#e
+	g#b>eg#f#e
+	<bg#f#e<bg#
+	f#e<b>g#f# Q(45)e
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	[3 c#ef#a>]
+	<
+	g#f#d#<ag#f#
+	d#<b>d#c#<b Q(45)a
+
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	[g#b>eg#f#e]
+	<bg#f#e<bg#
+	f#e<b>g#f# Q(45)e
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	[3 c#ef#a>]
+	<
+	g#f#d#<ag#f#
+	d#<b>d#c#<b Q(45)a
+
+	[
+		IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+		[g#b>eg#f#e]
+		[2 c<af#e]
+		[1 c<af# Q(45)e]
+	]
+	IF(TIMIDITY=1){Q(90)}ELSE{Q(99)}
+	r4
+	[4 b>eag#]
+	[4 e<bag#]
+	IF(TIMIDITY=1){r42}
+
+TR(8)
+	#TM
+	#V_CELLO
+	VV(100)Q(80)
+	l4o4
+	[2
+		[3
+			ET(110,100,!2)
+			r Sub{'b2>e2<'}rg#
+		]
+		r2.
+		[2
+			ET(110,100,!2)
+			r Sub{'a2>c#2<'}rf#
+		]
+			ET(110,100,!2)
+		r'b2^2.>d#2^2.<'
+	]
+	[
+		[2
+			ET(110,100,!2)
+			r Sub{'b2>e2<'}rg#
+		]
+		a4>c2^2r4<
+	]
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o4
+	EW(127,110,!8,110,100,!2)
+	l4
+	[
+		e2.
+		d#2.
+		c#4r2<
+		b2.
+		a2.
+		f#2.
+		b2>f#
+		g#f#g#
+	]
+	e2.<
+	b2.
+	a4>c2^2r4
+	<
+	e2.<
+	b2.
+	a4>c2^2r4
+	e2.^2.>
+	e2.^2.
+	r2.
+	l8
+	EW(127,80,!16.,80,75,!16)
+	e<bag#e<b
+	EW(127,80,!16,80,40,!2.)
+	e2.
+
+TR(3)
+	#TM
+	#V_TUBA
+	VV(100)Q(95)
+	Vibrate(!24,30)
+	o4
+	EW(127,110,!8,110,100,!2)
+	l4
+	[
+		e2.
+		d#2.
+		c#4r2<
+		b2.
+		a2.
+		f#2.
+		b1.>
+	]
+	e2.<
+	b2.
+	a4>c2^2r4
+	<
+	e2.<
+	b2.
+	a4>c2^2r4
+	ET(110,127,!1.,127,50,!1.^1.^2.)
+	e2.^2.^2.^2.^2.^2.^2.
+
+TR(5)
+	#TM
+	#V_HORN
+	VV(100)E(110)Q(85)
+	o5
+	l4
+	EW(127,90,!8)
+	[
+		[4 r '<g#2>e2']
+		[2 r '<a2>e2']
+		r'<f#2^2.>d#2^2.'
+	]
+	[
+		[2 r '<g#2>e2']
+		a4>c2^2r4<
+	]
+	r2.r2.
+	EW(127,60,!1.^1.)
+	'<g#1.^1.>e1.^1.<'
+
+TR(11)
+	#TM
+	#V_TRUMPET
+	VV(110)Q(95)
+	o5
+	EW(127,100,!4)
+	[18 r2.]
+	Sub{a4>c2^2r4}
+	a4>c2^2r4
+	r2.r2.
+	<<
+	a4>c2^2r4
+
+TR(12)
+	#TM
+	#V_TROMBONE
+	VV(110)Q(95)
+	o4
+	EW(127,100,!4)
+	[18 r2.]
+	a4>c2^2r4<
+	r2.r2.
+	a4>c2^2r4
+
+TR(14)
+	#TM
+	#V_PICCOLO
+	VV(127)E(127)Q(95)
+	o7
+	EW(127,90,!8,90,50,!1)
+	[18 r2.]
+	a4>c2^2r4<
+	r2.r2.
+	a4>c2^2r4
+
+
+TR(13)
+	#TM
+	#V_TIMPANI2
+	E(127)VV(127)
+	o3
+	[18 r2.]
+	a4>c2^2r4<
+	r2.r2.
+	a4>c2^2r4<
+	#V_TIMPANI1
+	Int VS4=10
+	[3
+		[9 VS4=VS4+3 RandV(VS4,VS4+10) e12]
+	]
+	[3
+		[9 VS4=VS4-3 RandV(VS4,VS4+10) e12]
+	]
+
+TR(15)
+	#V_HARP
+	VV(125)E(115)
+	[26 r2.]
+	l16o4
+	#PEDALON BGHARP(eb>eb>eg#)
+	r1.
+	r1.
+	#PEDALOFF
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(100)
+	Int VS3
+	#r1={
+		Rythm{b4's8o8'o8'S4o4'}
+		Rythm{b4's4o4''S4o4'}
+	}
+	#r2={
+		VS3=80
+		Rythm{b4}
+		Sub{[5 Rythm{S4}]}
+		Sub{[24 VS3=VS3-2 RandV(VS3-10,VS3) Rythm{O18}]}
+		r2.r2
+	}
+	#r3={
+		Rythm{'b4S4c4o4'}Rythm{'b4s4c4o4'}
+		r1
+	}
+	[
+		[3 #r1]
+		#r2
+	]
+	ET(100,127,!1)
+	[
+		#r1
+		#r3
+	]
+	Rythm{g1.}
+	VS3=110
+	Sub{Rythm{'b4s4c4'}}
+	Sub{[56 VS3=VS3-2 RandV(VS3-10,VS3) Rythm{O18}]}

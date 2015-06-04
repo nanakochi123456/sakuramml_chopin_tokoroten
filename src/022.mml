@@ -1,0 +1,255 @@
+Include(tokoroten.h)
+”q 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(200,0)
+	TmpChangeR(250,!2)
+	TmpChangeR(280,!1)
+	[4 r2.]
+	TmpChangeR(270,!2.)
+	TmpChangeR(280,!2.)
+	[5 r2.]
+	TmpChangeR(270,!2.)
+	TmpChangeR(240,!2.)
+	TmpChangeR(160,!2.)
+
+TR(1)
+	#TM
+	#V_CLARINET
+	VV(110)Q(99)
+	o5l8
+	IF(TIMIDITY=0) {
+		EW(127,90,!16.,90,75,!16)
+		VV(127)
+	} ELSE {
+		E(127)
+	}
+	r4
+	[2 a#g#b>e#] a#g#<
+	a#>eg#ge<a#
+	g#ge<a#g#g<
+	a>d#g#f#a>d#
+	g#f#a>d#g#f#<
+	g#>c#f#e#c#<g#
+	f#e#c#<g#f#e#
+	[3 cf#ba>]<<
+	b>fag#f<b
+	ag#f<bag#<
+	[3 b->eag]
+	<a>dgf#d<a
+	gf#d<agf#
+
+TR(11)
+	#TM
+	VV(90)Q(99)
+	o6l8
+	IF(TIMIDITY=0) {
+		VV(90)
+		EW(127,90,!16.,90,75,!16)
+	} ELSE {
+		E(127)
+	}
+	r4
+	#V_PICCOLO
+	[2 a#g#b>e#] a#g#<
+	a#>eg#ge<a#
+	g#ge<a#g#g<
+	a>d#g#f#a>d#
+	g#f#a>d#g#f#<
+	g#>c#f#e#c#<g#
+	f#e#c#<g#f#e#
+	[3 cf#ba>]<<
+	b>fag#f<b
+	ag#f<bag#<
+	[3 b->eag]
+	<a>dgf#d<a
+	gf#d<agf#
+
+TR(8)
+	#TM
+	#V_CELLO
+	VV(100)Q(95)
+	Vibrate(!24,30)
+	l4o3
+	EW(127,110,!8,110,40,!1.^1.)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+TR(7)
+	#TM
+	#V_TRUMPET2
+	VV(100)Q(95)
+	IF(TIMIDITY=1) {
+		VV(115)
+	}
+	Vibrate(!24,30)
+	l4o4
+	EW(127,110,!8,110,40,!1.^1.)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+
+TR(12)
+	#TM
+	#V_TROMBONE
+	VV(100)Q(95)
+	IF(TIMIDITY=1) {
+		VV(110)
+	}
+	Vibrate(!24,30)
+	l4o3
+	EW(127,110,!8,110,40,!1.^1.)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o2l4
+	EW(127,110,!8,110,100,!2)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+TR(13)
+	#TM
+	#V_TUBA
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o2l4
+	EW(127,110,!8,110,100,!2)
+	c#2.>
+	g#>d#c#
+	c#2.<c#2.<
+	c#2.>
+	f#>d#c#
+	Q(50)c# Q(95)<<gg#
+	g#>d#c#
+	d2.
+	a>ed
+	d2.<
+	d2.<
+	d2.>
+	g>ed
+	Q(50)dQ(100)<c#d
+	d<b>c<b-
+
+TR(14)
+	#TM
+	#V_TIMPANI2
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o3l4
+	EW(127,110,!8,110,100,!2)
+	c#2.
+	g#>d#c#
+	c#2.<
+	c#2.
+	c#2.
+	f#>d#c#
+	c# <gg#
+	g#>d#c#<
+	d2.
+	a>ed
+	d2.<
+	d2.
+	d2.
+	g>ed
+	dc#d
+	d<b>c<b-
+
+TR(5)
+	#TM
+	#V_HORN
+	VV(115)E(110)Q(90)
+	o4
+	r2.
+	r4'g#4.>c#4.<''g#8>c#8<'
+	'g#1.>c#1.<'
+	r2.
+	r4'f#4.>f#4.<''f#8>c#8<'
+	'c#4>c#4<'
+	Q(99)l4gg#g#>d#<c# Q(90)
+	r2.
+	r4'a4.>d4.<''a8>d8<'
+	'a1.>d1.<'
+	r2.
+	r4'g4.>g4.<''g8>d8<'
+	'g4>d4<'
+	c#dd<b>c<b-
+
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS11
+	[
+		Rythm{g2.}
+		Rythm{b4b4b4}
+		VS11=110
+		Sub{[28 VS11=VS11-2 RandV(VS11-10,VS11) Rythm{O18}]}
+		Rythm{'b1.c1.'}
+
+		Rythm{g2.}
+		Rythm{b4b4b4}
+		Rythm{'b4c4'}
+		VS11=40
+		Sub{[26 VS11=VS11+2 RandV(VS11-10,VS11) n(40),18]}
+		[5 Rythm{'b4'}]
+	]
+	Rythm{g1}

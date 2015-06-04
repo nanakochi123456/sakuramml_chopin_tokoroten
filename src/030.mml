@@ -1,0 +1,623 @@
+Include(tokoroten.h)
+îèéq 3,4
+
+TR(16)
+	#TM
+	Sub {
+		TmpChangeR(220,0)
+		TmpChangeR(310,!2.)
+		TmpChangeR(320,!1.^1.^1.)
+		TmpChangeR(270,!2.)
+		TmpChangeR(320,!2.)
+		TmpChangeR(355,!1.^1.)
+		TmpChangeR(320,!1.)
+		TmpChangeR(190,!2.)
+		TmpChangeR(250,0)
+	}
+	[16 r2.]r2
+	[
+		[3
+			TmpChangeR(350,0)
+			r4
+			TmpChangeR(475,0)
+			r2
+		]
+		TmpChangeR(370,0)
+		[2 r2.]
+		TmpChangeR(340,0)
+		[2 r2.]
+	]
+	TmpChangeR(350,0)
+	TmpChangeR(420,!1.^1.^1.^2.^2)
+	TmpChangeR(260,!1)
+	TmpChangeR(350,!2.)
+	TmpChangeR(390,!1.^2.)
+	TmpChangeR(400,!1.^1.)
+	TmpChangeR(450,!1.^1.)
+	TmpChangeR(410,!1.)
+	TmpChangeR(330,0)
+	r1.
+	TmpChangeR(350,0)
+	TmpChangeR(270,!1.^1.)
+	TmpChangeR(230,!1.^1.)
+	TmpChangeR(120,0)
+	r4r16
+	TmpChangeR(20,0)
+	r32
+	TmpChangeR(300,0)
+	TmpChangeR(400,!2)
+	TmpChangeR(500,!2)
+	TmpChangeR(240,!2)
+
+#a0302={
+	l12
+	Q(99)
+	cd-f
+	a-4r4
+	<b>cf
+	a-4r4
+	<ab->f
+	a-4r4
+}
+
+TR(1)
+	#TM
+	#V_VIOLIN
+	V(110)VV(127)E(120)
+	[
+		o7l8
+		Q(95)
+		EW(120,110,!8)
+		c#32>c#8..<baec#<
+		baec#<ba
+		r2.
+		ET(122,110,!2.)
+		Q(100)f2 Q(50)e4
+	]
+	EW(110,100,!8)
+	Q(50)l4fr2
+	V(80)
+	>'d-f'r2
+	[2 'd-f'r2]
+	'df'r2
+	'dg-'r2
+	'e-g-'r2
+	'eg'
+	V(80)
+	E(127)
+	Q(95)l8<a->d-fa-
+	l4>'fa-'
+
+	V(100)
+	[
+		o5
+		r4
+		EW(120,100,!8)
+		#a0302
+		r2.r4
+		o7l4
+		EW(120,100,!4)
+		'f1a-1'['e-a-''fa-']'e-a-'
+		:
+		'd-fa-'
+	]
+	l2<
+	#V_VIOLIN2
+	V(70)Q(70)
+	VV(120)E(127)
+	ET(125,90,!2.)
+	Q(70)'a->fa-'Q(40)e-4<
+	[
+		ET(125,90,!2.)
+		Q(70)'a>fa'Q(40)e-4<
+	]
+	[
+		ET(126,90,!2.)
+		Q(70)'b->g-b-'Q(40)f-4<
+	]
+	[
+		EW(127,90,!2.)
+		Q(70)'b>gb'Q(40)f4<
+	]
+	EW(127,100,!2.)
+	Q(70)'>ca->c<'Q(30)g-4
+
+	#V_VIOLIN
+	V(110)VV(120)E(120)
+	[
+		l8
+		EW(127,100,!4)
+		Q(99)o8f4
+		Q(80)[3 e-d-<a-f]
+		e-d-<Q(60)a-4
+		EW(127,100,!2)
+		Q(99)'a2>a2<'Q(60)'a-4>a-4<'
+	]
+	
+	V(60)
+	[1
+		Q(99)
+		E(125)
+		l4'a->fa-<'rr
+		'a2>fa2<''a->a-<'
+	]
+	V(70)
+	[2
+		Q(99)
+		l4'a->fa-<'rr
+		'a2>a2<''a->a-<'
+	]
+	V(80)
+	[3
+		EW(127,60,!4)
+		Q(70)'a>fa<''a->fa-<'
+	]
+	V(90)
+	l2.
+	EW(127,100,!4,50,!4)
+	Q(62)
+	'a>fa<'
+	>
+	'eb->c<'
+	'>cfa'
+	'e-g-a-'
+	l1.
+	EW(127,0,!1)
+	'<a->d-f'
+	<
+	'<a->d-f'
+	'd-8a-8>d-8<'Q(100)o8
+	ET(127,70,!1.)
+	f1.^1.^1.
+
+TR(2)
+	#TM
+	#V_VIOLA
+	V(110)VV(120)E(100)
+	[
+		o5l8
+		Q(95)
+		[2 r2.]
+		EW(120,110,!8)
+		ec#<baQ(55)e4
+		ET(122,110,!2.)
+		Q(100)f2 Q(80)e4
+	]
+	V(95)
+	EW(90,70,!8)
+	Q(60)
+	f4
+	Q(70)fa>d-f<
+	r4 fa>d-f<
+	r4 fb->d-f<
+	r4 fb->df<
+	r4 g-b->dg-<
+	r4 g-b->e-g-<
+	r4 g>d-eg<
+	Q(60)r4r4r4 >>'a-4>d-4<'
+
+	[
+		o4
+		r4
+		EW(110,90,!8)
+		#a0302
+		r2.r4
+		o6l4
+		EW(120,100,!4)
+		a-1[5 a-]
+		:
+		'a->d-'
+	]
+	V(60)
+	o5l2
+	[3
+		ET(120,90,!2.)
+		 'g->cf'e-4<]
+	
+	[2
+		ET(120,90,!2.)
+		 'g>d-g-'f-4<
+	]
+	[2
+		ET(120,90,!2.)
+		'a->dg'f4<
+	]
+	ET(120,90,!2.)
+	'a->e-a-'
+	ET(120,90,!2.)
+	g-4<
+	[16 r2.]
+	l2.
+	EW(127,100,!4,50,!4)
+	Q(62)
+	r2.
+	c
+	a
+	'g-a->c<'
+	EW(127,110,!1)
+	f1.<f1.
+
+
+TR(3)
+	#TM
+	#V_HORN2
+	V(100)VV(120)E(127)
+	Q(70)
+	o3
+	l4
+	[
+		a>d#e
+		e1d#e
+		f2e<
+	]
+	>f4r2
+	[7 r2.]
+	r4
+	[
+		[4 r2.]
+		Q(90)
+		o4
+		r2
+		'g-1>c1f1<' Q(70)[3 'g->ce-<':'g->cfe-<']
+		:
+		'fa->d-<'
+	]
+
+TR(4)
+	#TM
+	#V_STRINGS1
+	V(110)VV(110)E(110)
+	Q(70)
+	o4
+	[
+		l4
+		a>d#e
+		e1d#e
+		f2e<
+	]
+	>f4r2
+	[7 r2.]
+
+TR(5)
+	#TM
+	#V_TRUMPET
+	V(70)VV(100)E(110)
+	Q(90)
+	[
+		r4'a4>e4<''a4>e4<'
+		'a2.>e2.<'
+		l4
+		rd#ef2e
+	]
+	l4
+	[5'f>f<'rr]
+	[2'f#>f#<'rr]
+	[1'g>g<'rr]
+	Sub{'a-2>a-2<'}
+	>
+	[
+		[4 r2.]
+		Q(90)
+		r2.
+		f1 Q(70)e-fe-fe-
+	]
+	[8 r2.]
+	o5
+	[
+		[3 r2.]
+		'a2>a2<''g#4>g#4<'
+	]
+	l4
+	[3
+		'g#>g#<'rr
+		'a2>a2<''g#>g#<'
+	]
+	[3
+		'a>a<''g#>g#<'
+	]
+	l2.
+	EW(127,70,!2)
+	Q(62)
+	'a>a<'
+	>
+	'c>c<'
+	'a>a<'
+	'g#>g#<'
+	ET(127,50,!1)
+	'f1.>f1.<'
+
+TR(6)
+	#TM
+	#V_PICCOLO
+	V(95)VV(110)E(127)
+	[48 r2.]
+	o7l4
+	[3
+		g#rr
+		a2g#
+	]
+	[3
+		ag#
+	]
+	l2.
+	Q(75)EW(127,100,!4,50,!4)
+	a
+	>c
+	a
+	g#
+	ET(127,50,!1)
+	f1.
+
+TR(13)
+	#TM
+	#V_CLARINET
+	V(90)VV(110)E(127)
+	[48 r2.]
+	o5l4
+	[3
+		g#rr
+		a2g#
+	]
+	[3
+		ag#
+	]
+	l2.
+	Q(75)EW(127,100,!4,50,!4)
+	a
+	>c
+	a
+	g#
+	ET(127,50,!1)
+	f1.
+
+
+#bass={
+	l4
+	EW(127,110,!8)
+	[
+		Q(60)'<a>a''d#>d#<''e>e<'
+		Q(115)'e2.>e2.<'
+		Q(60)rd#e
+		Q(99)'<a2>f2'Q(60)'a4e4'
+	]
+	EW(127,95,!8)
+	'<a>f'r'<a>a'
+	'f>f<'r'<a>a'
+	'f>f<'r'<b->b-'
+	'f>f<'r'<b->b-'
+	'f>f<'r'<b->b-'
+	'g->g-<'r'<b->b-'
+	'g->g-<'r'<a>a'
+	'a>a<'r'<a->a-'
+	'a->a-<'
+	r-4
+	Q(99)
+	[
+		[4 r2.]
+		ET(127,80,!1.^1.)
+		'a-1.^1.>a-1.^1.<'
+	]
+	[8 r2.]
+
+	l4
+	Q(75)
+	EW(127,105,!16,90,!2)
+	[
+		'd->d-<'ga-
+		a-'g->g-<''f>f<'
+		'f>f<' ga-
+		a2a-
+	]
+	[3
+		'd->d-<'ga-
+		r'g->g-<''f>f<'
+	]
+	[3
+		'd-a''d-a-'
+	]
+	l2.
+	Q(70)
+	'ca'
+	'c>c<'
+	'f>f<'
+	'a->a-<'
+	l1.
+	Q(80)
+	'>d->d-<<'
+	'd->d-<'
+	'd-8>d-8<'Q(100)o2
+}
+
+TR(7)
+	#TM
+	#V_TROMBONE
+	o4
+	V(90)VV(100)E(127)
+	#bass
+
+TR(8)
+	#TM
+	#V_TUBA
+	o3
+	V(90)VV(115)E(127)
+	#bass
+
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	o3
+	V(100)VV(110)E(127)
+	#bass
+
+	ET(127,70,!1.)
+	'd-1.>d-1.'
+
+TR(11)
+	#TM
+	#V_TIMPANI2
+	V(75)VV(127)E(127)
+	Int VS18
+	o3
+	l4
+	[
+		a>d#e e1 d#e f2e<
+	]
+	[8 r2.]
+
+	#V_TIMPANI1
+	[2
+		VS18=126
+		[4 r2.]
+		l12 VV(127)[36 VS18=VS18-2 RandV(VS18-10, VS18) a-]
+	]
+	[8 r2.]
+	#V_TIMPANI2
+	V(80)
+	VV(127)
+	l4
+	[2
+		d-ga-
+		a-1
+		ga-
+		a2g-
+	]
+	[3
+		d-ga-
+		rg-f
+	]
+	[6 d-]
+	l2.
+	ccfa-d-1.d-1.r8d-1.
+
+TR(12)
+	#TM
+	#V_STRINGS1
+	V(90)VV(127)E(127)
+	[40 r2.]
+	#str={
+		l4
+		Q(75)
+		EW(127,105,!16,90,!2)
+		[
+			'd->d-<'ga-
+			a-1
+				ga-
+			a2a-
+		]
+		[3
+			'd->d-<'ga-
+			r'g->g-<''f>f<'
+		]
+		[3
+			'd-a''d-a-'
+		]
+		l2.
+		Q(70)
+		'ca'
+		'c>c<'
+		'f>f<'
+		'a->a-<'
+		l1.
+		Q(80)
+		'>d->d-<<'
+		'd->d-<'
+		'd-8>d-8<'Q(100)o2
+		ET(127,70,!1.)
+		'd-1.^1.>d-1.^1.'
+	}
+	Sub{o4 #str}
+	o3 #str
+
+TR(14)
+	#TM
+	#V_HARP
+	V(85)VV(100)E(110)
+	[40 r2.]
+	[
+		o4l8
+		d-<a->d-fa->d-
+		fd-fa->d-f
+		a-fa->d-fa-
+		<<
+		l2 BGHARP(<a2>a2>a2<)l4 BGHARP(<g#4>g#4>g#4<)
+	]
+	[3
+		o4l8
+		d-fa->d-fa-
+		l2 BGHARP(<a2>a2>a2<)l4 BGHARP(<g#4>g#4>g#4<)
+	]
+	[3
+		o6
+		l4
+		<
+		l4 BGHARP(<a4>a4>a4<)l4 BGHARP(<g#4>g#4>g#4<)
+	]
+	o5
+	l2.
+	r-35
+	BGHARP(fa>cf<)
+	BGHARP(egb->ce<)
+	BGHARP(fa>cfa<)
+	BGHARP(g#b#>d#f#g#>c<<)
+	l1.
+	BGHARP(d-fa->d-fa->d-f<<)
+	<
+	BGHARP(d-fa->d-fa->d-f<<)
+	r8
+	BGHARP(d-fa->d-fa->d-fa->d-f<<)
+
+TR(10)
+	#TM
+	#DRUMSET
+	V(115)VV(127)E(127)
+	Int VS20
+	Int VS19
+	[
+		VS19=90
+		Sub{[36 VS19=VS19-1 RandV(VS19, VS19+3) Rythm{O16}]}
+		VS19=90
+		Sub{r2.r2.r2.[12 VS19=VS19-3 RandV(VS19, VS19+3) n(40),16]}
+		IF(USETAIHO=1) {
+			Sub{Rythm{r2.X1.^1.}}
+		}
+		Rythm{'g4b4'b4b4b1b4b4'c2b2'b4}
+	]
+	[8 Rythm{S2.}]
+
+	Sub{Rythm{'c2'}}
+	[
+		Rythm{'b2'}
+		[3[3 VS19=20 VS19=VS19+7 RandV(VS19,VS19+10)n(40),12]Rythm{S2}]
+		r4
+		VS19=90
+		Sub{[48 VS19=VS19-1 RandV(VS19, VS19+3) Rythm{O16}]}
+		Rythm{'b2.c2.'}
+		VS20=100
+		Sub{[24 VS20=VS20-3 RandV(VS20, VS20+3) n(40),16]}
+		r2.r2.r2.
+	]
+	[8 Rythm{o2.}]
+
+	[
+		Rythm{b4b4b4}
+		VS19=80
+		Sub{[48 VS19=VS19-2 RandV(VS19, VS19+3) n(40),16]}
+		Rythm{g2.}
+		IF(USETAIHO=1) {
+			Sub{Rythm{X1.^1.}}
+		}
+		Rythm{b4b4b4}
+		Rythm{'b2c2'b4}
+	]
+
+	[3
+		Sub{Rythm{S4S4S2s4S4}}
+		[
+			Rythm{'b2.o2.c2.'}
+		]
+	]
+	Sub{Rythm{c1}}
+	[6 Rythm{'b4o4s4'}]
+	[4 Rythm{'b2.s2.o2.c2.'}]
+	Rythm{'b1.s1.o1.c1.g1.'}

@@ -1,0 +1,104 @@
+Include(tokoroten.h)
+”Žq 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(180,0)
+	TmpChangeR(250,!2)
+	TmpChangeR(260,!1)
+	[4 r2.]
+	TmpChangeR(250,!1)
+
+TR(1)
+	#TM
+	#V_CLARINET3
+	VV(127)Q(99)
+	o4l8
+	IF(TIMIDITY=1) {r-58}
+	IF(TIMIDITY=0) {
+		EW(127,90,!16.,90,75,!16)
+	} ELSE {
+		E(127)
+		r-64
+	}
+	r4
+	dfag#
+	[3 b>fag#]
+	[3 f<bag#]
+	r2.r2.
+	IF(TIMIDITY=1){r64}
+
+TR(8)
+	#TM
+	#V_CELLO
+	VV(100)Q(95)
+	l4o4
+	EW(127,90,!1.)
+	d1.
+	EW(127,110,!8,110,40,!1.^1.)
+	'g#2.^2.^2.b2.^2.^2.>f2.^2.^2.<'
+	l8 f<bag#
+
+TR(9)
+	#TM
+	#V_CONTRABASS
+	VV(127)Q(95)
+	Vibrate(!24,30)
+	o3
+	EW(127,110,!8,110,100,!2)
+	l4o3
+	EW(127,0,!1.^1.^1.)
+	d1.^1.^1^4
+	l8f<bd1.
+
+TR(5)
+	#TM
+	#V_HORN
+	VV(100)E(110)Q(90)
+	o4
+	l4
+	EW(127,110,!8)
+	r2.r4
+	'g#4.>d4.f4.''<g#8>d8f8<'
+	EW(127,0,!1.^1.^1.)
+	'g#1.^1.>d1.^1.f1.^1.'
+
+TR(12)
+	#TM
+	#V_TROMBONE
+	VV(110)Q(95)
+	o4
+	l4
+	IF(TIMIDITY=0) {
+		EW(127,90,!16,90,20,!1.^1.^1.)
+	} ELSE {
+		E(0)
+	}
+	r2.r4
+	'g#4.>d4.f4.''<g#8>d8f8<'
+	EW(127,0,!1.^1.^1.)
+	'g#1.^1.>d1.^1.f1.^1.'
+
+
+TR(13)
+	#TM
+	#V_TIMPANI1
+	E(127)VV(127)
+	o3
+	Int VS9=10
+	[3
+		[9 VS9=VS9+3 RandV(VS9,VS9+10) d12]
+	]
+	[3
+		[9 VS9=VS9-3 RandV(VS9,VS9+10) d12]
+	]
+
+TR(10)
+	#TM
+	#DRUMSET
+	VV(127)E(127)
+	Int VS10
+	Rythm{g1.}
+	VS10=110
+	Sub{Rythm{'b4s4c4'}}
+	Sub{[56 VS10=VS10-2 RandV(VS10-10,VS10) Rythm{O18}]}

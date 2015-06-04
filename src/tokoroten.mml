@@ -1,0 +1,109 @@
+
+拍子 3,4
+
+Int TIMIDITY=0		// TiMidity++用
+Int TWM2=0			// TWM2用
+Int MSGS=1			// Microsoft GS用
+Int TINY=0			// MIDIを軽量化する
+Int USEGONG=1		// MSGS/TWM2でgongぽい音を出す（他のドラム音に影響あり）
+Int USETAIHO=1		// 大砲を使用する
+Int IGNORETEMPO=0		// テンポを変化させない
+//Tempo 400			// ＜テンポ固定にしてみてます。IGNORETEMPO=1 の場合のみ
+Int TEMPODIFF=0		// ベーステンポの調整（-15より下を設定しないでください。平均BPM260、最少BPM20、最大BPM500）
+Int KEY=0			// 移調　＜ついでに移調も -にすると鳴らない音があります。
+Int DEBUG=0
+Int VOCALOID=0		// テストボカロ
+Int PIANOONLY=0
+
+Include(tokoroten.h)
+
+//PlayFrom(375:1:1)
+//Mute(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
+
+//Mute(4,3,5,6,7,8,9,10,11,12,13,14,15)
+//PlayFrom(642:1:1)
+
+IF(IGNORETEMPO=0) {
+	IF(WITHVOCALOID=1) {
+		曲名={"ボーカロイド協奏曲第１番「ところてん」based on スケルツォ第２番変ロ短調作品３１"}
+	} ELSE {
+		曲名={"バイオリン協奏曲第１番「ところてん」based on スケルツォ第２番変ロ短調作品３１"}
+	}
+} ELSE {
+	Int TT=Tempo
+	IF(TT>299) {
+		IF(WITHVOCALOID=1) {
+		曲名={"ところてん行進曲第１番 based on スケルツォ第２番変ロ短調作品３１"}
+		}
+	} ELSE {
+		IF(WITHVOCALOID=1) {
+			曲名={"ボーカロイド協奏曲第１番「ところてん」debug based on スケルツォ第２番変ロ短調作品３１"}
+		} ELSE {
+			曲名={"バイオリン協奏曲第１番「ところてん」debug based on スケルツォ第２番変ロ短調作品３１"}
+		}
+	}
+}
+作者={"ななこっち★ based by Fryderyk Franciszek Chopin"}
+
+Include(001.mml)
+#TM={Time(48:1:1)}
+Include(002.mml)
+#TM={Time(64:1:1)}
+Include(003.mml)
+#TM={Time(116:1:1)}
+Include(004.mml)
+#TM={Time(131:1:1)}
+Include(005.mml)
+#TM={Time(178:1:1)}
+Include(006.mml)
+#TM={Time(194:1:1)}
+Include(007.mml)
+#TM={Time(246:1:1)}
+Include(008.mml)
+
+#TM={Time(262:1:1)}
+Include(009.mml)
+#TM={Time(274:1:1)}
+Include(010.mml)
+#TM={Time(282:1:1)}
+Include(011.mml)
+#TM={Time(295:1:1)}
+Include(012.mml)
+#TM={Time(305:2:1)}
+Include(013.mml)
+#TM={Time(330:1:1)}
+Include(014.mml)
+#TM={Time(362:1:1)}
+Include(015.mml)
+#TM={Time(375:1:1)}
+Include(016.mml)
+#TM={Time(383:1:1)}
+Include(017.mml)
+#TM={Time(396:1:1)}
+Include(018.mml)
+#TM={Time(406:2:1)}
+Include(019.mml)
+#TM={Time(431:1:1)}
+Include(020.mml)
+#TM={Time(463:1:1)}
+Include(021.mml)
+#TM={Time(471:1:1)}
+Include(022.mml)
+#TM={Time(487:1:1)}
+Include(023.mml)
+#TM={Time(511:1:1)}
+Include(024.mml)
+#TM={Time(539:1:1)}
+Include(025.mml)
+
+#TM={Time(579:1:1)}
+Include(026.mml)
+#TM={Time(626:1:1)}
+Include(027.mml)
+#TM={Time(642:1:1)}
+Include(028.mml)
+#TM={Time(702:1:1)}
+Include(029.mml)
+#TM={Time(710:1:1)}
+Include(030.mml)
+

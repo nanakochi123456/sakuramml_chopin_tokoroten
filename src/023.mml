@@ -1,0 +1,275 @@
+Include(tokoroten.h)
+”Žq 3,4
+
+TR(16)
+	#TM
+	TmpChangeR(140,0)
+	r4
+	TmpChangeR(200,0)
+	TmpChangeR(235,!2^2.)
+	[7 r2.]
+	TmpChangeR(240,!2.^2.)
+	TmpChangeR(230,!2.^2.)
+	TmpChangeR(240,!2.^2.)
+	[4 r2.]
+	TmpChangeR(235,!2.^2.)
+	TmpChangeR(210,!2.^2.)
+	TmpChangeR(140,!2.)
+
+TR(12)
+	#TM
+	#V_VIOLIN3
+	#VQ99={Q(97)}
+	#VQ80={Q(80)}
+	#VQ75={Q(68)}
+	#VQ70={Q(60)}
+
+	Vibrate(!8,20)
+	IF(TIMIDITY=0) {
+		ET(127,100,!1.^1.^1.^1.^1.^1.)
+	} ELSE {
+		ET(90,80,!1.^1.^1.^1.^1.^1.)
+	}
+	VV(110)#VQ99
+	o5l12
+	IF(TIMIDITY=1){v127}
+	#VQ70'd4g4>d4<'
+	#VQ99
+	>
+	IF(TIMIDITY=1){v118}
+	c#8d8fe-d
+	Sub{#VQ80 d1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4f#2}
+	r4>d4c4<
+	#VQ70'g4b-4'
+	
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	c#8d8fe-d
+	Sub{#VQ80 d1}
+	IF(TIMIDITY=1){v127}
+	#VQ99 r4'<b-4>b-4''<a4>a4'
+	#VQ70'<g4>g4'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	c#8d8fe-d
+	Sub{#VQ80 d1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4f#2}
+	r4>d4c4<
+	#VQ70'g4b-4'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	<f#8g8b-a-g
+	Sub{#VQ80 g1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4>d2}
+	r4g4f4
+	#VQ70'c4e-4'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	f#8g8b-a-g
+	Sub{#VQ80 g1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4b2}
+	>r4g4f4
+	#VQ70'c4e-4'<
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	f#8g8b-a-g
+	Sub{#VQ80 g1}
+	IF(TIMIDITY=1){v127}
+	#VQ99 r4'e-4>e-4<''d4>d4<'
+	#VQ70
+	'c4>c4<'
+
+	#VQ99
+	<
+	IF(TIMIDITY=1){v118}
+	f#8g8b-a-g
+	Sub{#VQ80 g1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4b2}
+	>r4g4f4
+	#VQ70'c4e-4'<
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4g2}
+	r4>e-4d-4<
+	#VQ70'a-4>c-4'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4b-2}
+	r4>e-4d-4<
+	#VQ70'a-4>c-4<'
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-1}
+	IF(TIMIDITY=1){v127}
+	#VQ99 r4'c-4>c-4<<''b-4>b-4<'
+	#VQ70'a-4>a-4<'
+
+	#VQ99
+	>
+	IF(TIMIDITY=1) {
+		ET(80,100,!1.)
+	} ELSE {
+		ET(100,127,!1.)
+	}
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-1}
+	IF(TIMIDITY=1){v127}
+	Sub{#VQ99 r4g2}
+	r4>e-4d-4<
+	#VQ70'a-4>c-4'
+	<
+
+	#VQ99
+	IF(TIMIDITY=1){v118}
+	d8e-8g-f-e-
+	Sub{#VQ80 e-2.}
+	IF(TIMIDITY=1){v127}
+	#VQ99 r4'c-4>c-4<<''b-4>b-4<'
+	ET(110,100,!4.,100,0,!4)
+	#VQ75'a-2.>f-2.a-2.<'
+
+TR(13)
+	#TM
+	#V_CELLO
+	VV(110)Q(95)E(110)
+	ET(127,90,!1.^1.^1.^1.^1.^1.)
+	Vibrate(!4,20)
+	o5l4
+	[
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2'<dg>'
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2'<da>'
+		:
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2'<db->'
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2'<f#a>'
+	]
+	[
+		ET(127,80,!2.)
+		Sub{r4d2}
+		r2<g>
+	]
+	ET(127,80,!2.)
+	Sub{r4e-2}
+	r2<g>
+	ET(127,80,!2.)
+	Sub{r4f2}
+	r2<'gb'>
+	ET(127,80,!2.)
+	Sub{r4g2}
+	r2<'g>c'
+	ET(127,80,!2.)
+	Sub{r4g2}
+	r2<'gb>'
+	ET(127,80,!2.)
+	Sub{r4e-2}
+	r2'<g>c'
+	ET(127,80,!2.)
+	Sub{r4d2}
+	r2<'g'>
+	ET(127,80,!2.)
+	Sub{r4c2}
+	r2'<e-g>'
+	ET(127,80,!2.)
+	Sub{r4d-2}
+	r2'<e-g>'
+
+	Sub{r4c-2}
+	r2'<e-a->'
+	Sub{r4e-2}
+	r2'<e-b->'
+	Sub{r4e-2}
+	r2'<e-a->c-'
+	Sub{r4e-2}
+	r2'<e-g>d-'
+	Sub{r4e-2}
+	r2'<e-a->c-'
+	Sub{r4e-2}
+	r2'<e-b->'
+	ET(100,127,!1.)
+	Sub{r4e-2}
+	r2'<e-a->c-'
+	Sub{r4e-2}
+	Q(70)r2'<e-g>d-'
+
+TR(4)
+	#TM
+	#V_CONTRABASS
+	VV(120)Q(92)E(120)
+	o3l2.
+	EW(127,100,!8,100,80,!2^8)
+	Vibrate(!4,20)
+	r2.
+	a
+	g
+	>c<
+	b-
+	a
+	g
+	b
+	>c
+	d
+	e-
+	f
+	e-
+	d
+	c
+	<b-
+	a-
+	g
+	a-
+	b-
+	>c-<
+	g
+	a-
+	b-
+
+TR(10)
+	#TM
+	#DRUMSET
+	Int VS12=100
+	ET(127,80,!1.^1.^1.^1.^1.^1.^1.^1.^1.^1.^1.)
+	#r={
+		Rythm{'b4o4'}[RandV(60,50) Rythm{O8} RandV(30,40) Rythm{O8}]
+		Rythm{'b4o4'}
+		VS12=70
+		Sub{[8 VS12=VS12-5 RandV(VS12-10,VS12) Rythm{O18}]}
+		r2
+	}
+	[11
+		#r
+	]
+	ET(90,127,!1.)
+	Rythm{'b4o4'}[RandV(60,50) Rythm{O8} RandV(30,40) Rythm{O8}]
+	Rythm{'b4o4'}
+	VS12=50
+	Sub{[12 VS12=VS12+5 RandV(VS12-10,VS12) n(40),24]}
+	r2
+
